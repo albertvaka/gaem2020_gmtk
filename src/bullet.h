@@ -1,0 +1,43 @@
+#pragma once
+
+#include "entity.h"
+#include "animation.h"
+#include "rand.h"
+#include "debug.h"
+#include "selfregister.h"
+#include "assets.h"
+#include "window.h"
+#include "camera.h"
+
+extern float mainClock;
+
+struct Bullet : CircleEntity, SelfRegister<Bullet>
+{
+	vec vel;
+
+	Bullet(const vec& position, const vec& velocity)
+		: CircleEntity(pos, 10)
+	{
+		pos = position;
+		vel = velocity;
+	}
+
+	void Update(float dt)
+	{
+		pos += vel * dt;
+
+		if (!Camera::GetBounds().Contains(pos)) {
+			alive = false;
+		}
+	}
+
+	void Draw() const
+	{
+		const GPU_Rect& rect = AnimLib::BULLET;
+		Window::Draw(Assets::invadersTexture, pos)
+			.withRect(rect)
+			.withOrigin(vec(rect.w,rect.h)/2)
+			.withRotation(Camera::GetCenter().Angle(pos) + 90)
+			.withScale(int(mainClock*4)%2 ? -1 : 1, 1);
+	}
+};

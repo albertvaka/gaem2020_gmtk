@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="engine\animation.h" />
+    <ClInclude Include="engine\asset_load.h" />
+    <ClInclude Include="engine\bounds.h" />
+    <ClInclude Include="engine\camera.h" />
+    <ClInclude Include="engine\collide.h" />
+    <ClInclude Include="engine\debug.h" />
+    <ClInclude Include="engine\entity.h" />
+    <ClInclude Include="engine\input.h" />
+    <ClInclude Include="engine\mates.h" />
+    <ClInclude Include="engine\matrix2d.h" />
+    <ClInclude Include="engine\partsys.h" />
+    <ClInclude Include="engine\rand.h" />
+    <ClInclude Include="engine\raw_input.h" />
+    <ClInclude Include="engine\scene.h" />
+    <ClInclude Include="engine\scene_manager.h" />
+    <ClInclude Include="engine\selfregister.h" />
+    <ClInclude Include="engine\shader.h" />
+    <ClInclude Include="engine\singleinstance.h" />
+    <ClInclude Include="engine\sound.h" />
+    <ClInclude Include="engine\text.h" />
+    <ClInclude Include="engine\tiledexport.h" />
+    <ClInclude Include="engine\tilemap.h" />
+    <ClInclude Include="engine\vec.h" />
+    <ClInclude Include="engine\window.h" />
+    <ClInclude Include="src\alien.h" />
+    <ClInclude Include="src\anim_lib.h" />
+    <ClInclude Include="src\assets.h" />
+    <ClInclude Include="src\bullet.h" />
+    <ClInclude Include="src\player.h" />
+    <ClInclude Include="src\scene_main.h" />
+    <ClInclude Include="vendor\glew\glew.h" />
+    <ClInclude Include="vendor\glew\glxew.h" />
+    <ClInclude Include="vendor\glew\wglew.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\imgui_impl\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\imgui_impl\imgui_impl_sdl.h" />
+    <ClInclude Include="vendor\magic_enum\magic_enum.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_GLES_1.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_GLES_2.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_GLES_3.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_1.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_1_BASE.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_2.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_3.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_4.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_RendererImpl.h" />
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_version.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="engine\bounds.cpp" />
+    <ClCompile Include="engine\camera.cpp" />
+    <ClCompile Include="engine\debug.cpp" />
+    <ClCompile Include="engine\input.cpp" />
+    <ClCompile Include="engine\main.cpp" />
+    <ClCompile Include="engine\partsys.cpp" />
+    <ClCompile Include="engine\rand.cpp" />
+    <ClCompile Include="engine\raw_input.cpp" />
+    <ClCompile Include="engine\shader.cpp" />
+    <ClCompile Include="engine\sound.cpp" />
+    <ClCompile Include="engine\tiledexport.cpp" />
+    <ClCompile Include="engine\tilemap.cpp" />
+    <ClCompile Include="engine\vec.cpp" />
+    <ClCompile Include="engine\window.cpp" />
+    <ClCompile Include="src\assets.cpp" />
+    <ClCompile Include="src\player.cpp" />
+    <ClCompile Include="src\scene_main.cpp" />
+    <ClCompile Include="vendor\glew\glew.c" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\imgui_impl\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\imgui_impl\imgui_impl_sdl.cpp" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_GLES_1.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_GLES_2.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_GLES_3.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_1.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_1_BASE.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_2.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_3.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_4.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu_matrix.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu_renderer.c" />
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu_shapes.c" />
+    <ClCompile Include="vendor\stb_image\stb_image.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\SDL_gpu\src\renderer_GL_common.inl" />
+    <None Include="vendor\SDL_gpu\src\renderer_shapes_GL_common.inl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{DD692F54-6DEA-4A3F-A5C9-D6C1D7E488A7}</ProjectGuid>
+    <RootNamespace>Gaem</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)\bin\</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)\bin\</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\imgui;$(SolutionDir)\vendor\SDL2\include;$(SolutionDir)\vendor\imgui_impl;$(SolutionDir)\vendor\SDL_gpu\include;$(SolutionDir)\vendor\glew;$(SolutionDir)\vendor\stb_image;$(SolutionDir)\vendor\magic_enum;$(SolutionDir)\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4244;4267</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_IMGUI;SDL_MAIN_HANDLED;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\vendor\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2main.lib;SDL2.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\imgui;$(SolutionDir)\vendor\SDL2\include;$(SolutionDir)\vendor\imgui_impl;$(SolutionDir)\vendor\SDL_gpu\include;$(SolutionDir)\vendor\glew;$(SolutionDir)\vendor\stb_image;$(SolutionDir)\vendor\magic_enum;$(SolutionDir)\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4244;4267</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_IMGUI;SDL_MAIN_HANDLED;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\vendor\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2main.lib;SDL2.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\imgui;$(SolutionDir)\vendor\SDL2\include;$(SolutionDir)\vendor\imgui_impl;$(SolutionDir)\vendor\SDL_gpu\include;$(SolutionDir)\vendor\glew;$(SolutionDir)\vendor\stb_image;$(SolutionDir)\vendor\magic_enum;$(SolutionDir)\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4244;4267</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\vendor\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2main.lib;SDL2.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\vendor\imgui;$(SolutionDir)\vendor\SDL2\include;$(SolutionDir)\vendor\imgui_impl;$(SolutionDir)\vendor\SDL_gpu\include;$(SolutionDir)\vendor\glew;$(SolutionDir)\vendor\stb_image;$(SolutionDir)\vendor\magic_enum;$(SolutionDir)\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4244;4267</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\vendor\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2main.lib;SDL2.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

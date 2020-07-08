@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Bundled Dependencies">
+      <UniqueIdentifier>{256968a6-009b-4651-8ae5-a4f95670f698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bundled Dependencies\sdl_gpu">
+      <UniqueIdentifier>{3d2e5d61-a998-4dbe-94d7-59fb256bdbb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bundled Dependencies\stb_image">
+      <UniqueIdentifier>{639f997a-2caa-484f-9890-ae836465d653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bundled Dependencies\glew">
+      <UniqueIdentifier>{2522117a-2f25-4e07-b8fe-5db8547bcb70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bundled Dependencies\imgui">
+      <UniqueIdentifier>{f04c1d6a-03a0-4b9a-9a0b-c44f562282ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bundled Dependencies\imgui_imp">
+      <UniqueIdentifier>{169eeddb-58a8-452d-afef-d879d039e84a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{31d75502-0a92-4a01-9a96-a7b3c736b2c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4ac15e07-3b9f-47b2-ae09-134038d673c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vendor\glew\glew.h">
+      <Filter>Bundled Dependencies\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glew\glxew.h">
+      <Filter>Bundled Dependencies\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glew\wglew.h">
+      <Filter>Bundled Dependencies\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imconfig.h">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui.h">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_internal.h">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_textedit.h">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_truetype.h">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\magic_enum\magic_enum.h">
+      <Filter>Bundled Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_GLES_1.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_GLES_2.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_GLES_3.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_1.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_1_BASE.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_2.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_3.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_OpenGL_4.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_RendererImpl.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\SDL_gpu\include\SDL_gpu_version.h">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>Bundled Dependencies\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui_impl\imgui_impl_opengl3.h">
+      <Filter>Bundled Dependencies\imgui_imp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui_impl\imgui_impl_sdl.h">
+      <Filter>Bundled Dependencies\imgui_imp</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\raw_input.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene_manager.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\selfregister.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\shader.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\singleinstance.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\sound.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\text.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\tiledexport.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\tilemap.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\vec.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\window.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\animation.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\asset_load.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\bounds.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\camera.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\collide.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\debug.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\entity.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\input.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\mates.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\matrix2d.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\partsys.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\rand.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\alien.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\assets.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\anim_lib.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="vendor\glew\glew.c">
+      <Filter>Bundled Dependencies\glew</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>Bundled Dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_GLES_1.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_GLES_2.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_GLES_3.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_1.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_1_BASE.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_2.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_3.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\renderer_OpenGL_4.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu_matrix.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu_renderer.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\SDL_gpu\src\SDL_gpu_shapes.c">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\stb_image\stb_image.c">
+      <Filter>Bundled Dependencies\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui_impl\imgui_impl_opengl3.cpp">
+      <Filter>Bundled Dependencies\imgui_imp</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui_impl\imgui_impl_sdl.cpp">
+      <Filter>Bundled Dependencies\imgui_imp</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\raw_input.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\shader.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\sound.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\tiledexport.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\tilemap.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\vec.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\window.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\bounds.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\camera.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\debug.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\input.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\main.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\partsys.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\rand.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assets.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\SDL_gpu\src\renderer_GL_common.inl">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </None>
+    <None Include="vendor\SDL_gpu\src\renderer_shapes_GL_common.inl">
+      <Filter>Bundled Dependencies\sdl_gpu</Filter>
+    </None>
+  </ItemGroup>
+</Project>
