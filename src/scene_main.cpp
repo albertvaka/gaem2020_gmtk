@@ -8,6 +8,7 @@
 #include "debug.h"
 #include "collide.h"
 #include "alien.h"
+#include "asteroid.h"
 
 SceneMain::SceneMain()
 	: player(0, 200)
@@ -28,6 +29,9 @@ SceneMain::SceneMain()
 void SceneMain::EnterScene() 
 {
 	SpawnAliens();
+
+	Debug::out << "Create asteroid";
+	new Asteroid(50, vec(10, 10), vec(10, 10));
 }
 
 void SceneMain::SpawnAliens() {
@@ -58,6 +62,10 @@ void SceneMain::Update(float dt)
 	player.Update(dt);
 
 	for (Alien* a : Alien::GetAll()) {
+		a->Update(dt);
+	}
+
+	for (Asteroid* a : Asteroid::GetAll()) {
 		a->Update(dt);
 	}
 

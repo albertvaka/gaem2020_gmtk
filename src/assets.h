@@ -21,6 +21,4 @@ struct Assets
 	static TTF_Font* font_30_outline;
 
 	static Shader tintShader;
-
 };
-

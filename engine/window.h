@@ -137,9 +137,9 @@ namespace Window
 		}
 
     	~Draw() {
-            // We pass origin as rotation pivot. We could change that to a different variable.
-            GPU_BlitTransformX(t, srcp, Window::target, dest.x, dest.y, origin.x, origin.y, rotation, scale.x, scale.y);
-            GPU_SetRGBA(t, 255, 255, 255, 255);
+			// We pass origin as rotation pivot. We could change that to a different variable.
+			GPU_BlitTransformX(t, srcp, Window::target, dest.x, dest.y, origin.x, origin.y, rotation, scale.x, scale.y);
+			GPU_SetRGBA(t, 255, 255, 255, 255);
     	}
 	};
 

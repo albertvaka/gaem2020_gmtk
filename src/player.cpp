@@ -23,7 +23,14 @@ void Player::Update(float dt)
 	if (Mouse::IsJustPressed(Mouse::Button::Left)) {
 		new Bullet(pos, mouseFromCenter.Normalized() * bulletSpeed);
 	}
-	
+
+	if (Input::IsPressed(0, UP)) {
+		this->distance += 100 * dt;
+	}
+
+	if (Input::IsPressed(0, DOWN)) {
+		this->distance -= 100 * dt;
+	}
 }
 
 void Player::Draw() const
@@ -31,6 +38,7 @@ void Player::Draw() const
 	const GPU_Rect& animRect = AnimLib::PLAYER;
 	Window::Draw(Assets::invadersTexture, pos)
 		.withRect(animRect)
+		.withColor({0,255,255,255})
 		.withOrigin(vec(animRect.w, 0)/2)
 		.withRotation(Camera::GetCenter().Angle(pos) + 90);
 }
