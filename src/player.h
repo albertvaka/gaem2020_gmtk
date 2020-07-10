@@ -4,10 +4,13 @@
 
 struct Player : Entity
 {
+	int id;
+	vec planet_center;
 	float angle;
-	float distance;
+	float angularVel;
+	bool invertControls;
 
-	Player(float angle, float distance);
+	Player(int id, vec planet_center);
 
 	void Update(float dt);
 	void Draw() const;
