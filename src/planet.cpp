@@ -1,5 +1,6 @@
 #include "planet.h"
 
+#include "text.h"
 #include "assets.h"
 #include "window.h"
 #include "asteroid.h"
@@ -31,7 +32,15 @@ void Planet::Draw() const
 		.withOrigin(Assets::backgroundTexture->w / 2, Assets::backgroundTexture->h / 2)
 		.withScale(scale);
 
+	Text* txt_health;
+	txt_health = new Text(Assets::font_30);
+	txt_health->setString(std::to_string(int(health)));
+	Window::Draw(*txt_health, pos + vec(0, size / 2.0 + 10.0)) 
+		.withOrigin(txt_health->getSize().x, 0)
+		.withScale(0.5f);
+
 	if (Debug::Draw) {
 		DrawBounds(100, 100, 255);
 	}
+
 }
