@@ -7,30 +7,68 @@
 #include "bullet.h"
 #include "window.h"
 
+const float distanceFromPlanet = 200.f;
 
-const float bulletSpeed = 200.f;
+const float accel = 0.5f;
+const float maxVel = 1.f;
+const float friction = 0.7f;
 
-Player::Player(float angle, float distance)
-	: distance(distance)
+Player::Player(int id, vec planet_center) 
+	: id(id)
+	, planet_center(planet_center)
+	, angle(90.f)
 {
 }
 
 void Player::Update(float dt)
 {
-	vec mouseFromCenter = Mouse::GetPositionInWorld() - Camera::GetCenter();
-	pos = Camera::GetCenter() + mouseFromCenter.Normalized() * distance;
+	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
+		invertControlsX = angle > 180;
+	}
+	if (Input::IsReleased(id, GameKeys::UP) && Input::IsReleased(id, GameKeys::DOWN)) {
+		invertControlsY = angle > 90 && angle < 270;
+	}
 	
-	if (Mouse::IsJustPressed(Mouse::Button::Left)) {
-		new Bullet(pos, mouseFromCenter.Normalized() * bulletSpeed);
+	if (Input::IsPressed(id, GameKeys::RIGHT)) {
+		if (invertControlsX) {
+			angularVel += accel;
+		}
+		else {
+			angularVel -= accel;
+		}
+	} else if (Input::IsPressed(id, GameKeys::LEFT)) {
+		if (invertControlsX) {
+			angularVel -= accel;
+		}
+		else {
+			angularVel += accel;
+		}
+	} else if (Input::IsPressed(id, GameKeys::UP)) {
+		if (invertControlsY) {
+			angularVel += accel;
+		}
+		else {
+			angularVel -= accel;
+		}
+	} else if (Input::IsPressed(id, GameKeys::DOWN)) {
+		if (invertControlsY) {
+			angularVel -= accel;
+		}
+		else {
+			angularVel += accel;
+		}
 	}
 
-	if (Input::IsPressed(0, UP)) {
-		this->distance += 100 * dt;
-	}
+	Mates::Clamp(angularVel, -maxVel, maxVel);
 
-	if (Input::IsPressed(0, DOWN)) {
-		this->distance -= 100 * dt;
-	}
+	angle += angularVel;
+	
+	if (angle > 360.f) angle -= 360.f;
+	else if (angle < 0.f) angle += 360.f;
+
+	angularVel *= friction;
+
+	pos = planet_center + vec::FromAngle(Mates::DegsToRads(angle)) * distanceFromPlanet;
 }
 
 void Player::Draw() const

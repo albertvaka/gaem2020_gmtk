@@ -10,9 +10,13 @@
 #include "alien.h"
 #include "asteroid.h"
 
-SceneMain::SceneMain() :
-	planet_one(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100),
-	planet_two(vec(3*Window::GAME_WIDTH / 4, Window::GAME_HEIGHT / 2), 100)
+SceneMain::SceneMain()
+	: planet_one(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100)
+	, planet_two(vec(3*Window::GAME_WIDTH / 4, Window::GAME_HEIGHT / 2), 100)
+	, player1(0, Camera::GetCenter())
+	, player2(1, vec(100,100))
+	, alienPartSys(Assets::invadersTexture)
+
 {
 }
 
@@ -39,6 +43,8 @@ void SceneMain::Update(float dt)
 	}
 #endif
 
+	player1.Update(dt);
+	player2.Update(dt);
 }
 
 void SceneMain::Draw()
@@ -47,6 +53,9 @@ void SceneMain::Draw()
 	
 	planet_one.Draw();
 	planet_two.Draw();
+
+	player1.Draw();
+	player2.Draw();
 
 	//alienPartSys.DrawImGUI();
 /*

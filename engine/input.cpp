@@ -9,21 +9,19 @@ std::function<bool(int)> gp_map[magic_enum::enum_count<GameKeys>()];
 inline void RemapGamePadInput()
 {
 	gp_map[GameKeys::UP] = [](int p) {
-		return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_X) ||
-			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_B) ||
-			GamePad::AnalogStick::Left.get(p, 30.f).y < -50.0f ||
+		return GamePad::AnalogStick::Left.get(p, 50.f).y < -50.0f ||
 			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_UP);
 	};
 	gp_map[GameKeys::DOWN] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 30.f).y > 50.0f ||
+		return GamePad::AnalogStick::Left.get(p, 50.f).y > 50.0f ||
 			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
 	};
 	gp_map[GameKeys::LEFT] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 20.f).x < 0.0f ||
+		return GamePad::AnalogStick::Left.get(p, 50.f).x < 0.0f ||
 			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
 	};
 	gp_map[GameKeys::RIGHT] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 20.f).x > 0.0f ||
+		return GamePad::AnalogStick::Left.get(p, 50.f).x > 0.0f ||
 			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
 	};
 	gp_map[GameKeys::ACTION] = [](int p) { return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_A); };
