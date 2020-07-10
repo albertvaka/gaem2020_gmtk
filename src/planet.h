@@ -7,7 +7,7 @@
 struct Planet : CircleEntity, SelfRegister<Planet>
 {
 	const float SCALE = 0.7;
-	const float MASS = 1000;
+	const float MASS = 10000;
 
 	float health;
 
@@ -16,4 +16,3 @@ struct Planet : CircleEntity, SelfRegister<Planet>
 	void Update(float dt);
 	void Draw() const;
 };
-

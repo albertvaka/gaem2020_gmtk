@@ -22,9 +22,9 @@ SceneMain::SceneMain()
 void SceneMain::EnterScene()
 {
 	Debug::out << "Create asteroid";
-	new Asteroid(200, vec(10, 10), vec(10, 10));
-	new Asteroid(200, vec(200, 200), vec(10, 10));
-	new Asteroid(200, vec(30, 50), vec(10, 10));
+	new Asteroid(100, vec(10, 10), vec(10, 10));
+	new Asteroid(100, vec(200, 200), vec(10, 10));
+	new Asteroid(100, vec(30, 50), vec(10, 10));
 	Debug::out << "End asteroid";
 }
 
