@@ -6,12 +6,12 @@
 #include "partsys.h"
 #include "input.h"
 #include "player.h"
+#include "planet.h"
 
 struct SceneMain : Scene {
 
-	Player player;
-	PartSys alienPartSys;
-	int currentLevel = 1;
+	Planet planet_one;
+	Planet planet_two;
 
 	SceneMain();
 
@@ -19,8 +19,6 @@ struct SceneMain : Scene {
 	void ExitScene() override;
 	void Update(float dt) override;
 	void Draw() override;
-
-	void SpawnAliens();
 
 
 };

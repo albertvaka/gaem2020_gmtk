@@ -47,6 +47,7 @@
     <ClInclude Include="src\anim_lib.h" />
     <ClInclude Include="src\assets.h" />
     <ClInclude Include="src\bullet.h" />
+    <ClInclude Include="src\planet.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\scene_main.h" />
     <ClInclude Include="vendor\glew\glew.h" />
@@ -90,6 +91,7 @@
     <ClCompile Include="engine\vec.cpp" />
     <ClCompile Include="engine\window.cpp" />
     <ClCompile Include="src\assets.cpp" />
+    <ClCompile Include="src\planet.cpp" />
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\scene_main.cpp" />
     <ClCompile Include="vendor\glew\glew.c" />
