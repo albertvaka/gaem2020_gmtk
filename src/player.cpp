@@ -7,7 +7,7 @@
 #include "bullet.h"
 #include "window.h"
 
-const float distanceFromPlanet = 200.f;
+const float distanceFromPlanet = 200.f * 0.8f;
 
 const float accel = 0.5f;
 const float maxVel = 1.f;
@@ -76,7 +76,7 @@ void Player::Draw() const
 	const GPU_Rect& animRect = AnimLib::PLAYER;
 	Window::Draw(Assets::invadersTexture, pos)
 		.withRect(animRect)
-		.withColor({0,255,255,255})
+		.withColor(id == 0 ? SDL_Color{0,255,255,255} : SDL_Color{255, 255, 0, 255})
 		.withOrigin(vec(animRect.w, 0)/2)
-		.withRotation(Camera::GetCenter().Angle(pos) + 90);
+		.withRotation(planet_center.Angle(pos) + 90);
 }
