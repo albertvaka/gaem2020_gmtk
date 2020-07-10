@@ -1,4 +1,4 @@
-#include "Planet.h"
+#include "planet.h"
 
 #include "assets.h"
 #include "window.h"

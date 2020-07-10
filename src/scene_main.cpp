@@ -24,6 +24,8 @@ void SceneMain::EnterScene()
 {
 	Debug::out << "Create asteroid";
 	new Asteroid(50, vec(10, 10), vec(10, 10));
+	new Asteroid(50, vec(200, 200), vec(10, 10));
+	new Asteroid(50, vec(30, 50), vec(10, 10));
 }
 
 void SceneMain::ExitScene()
@@ -45,17 +47,43 @@ void SceneMain::Update(float dt)
 
 	player1.Update(dt);
 	player2.Update(dt);
+
+#ifdef _IMGUI
+	ImGui::Begin("Asteroids");
+#endif
+	for (Asteroid* a : Asteroid::GetAll()) {
+		a->Update(dt);
+	}
+#ifdef _IMGUI
+	ImGui::End();
+#endif
+
+	Bullet::DeleteNotAlive();
+	Alien::DeleteNotAlive();
+	Asteroid::DeleteNotAlive();
+
+	alienPartSys.UpdateParticles(dt);
 }
 
 void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
-	
+
 	planet_one.Draw();
 	planet_two.Draw();
 
 	player1.Draw();
 	player2.Draw();
+
+	Window::Draw(Assets::backgroundTexture, Camera::GetCenter())
+		.withOrigin(Assets::backgroundTexture->w/2, Assets::backgroundTexture->h/2);
+
+	for (const Asteroid* a : Asteroid::GetAll()) {
+		a->Draw();
+		if (Debug::Draw) {
+			a->DrawBounds(255,0,0);
+		}
+	}
 
 	//alienPartSys.DrawImGUI();
 /*
