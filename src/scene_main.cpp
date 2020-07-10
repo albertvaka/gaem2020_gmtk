@@ -25,6 +25,7 @@ void SceneMain::EnterScene()
 	new Asteroid(50, vec(10, 10), vec(10, 10));
 	new Asteroid(50, vec(200, 200), vec(10, 10));
 	new Asteroid(50, vec(30, 50), vec(10, 10));
+	Debug::out << "End asteroid";
 }
 
 void SceneMain::ExitScene()
@@ -67,9 +68,6 @@ void SceneMain::Draw()
 
 	player1.Draw();
 	player2.Draw();
-
-	Window::Draw(Assets::backgroundTexture, Camera::GetCenter())
-		.withOrigin(Assets::backgroundTexture->w/2, Assets::backgroundTexture->h/2);
 
 	for (const Asteroid* a : Asteroid::GetAll()) {
 		a->Draw();
