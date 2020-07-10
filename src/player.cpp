@@ -76,7 +76,7 @@ void Player::Draw() const
 	const GPU_Rect& animRect = AnimLib::PLAYER;
 	Window::Draw(Assets::invadersTexture, pos)
 		.withRect(animRect)
-		.withColor({0,255,255,255})
+		.withColor(id == 0 ? SDL_Color{0,255,255,255} : SDL_Color{255, 255, 0, 255})
 		.withOrigin(vec(animRect.w, 0)/2)
 		.withRotation(planet_center.Angle(pos) + 90);
 }
