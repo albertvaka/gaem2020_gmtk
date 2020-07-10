@@ -5,8 +5,10 @@
 #include "asteroid.h"
 #include "collide.h"
 
+const float size = 50.0;
+
 Planet::Planet(vec pos, float health): 
-	health(health), CircleEntity(pos, 10)
+	health(health), CircleEntity(pos, size)
 {
 }
 
@@ -24,8 +26,12 @@ void Planet::Update(float dt)
 
 void Planet::Draw() const
 {
+	float scale = size / 160;
 	Window::Draw(Assets::backgroundTexture, pos)
 		.withOrigin(Assets::backgroundTexture->w / 2, Assets::backgroundTexture->h / 2)
-		.withScale(SCALE);
-		
+		.withScale(scale);
+
+	if (Debug::Draw) {
+		DrawBounds(100, 100, 255);
+	}
 }

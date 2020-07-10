@@ -6,8 +6,9 @@ enum GameKeys
 {
 	NONE = 0,
 	UP, DOWN, LEFT, RIGHT,
+	CANNON_RIGHT, CANNON_LEFT, CANNON_UP, CANNON_DOWN,
 	START,
-	ACTION,
+	SHOOT,
 };
 
 // Action-based input

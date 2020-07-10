@@ -3,7 +3,6 @@
 #ifdef _IMGUI
 #include "imgui.h"
 #endif
-#include "bullet.h"
 #include "assets.h"
 #include "debug.h"
 #include "collide.h"
@@ -15,7 +14,6 @@ SceneMain::SceneMain()
 	, player1(0, planet_one.pos)
 	, player2(1, planet_two.pos)
 	, alienPartSys(Assets::invadersTexture)
-
 {
 }
 
@@ -36,6 +34,10 @@ void SceneMain::Update(float dt)
 {
 	planet_one.Update(dt);
 	planet_two.Update(dt);
+
+	player1.Update(dt);
+	player2.Update(dt);
+
 #ifdef _DEBUG
 	const SDL_Scancode restart = SDL_SCANCODE_F5;
 	if (Keyboard::IsKeyJustPressed(restart)) {
@@ -48,14 +50,15 @@ void SceneMain::Update(float dt)
 #ifdef _IMGUI
 	ImGui::Begin("Asteroids");
 #endif
+
 	for (Asteroid* a : Asteroid::GetAll()) {
 		a->Update(dt);
 	}
+
 #ifdef _IMGUI
 	ImGui::End();
 #endif
 
-	Bullet::DeleteNotAlive();
 	Asteroid::DeleteNotAlive();
 }
 

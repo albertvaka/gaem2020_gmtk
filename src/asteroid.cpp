@@ -52,7 +52,7 @@ void Asteroid::Update(float dt) {
 
 void Asteroid::Draw() const
 {
-  const GPU_Rect& animRect = AnimLib::BULLET;
+  const GPU_Rect& rect = AnimLib::ASTEROID;
   Window::Draw(Assets::invadersTexture, pos)
     .withRect(animRect)
     .withOrigin(vec(animRect.w, 0)/2);
