@@ -14,7 +14,6 @@ Asteroid::Asteroid(float mass, vec initial_pos, vec initial_vel)
 void Asteroid::Update(float dt) {
   auto asteroids = Asteroid::GetAll();
 
-  Debug::out << "HOLA";
   for (auto asteroid : asteroids) {
     if (asteroid != this) {
       // TODO(Marce): Accumulate acceleration towards other bodies
