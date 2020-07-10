@@ -47,7 +47,6 @@
     <ClInclude Include="src\anim_lib.h" />
     <ClInclude Include="src\assets.h" />
     <ClInclude Include="src\asteroid.h" />
-    <ClInclude Include="src\bullet.h" />
     <ClInclude Include="src\planet.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\scene_main.h" />
