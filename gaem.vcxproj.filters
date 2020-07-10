@@ -187,9 +187,6 @@
     <ClInclude Include="src\assets.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\bullet.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\anim_lib.h">
       <Filter>src</Filter>
     </ClInclude>
