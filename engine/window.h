@@ -103,7 +103,7 @@ namespace Window
 			return withColor(c.r, c.g, c.b, c.a);
 		}
 
-		Draw& withColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+		Draw& withColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) {
 			GPU_SetRGBA(t, r, g, b, a);
 			return *this;
 		}
