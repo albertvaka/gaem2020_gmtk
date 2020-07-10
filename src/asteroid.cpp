@@ -17,7 +17,7 @@ void Asteroid::Update(float dt) {
   for (auto asteroid : asteroids) {
     if (asteroid != this) {
       // TODO(Marce): Accumulate acceleration towards other bodies
-      acceleration +=
+      // acceleration +=
     }
   }
 
