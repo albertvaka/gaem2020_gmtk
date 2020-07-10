@@ -8,6 +8,7 @@
 #include "debug.h"
 #include "collide.h"
 #include "alien.h"
+#include "asteroid.h"
 
 SceneMain::SceneMain() :
 	planet_one(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100),
@@ -15,8 +16,10 @@ SceneMain::SceneMain() :
 {
 }
 
-void SceneMain::EnterScene() 
+void SceneMain::EnterScene()
 {
+	Debug::out << "Create asteroid";
+	new Asteroid(50, vec(10, 10), vec(10, 10));
 }
 
 void SceneMain::ExitScene()

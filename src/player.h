@@ -11,5 +11,4 @@ struct Player : Entity
 
 	void Update(float dt);
 	void Draw() const;
-	
 };

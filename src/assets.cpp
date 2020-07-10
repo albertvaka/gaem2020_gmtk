@@ -11,7 +11,6 @@ TTF_Font* Assets::font_30_outline;
 Shader Assets::tintShader;
 
 void Assets::LoadAll() {
-
     invadersTexture = loadImage("data/invaders.png");
     backgroundTexture = loadImage("data/bg.png");
 

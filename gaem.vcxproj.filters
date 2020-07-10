@@ -196,6 +196,9 @@
     <ClInclude Include="src\planet.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\asteroid.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vendor\glew\glew.c">
@@ -310,6 +313,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\planet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asteroid.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

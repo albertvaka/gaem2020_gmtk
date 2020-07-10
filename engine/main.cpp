@@ -1,5 +1,3 @@
-#include <string>
-
 #include "scene_manager.h"
 #include "input.h"
 #include "mates.h"
