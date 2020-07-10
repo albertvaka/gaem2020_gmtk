@@ -1,6 +1,8 @@
 
 EXEC	= bin/gaem2020
 
+.PHONY = run
+
 SRC	= $(wildcard src/*.cpp)
 OBJ	= $(patsubst src/%, obj/%.o, $(SRC))
 
@@ -84,3 +86,6 @@ clean:
 
 www:
 	emmake $(MAKE)
+
+run:
+	cd ./bin/ && ./gaem2020
