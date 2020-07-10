@@ -54,8 +54,8 @@ void Asteroid::Draw() const
 {
   const GPU_Rect& rect = AnimLib::ASTEROID;
   Window::Draw(Assets::invadersTexture, pos)
-    .withRect(animRect)
-    .withOrigin(vec(animRect.w, 0)/2);
+    .withRect(rect)
+    .withOrigin(vec(rect.w, 0)/2);
 
   Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
   Window::DrawPrimitive::Line(pos, pos + velocity, 3, 0, 255, 0);
