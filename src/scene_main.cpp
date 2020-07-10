@@ -7,7 +7,6 @@
 #include "assets.h"
 #include "debug.h"
 #include "collide.h"
-#include "alien.h"
 #include "asteroid.h"
 
 SceneMain::SceneMain()
@@ -45,9 +44,6 @@ void SceneMain::Update(float dt)
 	}
 #endif
 
-	player1.Update(dt);
-	player2.Update(dt);
-
 #ifdef _IMGUI
 	ImGui::Begin("Asteroids");
 #endif
@@ -59,10 +55,7 @@ void SceneMain::Update(float dt)
 #endif
 
 	Bullet::DeleteNotAlive();
-	Alien::DeleteNotAlive();
 	Asteroid::DeleteNotAlive();
-
-	alienPartSys.UpdateParticles(dt);
 }
 
 void SceneMain::Draw()
@@ -85,7 +78,6 @@ void SceneMain::Draw()
 		}
 	}
 
-	//alienPartSys.DrawImGUI();
 /*
 #ifdef _IMGUI
 	{
