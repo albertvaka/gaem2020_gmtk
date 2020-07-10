@@ -17,28 +17,41 @@ Player::Player(int id, vec planet_center)
 	: id(id)
 	, planet_center(planet_center)
 	, angle(90.f)
-	, angularVel(0.f)
-	, invertControls(false)
 {
 }
 
 void Player::Update(float dt)
 {
-	if (Input::IsJustPressed(id, GameKeys::LEFT) || Input::IsJustPressed(id, GameKeys::RIGHT)) {
-		invertControls = angle > 180;
+	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
+		invertControlsX = angle > 180;
+	}
+	if (Input::IsReleased(id, GameKeys::UP) && Input::IsReleased(id, GameKeys::DOWN)) {
+		invertControlsY = angle > 90 && angle < 270;
 	}
 	
 	if (Input::IsPressed(id, GameKeys::RIGHT)) {
-		if (invertControls) {
+		if (invertControlsX) {
 			angularVel += accel;
 		}
 		else {
 			angularVel -= accel;
 		}
-	}
-
-	if (Input::IsPressed(id, GameKeys::LEFT)) {
-		if (invertControls) {
+	} else if (Input::IsPressed(id, GameKeys::LEFT)) {
+		if (invertControlsX) {
+			angularVel -= accel;
+		}
+		else {
+			angularVel += accel;
+		}
+	} else if (Input::IsPressed(id, GameKeys::UP)) {
+		if (invertControlsY) {
+			angularVel += accel;
+		}
+		else {
+			angularVel -= accel;
+		}
+	} else if (Input::IsPressed(id, GameKeys::DOWN)) {
+		if (invertControlsY) {
 			angularVel -= accel;
 		}
 		else {
@@ -47,8 +60,6 @@ void Player::Update(float dt)
 	}
 
 	Mates::Clamp(angularVel, -maxVel, maxVel);
-	
-	Debug::out << angle << " " << angularVel << " " << invertControls;
 
 	angle += angularVel;
 	

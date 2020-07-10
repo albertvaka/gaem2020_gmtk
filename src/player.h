@@ -7,8 +7,9 @@ struct Player : Entity
 	int id;
 	vec planet_center;
 	float angle;
-	float angularVel;
-	bool invertControls;
+	float angularVel = 0.f;
+	bool invertControlsX = false;
+	bool invertControlsY = false;
 
 	Player(int id, vec planet_center);
 
