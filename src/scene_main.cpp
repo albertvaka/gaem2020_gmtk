@@ -13,8 +13,8 @@
 SceneMain::SceneMain()
 	: planet_one(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100)
 	, planet_two(vec(3*Window::GAME_WIDTH / 4, Window::GAME_HEIGHT / 2), 100)
-	, player1(0, Camera::GetCenter())
-	, player2(1, vec(100,100))
+	, player1(0, planet_one.pos)
+	, player2(1, planet_two.pos)
 	, alienPartSys(Assets::invadersTexture)
 
 {
