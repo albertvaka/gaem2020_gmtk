@@ -55,7 +55,7 @@ inline void RemapKeyboardInput()
 //int player_to_joystick[Input::kMaxPlayers] = { nullptr };
 
 // Assumes first player is on Keyboard.
-int Input::keyboard_player_id = 0;
+int Input::keyboard_player_id = 1;
 KeyStates Input::action_states[Input::kMaxPlayers][magic_enum::enum_count<GameKeys>()] = { { RELEASED } };
 float Input::action_times[Input::kMaxPlayers][magic_enum::enum_count<GameKeys>()] = { { 0 } };
 
