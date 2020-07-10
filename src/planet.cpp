@@ -1,17 +1,25 @@
 #include "Planet.h"
 
-#include "input.h"
 #include "assets.h"
-#include "animation.h"
-#include "bullet.h"
 #include "window.h"
+#include "asteroid.h"
+#include "collide.h"
+
 Planet::Planet(vec pos, float health): 
-	pos(pos), health(health)
+	health(health), CircleEntity(pos, 10)
 {
 }
 
 void Planet::Update(float dt) 
 {
+	auto asteroids = Asteroid::GetAll();
+
+	for (auto asteroid : asteroids) {
+		if (Collide(this, asteroid)) {
+			health -= asteroid->mass;
+			asteroid->alive = false;
+		}
+	}
 }
 
 void Planet::Draw() const

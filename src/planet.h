@@ -4,7 +4,6 @@ struct Planet : CircleEntity
 {
 	const float SCALE = 0.7;
 
-	vec pos;
 	float health;
 
 	Planet(vec pos, float health);
