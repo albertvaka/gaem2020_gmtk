@@ -1,8 +1,13 @@
 #pragma once
+
 #include "entity.h"
-struct Planet : CircleEntity
+#include "selfregister.h"
+
+
+struct Planet : CircleEntity, SelfRegister<Planet>
 {
 	const float SCALE = 0.7;
+	const float MASS = 1000;
 
 	float health;
 

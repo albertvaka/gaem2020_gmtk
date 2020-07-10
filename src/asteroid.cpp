@@ -7,6 +7,7 @@
 #include "anim_lib.h"
 #include "assets.h"
 #include "debug.h"
+#include "planet.h"
 #include "window.h"
 
 Asteroid::Asteroid(float mass, vec initial_pos, vec initial_vel)
@@ -17,11 +18,15 @@ Asteroid::Asteroid(float mass, vec initial_pos, vec initial_vel)
 void Asteroid::Update(float dt) {
   auto asteroids = Asteroid::GetAll();
 
+  for (auto planet : Planet::GetAll()) {
+      float acceleration_scalar = planet->MASS / (pos.Distance(planet->pos));
+      acceleration += (planet->pos - pos).Normalized() * acceleration_scalar;
+  }
+
   for (auto other : asteroids) {
     if (other != this) {
       float acceleration_scalar = other->mass / (pos.Distance(other->pos));
-      vec dir = (pos - other->pos).Normalized();
-      acceleration = dir * acceleration_scalar;
+      acceleration += (other->pos - pos).Normalized() * acceleration_scalar;
     }
   }
 
