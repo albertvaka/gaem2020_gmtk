@@ -4,8 +4,13 @@
 #include "asteroid.h"
 #include "window.h"
 
-Sol::Sol(vec pos, float radius)
-  : CircleEntity(pos, radius), solAnim(AnimLib::BLACKHOLE)
+
+const float collider_radius = 40.f;
+const float sprite_scale = 1.2f;
+
+Sol::Sol(vec pos)
+  : CircleEntity(pos, 80.f)
+  , solAnim(AnimLib::BLACKHOLE)
 {
 }
 
@@ -23,10 +28,9 @@ void Sol::Update(float dt)
 
 void Sol::Draw() const
 {
-	float scale = 1.0f;
 	const GPU_Rect& animRect = solAnim.GetCurrentRect();
 	Window::Draw(Assets::solTexture, pos)
 		.withRect(animRect)
-		.withScale(scale)
+		.withScale(sprite_scale)
 		.withOrigin(vec(animRect.w, animRect.h) / 2);
 }

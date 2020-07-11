@@ -8,7 +8,7 @@
 #include "window.h"
 #include "asteroid.h"
 
-const float distanceFromPlanet = 70.f;
+const float distanceFromPlanet = 100.f;
 const float shotSpawnDistance = 30.f;
 
 const float cannonMaxAngle = 75.f;
@@ -17,16 +17,15 @@ const float shotChargeSpeed = 0.5f;
 const float shotMinCharge = 0.1f;
 const float shotMaxCharge = 2.5f;
 
-const float cannonVel = 2.f;
-const float accel = 0.6f;
-const float maxVel = 2.f;
-const float friction = 0.75f;
+const float cannonVel = 200.f;
+const float accel = 300.f;
+const float maxVel = 500.f;
+const float friction = 0.95f;
 
 extern float mainClock;
 
-Player::Player(int id, int owner_planet)
+Player::Player(int id)
 	: id(id)
-	, owner_planet(owner_planet)
 	, angle(90.f)
 	, cannonAngle(0.f),
 	asteroidAnim(AnimLib::ASTERVOID)
@@ -35,65 +34,30 @@ Player::Player(int id, int owner_planet)
 
 void Player::Update(float dt)
 {
-	
-#ifdef _DEBUG
+	// SHIP MOVEMENT
 
-	if (Input::IsPressed(id, GameKeys::RIGHT)) {
-		if (invertControlsX) {
-			angularVel += accel;
-		}
-		else {
-			angularVel -= accel;
-		}
-	} else if (Input::IsPressed(id, GameKeys::LEFT)) {
-		if (invertControlsX) {
-			angularVel -= accel;
-		}
-		else {
-			angularVel += accel;
-		}
-	} else if (Input::IsPressed(id, GameKeys::UP)) {
-		if (invertControlsY) {
-			angularVel += accel;
-		}
-		else {
-			angularVel -= accel;
-		}
-	} else if (Input::IsPressed(id, GameKeys::DOWN)) {
-		if (invertControlsY) {
-			angularVel -= accel;
-		}
-		else {
-			angularVel += accel;
+	vec l_stick = GamePad::AnalogStick::Left.get(id, 50.f);
+	l_stick.Normalize();
+
+	if (!l_stick.isZero()) {
+		vec rel_pos = pos - planet->pos;
+		rel_pos.Normalize();
+
+		if (rel_pos.Dot(l_stick) < 0.99) {
+			float sign = rel_pos.Cross(l_stick);
+			if (sign > 0.f) {
+				angularVel += accel * dt;
+			}
+			else if (sign < 0.f) {
+				angularVel += -accel * dt;
+			}
 		}
 	}
 
-#endif
+	Mates::Clamp(angularVel, -maxVel, maxVel);
 
-	vec stick = GamePad::AnalogStick::Left.get(id, 50.f);
-	stick.Normalize();
+	angle += angularVel * dt;
 
-	if (!stick.isZero()) {
-
-		vec relpos = pos - planet->pos;
-		relpos.Normalize();
-		
-		//float dot = relpos.Dot(stick);
-
-		//if (dot < 0.5) {
-			float sign = relpos.Cross(stick);
-			if (sign > 0.3f) {
-				angularVel = 2;
-			}
-			else if (sign < -0.3f) {
-				angularVel = -2;
-			}
-		//}
-		
-	}
-
-	angle += angularVel;
-	
 	if (angle > 360.f) angle -= 360.f;
 	else if (angle < 0.f) angle += 360.f;
 
@@ -101,52 +65,49 @@ void Player::Update(float dt)
 
 	pos = planet->pos + vec::FromAngle(Mates::DegsToRads(angle)) * distanceFromPlanet;
 
-	// Cannon
-	if (Input::IsPressed(id, GameKeys::CANNON_RIGHT)) {
-		if (invertControlsX) {
-			cannonAngle += cannonVel;
-		}
-		else {
-			cannonAngle -= cannonVel;
-		}
-	}
-	else if (Input::IsPressed(id, GameKeys::CANNON_LEFT)) {
-		if (invertControlsX) {
-			cannonAngle -= cannonVel;
-		}
-		else {
-			cannonAngle += cannonVel;
-		}
-	}
-	else if (Input::IsPressed(id, GameKeys::CANNON_UP)) {
-		if (invertControlsY) {
-			cannonAngle += cannonVel;
-		}
-		else {
-			cannonAngle -= cannonVel;
-		}
-	}
-	else if (Input::IsPressed(id, GameKeys::CANNON_DOWN)) {
-		if (invertControlsY) {
-			cannonAngle -= cannonVel;
-		}
-		else {
-			cannonAngle += cannonVel;
-		}
+
+	// CANON MOVEMENT
+
+	vec r_stick = GamePad::AnalogStick::Right.get(id, 50.f);
+	r_stick.Normalize();
+	float stickAngle = r_stick.Angle() + 180;
+
+	float target = (r_stick.isZero()) ? angle : stickAngle;
+
+	float diff = fmod(target - cannonAngle, 360);
+
+	if (id == 0) {
+		Debug::out << diff;
 	}
 
-	if (cannonAngle < -cannonMaxAngle) cannonAngle = -cannonMaxAngle;
-	else if (cannonAngle > cannonMaxAngle) cannonAngle = cannonMaxAngle;
+	if (diff > 10.f) {
+		cannonAngle += cannonVel * dt;
+	}
+	else if (diff < -10.f) {
+		cannonAngle -= cannonVel*dt;
+	}
+	else {
+		cannonAngle = target;
+	}
+
+	if (cannonAngle > 360.f) cannonAngle -= 360.f;
+	else if (cannonAngle < 0.f) cannonAngle += 360.f;
+
+	//Mates::Clamp(cannonAngle, -cannonMaxAngle, cannonMaxAngle);
+	pos.Debuggerino();
+
+	// SHOOT
 
 	if (shotCharge >= 0.f) {
 		asteroidAnim.Update(dt);
 		shotCharge += shotChargeSpeed * dt;
 		if (shotCharge > shotMaxCharge) shotCharge = shotMaxCharge;
 		
-		shotPos = pos + vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * shotSpawnDistance;
+		
+		shotPos = pos + vec::FromAngle(Mates::DegsToRads(cannonAngle)) * shotSpawnDistance;
 
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
-			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * 300);
+			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 300);
 			shotCharge = -1.f;
 		}
 
@@ -158,19 +119,13 @@ void Player::Update(float dt)
 
 void Player::Draw() const
 {
-	const GPU_Rect& playerRect = AnimLib::PLAYER;
-	Window::Draw(Assets::invadersTexture, pos)
-		.withRect(playerRect)
-		.withColor(id == 0 ? SDL_Color{0,255,255,255} : SDL_Color{255, 255, 0, 255})
-		.withOrigin(vec(playerRect.w / 2, 8))
-		.withRotation(angle + 90);
 
 	const GPU_Rect& cannonRect = AnimLib::CANNON;
 	Window::Draw(Assets::invadersTexture, pos)
 		.withRect(cannonRect)
 		.withColor(id == 0 ? SDL_Color{ 0,255,255,255 } : SDL_Color{ 255, 255, 0, 255 })
 		.withOrigin(vec(cannonRect.w, cannonRect.h) / 2)
-		.withRotation(angle + cannonAngle + 90);
+		.withRotation(cannonAngle - 90);
 
 
 	if (shotCharge > 0.f) {

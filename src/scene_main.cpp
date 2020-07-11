@@ -12,8 +12,8 @@
 #include "scene_manager.h"
 
 SceneMain::SceneMain()
-	: player1(0, 0)
-	, player2(1, 1)
+	: player1(0)
+	, player2(1)
 	, alienPartSys(Assets::asterVoidTexture)
 {
 	alienPartSys.AddSprite(AnimLib::ASTERVOID[1].rect);
@@ -27,9 +27,9 @@ SceneMain::SceneMain()
 	alienPartSys.min_interval = 0.03f;
 	alienPartSys.max_interval = 0.06f;
 	alienPartSys.scale_vel = -0.3f;
-	alienPartSys.min_rotation = 0.f;
-	alienPartSys.max_rotation = 360.f;
-	alienPartSys.rotation_vel = 180.f;
+	//alienPartSys.min_rotation = 0.f;
+	//alienPartSys.max_rotation = 360.f;
+	//alienPartSys.rotation_vel = 180.f;
 	alienPartSys.alpha = 0.75f;
 	currentLevel = Random::roll(std::size(Assets::backgroundTextures));
 }
@@ -39,7 +39,7 @@ void SceneMain::EnterScene()
 	Camera::SetZoom(10);
 	player1.planet = new Planet(350, 0, 5000, 8);
 	player2.planet = new Planet(350, 180, 5000, 8);
-	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2), 30);
+	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2));
 }
 
 void SceneMain::ExitScene()
@@ -144,8 +144,14 @@ void SceneMain::Update(float dt)
 
 	for (Asteroid* a : Asteroid::GetAll()) {
 		a->Update(dt);
-		alienPartSys.pos = a->pos;
-		alienPartSys.min_scale = 0.1f * sqrt(a->size);
+		const GPU_Rect& animRect = a->anim.GetCurrentRect();
+		// Sorry no se que collons estic fent
+		alienPartSys.pos = a->pos
+			// Resta la meitat del sprite
+			-((vec(animRect.w, animRect.h) / 2) 
+			//Multiplicat per l¡escalat que es fa a withScale (entre 2 because why not)
+			* (20 * sqrt(a->size)) / (animRect.w / 4))/2;
+		alienPartSys.min_scale = 0.05f * sqrt(a->size);
 		alienPartSys.max_scale = 0.2f * sqrt(a->size);
 		alienPartSys.Spawn(dt);
 	}
@@ -160,6 +166,12 @@ void SceneMain::Update(float dt)
 		ImGui::SliderFloat("P1 health", &(player1.planet->health), 0.f, 100.f);
 		ImGui::SliderFloat("P2 health", &(player2.planet->health), 0.f, 100.f);
 		ImGui::End();
+	}
+#endif
+
+#ifdef _IMGUI
+	{
+		alienPartSys.DrawImGUI("particles");
 	}
 #endif
 
@@ -196,6 +208,9 @@ void SceneMain::Draw()
 
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Draw();
+		if (Debug::Draw) {
+			sol->DrawBounds(255, 255, 0);
+		}
 	}
 
 	rototext.Draw();
