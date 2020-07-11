@@ -11,6 +11,7 @@ struct Player : Entity
 
 	float angle;
 	float cannonAngle;
+	vec cannonVector;
 	float angularVel = 0.f;
 	float shotCharge = -1.f;
 	vec shotPos;

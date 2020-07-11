@@ -17,7 +17,7 @@ const float shotChargeSpeed = 0.5f;
 const float shotMinCharge = 0.1f;
 const float shotMaxCharge = 2.5f;
 
-const float cannonVel = 200.f;
+const float cannonVel = 10.f;
 const float accel = 300.f;
 const float maxVel = 500.f;
 const float friction = 0.95f;
@@ -28,7 +28,8 @@ Player::Player(int id)
 	: id(id)
 	, angle(90.f)
 	, cannonAngle(0.f),
-	asteroidAnim(AnimLib::ASTERVOID)
+	asteroidAnim(AnimLib::ASTERVOID),
+	cannonVector(vec(0.0, 1.0))
 {
 }
 
@@ -70,28 +71,14 @@ void Player::Update(float dt)
 
 	vec r_stick = GamePad::AnalogStick::Right.get(id, 50.f);
 	r_stick.Normalize();
-	float stickAngle = r_stick.Angle() + 180;
 
-	float target = (r_stick.isZero()) ? angle : stickAngle;
+	float direction = r_stick.Cross(cannonVector) > 0 ? 1 : -1;
+	float move = r_stick.isZero() ? 0 : 1+std::fmin(r_stick.Dot(cannonVector), 0);
+	cannonVector = cannonVector.RotatedAroundOrigin(
+		direction * move * cannonVel * dt
+	);
 
-	float diff = fmod(target - cannonAngle, 360);
-
-	if (id == 0) {
-		Debug::out << diff;
-	}
-
-	if (diff > 10.f) {
-		cannonAngle += cannonVel * dt;
-	}
-	else if (diff < -10.f) {
-		cannonAngle -= cannonVel*dt;
-	}
-	else {
-		cannonAngle = target;
-	}
-
-	if (cannonAngle > 360.f) cannonAngle -= 360.f;
-	else if (cannonAngle < 0.f) cannonAngle += 360.f;
+	cannonAngle = cannonVector.Angle();
 
 	//Mates::Clamp(cannonAngle, -cannonMaxAngle, cannonMaxAngle);
 	pos.Debuggerino();
