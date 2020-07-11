@@ -9,6 +9,8 @@ struct Player : Entity
 	float angle;
 	float cannonAngle;
 	float angularVel = 0.f;
+	float shotCharge = 0.f;
+	vec shotPos;
 	bool invertControlsX = false;
 	bool invertControlsY = false;
 

@@ -9,11 +9,14 @@
 #include "input.h"
 #include "player.h"
 #include "planet.h"
+#include "rototext.h"
 
 struct SceneMain : Scene {
 
 	Player player1;
 	Player player2;
+
+	RotoText rototext;
 
 	PartSys alienPartSys;
 	int currentLevel = 1;

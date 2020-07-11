@@ -15,7 +15,11 @@ struct Assets
 
 	static GPU_Image* invadersTexture;
 	
-	static GPU_Image* backgroundTexture;
+	static GPU_Image* oldPlanetTexture;
+
+	static GPU_Image* normalBackground;
+	static GPU_Image* redBackground;
+	static GPU_Image* blueBackground;
 
 	static TTF_Font* font_30;
 	static TTF_Font* font_30_outline;

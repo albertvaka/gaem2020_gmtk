@@ -37,10 +37,19 @@ void SceneMain::Update(float dt)
 		EnterScene();
 		return;
 	}
+
+	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
+		rototext.ShowMessage("P1 wins");
+	}
 #endif
 
+<<<<<<< HEAD
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Update(dt);
+=======
+	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F7)) {
+		currentLevel = (currentLevel + 1) % 3;
+>>>>>>> ae66c33e6faeca9be89e1e9f0bb5226371b1d558
 	}
 
 	for (Planet* planet : Planet::GetAll()) {
@@ -62,19 +71,29 @@ void SceneMain::Update(float dt)
 	ImGui::End();
 #endif
 
+	rototext.Update(dt);
+
 	Asteroid::DeleteNotAlive();
 }
 
 void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
+	GPU_Image* bgAsset = currentLevel == 1
+		? Assets::normalBackground
+		: currentLevel == 2
+			? Assets::blueBackground
+			: Assets::redBackground;
+	Window::Draw(bgAsset, vec(0, 0))
+		.withScale(3)
+		.withRect(
+			0, 0,
+			Window::GAME_WIDTH, Window::GAME_HEIGHT
+		);
 
 	for (const Planet* planet : Planet::GetAll()) {
 		planet->Draw();
 	}
-
-	player1.Draw();
-	player2.Draw();
 
 	for (const Asteroid* a : Asteroid::GetAll()) {
 		a->Draw();
@@ -83,9 +102,14 @@ void SceneMain::Draw()
 		}
 	}
 
+	player1.Draw();
+	player2.Draw();
+
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Draw();
 	}
+
+	rototext.Draw();
 
 /*
 #ifdef _IMGUI
