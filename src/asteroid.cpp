@@ -14,7 +14,7 @@
 #include <float.h>
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
-  : size(size), mass(1000*size), velocity(initial_vel),
+  : size(size), mass(2000*size), velocity(initial_vel),
     acceleration(), CircleEntity(initial_pos, 10)
 {}
 
@@ -63,7 +63,7 @@ void Asteroid::Draw() const
   const GPU_Rect& rect = AnimLib::ASTEROID;
   Window::Draw(Assets::invadersTexture, pos)
     .withRect(rect)
-    .withScale(GetSpriteScale(size))
+    .withScale(sqrt(size))
     .withOrigin(vec(rect.w, rect.h)/2);
 
   Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
