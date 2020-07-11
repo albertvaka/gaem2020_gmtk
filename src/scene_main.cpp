@@ -37,8 +37,8 @@ SceneMain::SceneMain()
 void SceneMain::EnterScene()
 {
 	Camera::SetZoom(10);
-	player1.planet = new Planet(350, 0, 5000, 8);
-	player2.planet = new Planet(350, 180, 5000, 8);
+	player1.planet = new Planet(350, 0, 10000, 8);
+	player2.planet = new Planet(350, 180, 10000, 8);
 	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2));
 }
 
@@ -65,8 +65,8 @@ void AsteroidCollision(Asteroid* a, Asteroid* b) {
 
 	a->velocity = a_vel;
 	b->velocity = b_vel;
-	a->max_speed_mult = 1.2f;
-	b->max_speed_mult = 1.2f;
+	a->max_speed_mult = 2.f;
+	b->max_speed_mult = 2.f;
 
 	vec a_to_b = (b->pos - a->pos).Normalized();
 	vec b_to_a = (a->pos - b->pos).Normalized();

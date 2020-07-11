@@ -13,14 +13,14 @@ const float shotSpawnDistance = 30.f;
 
 const float cannonMaxAngle = 75.f;
 
-const float shotChargeSpeed = 0.5f;
+const float shotChargeSpeed = 0.7f;
 const float shotMinCharge = 0.1f;
 const float shotMaxCharge = 2.5f;
 
-const float cannonVel = 200.f;
-const float accel = 300.f;
-const float maxVel = 500.f;
-const float friction = 0.95f;
+const float cannonVel = 300.f;
+const float accel = 1000.f;
+const float maxVel = 2000.f;
+const float friction = 0.9f;
 
 extern float mainClock;
 
@@ -40,18 +40,18 @@ void Player::Update(float dt)
 	l_stick.Normalize();
 
 	if (!l_stick.isZero()) {
-		vec rel_pos = pos - planet->pos;
+		vec rel_pos = vec(0, 1);//pos - planet->pos;
 		rel_pos.Normalize();
 
-		if (rel_pos.Dot(l_stick) < 0.99) {
+		//if (rel_pos.Dot(l_stick) < 0.99) {
 			float sign = rel_pos.Cross(l_stick);
-			if (sign > 0.f) {
+			if (sign < 0.f) {
 				angularVel += accel * dt;
 			}
-			else if (sign < 0.f) {
+			else if (sign > 0.f) {
 				angularVel += -accel * dt;
 			}
-		}
+		//}
 	}
 
 	Mates::Clamp(angularVel, -maxVel, maxVel);
@@ -107,7 +107,7 @@ void Player::Update(float dt)
 		shotPos = pos + vec::FromAngle(Mates::DegsToRads(cannonAngle)) * shotSpawnDistance;
 
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
-			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 300);
+			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
 			shotCharge = -1.f;
 		}
 

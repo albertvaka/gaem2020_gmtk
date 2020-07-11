@@ -19,8 +19,8 @@ void Sol::Update(float dt)
   solAnim.Update(dt);
   for (auto asteroid : Asteroid::GetAll()) {
     if (asteroid->bounds().Distance(bounds()) < 0) {
-      vec ast_dir = asteroid->velocity.Normalized();
-      asteroid->velocity = ast_dir * 2000;
+      vec ast_dir = asteroid->velocity.Normalized().RotatedAroundOrigin(-M_PI/10);
+      asteroid->velocity += ast_dir * 100;
       asteroid->max_speed_mult = 1.5f;
     }
   }
