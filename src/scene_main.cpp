@@ -14,8 +14,23 @@
 SceneMain::SceneMain()
 	: player1(0, 0)
 	, player2(1, 1)
-	, alienPartSys(Assets::invadersTexture)
+	, alienPartSys(Assets::asterVoidTexture)
 {
+	alienPartSys.AddSprite(AnimLib::ASTERVOID[1].rect);
+	alienPartSys.AddSprite(AnimLib::ASTERVOID[7].rect);
+
+	float vel = 15;
+	alienPartSys.max_vel = vec(vel, vel);
+	alienPartSys.min_vel = vec(-vel, -vel);
+	alienPartSys.min_ttl = 1.5f;
+	alienPartSys.max_ttl = 2.0f;
+	alienPartSys.min_interval = 0.03f;
+	alienPartSys.max_interval = 0.06f;
+	alienPartSys.scale_vel = -0.3f;
+	alienPartSys.min_rotation = 0.f;
+	alienPartSys.max_rotation = 360.f;
+	alienPartSys.rotation_vel = 180.f;
+	alienPartSys.alpha = 0.75f;
 }
 
 void SceneMain::EnterScene()
@@ -28,6 +43,7 @@ void SceneMain::EnterScene()
 
 void SceneMain::ExitScene()
 {
+	alienPartSys.Clear();
 	Planet::DeleteAll();
 	Asteroid::DeleteAll();
 	Sol::DeleteAll();
@@ -99,6 +115,10 @@ void SceneMain::Update(float dt)
 
 	for (Asteroid* a : Asteroid::GetAll()) {
 		a->Update(dt);
+		alienPartSys.pos = a->pos;
+		alienPartSys.min_scale = 0.1f * sqrt(a->size);
+		alienPartSys.max_scale = 0.2f * sqrt(a->size);
+		alienPartSys.Spawn(dt);
 	}
 
 #ifdef _IMGUI
@@ -113,7 +133,8 @@ void SceneMain::Update(float dt)
 		ImGui::End();
 	}
 #endif
-	
+
+	alienPartSys.UpdateParticles(dt);
 	Asteroid::DeleteNotAlive();
 }
 
@@ -132,6 +153,8 @@ void SceneMain::Draw()
 		planet->Draw();
 	}
 
+	alienPartSys.Draw();
+
 	for (const Asteroid* a : Asteroid::GetAll()) {
 		a->Draw();
 		if (Debug::Draw) {
@@ -145,6 +168,7 @@ void SceneMain::Draw()
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Draw();
 	}
+
 
 	rototext.Draw();
 
