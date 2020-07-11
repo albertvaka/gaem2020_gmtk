@@ -77,8 +77,7 @@ namespace AnimLib {
 		{ {300 * 24, 300 * 0, 300, 300}, 0.1f },
 	};
 
-	constexpr const GPU_Rect PLAYER = { 73,317,44,70 };
-	constexpr const GPU_Rect CANNON = { 241,196,20,50 };
+	constexpr const GPU_Rect CANNON = { 239,178,22,50 };
 	constexpr const GPU_Rect ASTEROID = { 0, 0, 71, 55 };
 	
 

@@ -12,8 +12,8 @@
 #include "scene_manager.h"
 
 SceneMain::SceneMain()
-	: player1(0, 0)
-	, player2(1, 1)
+	: player1(0)
+	, player2(1)
 	, alienPartSys(Assets::asterVoidTexture)
 {
 	alienPartSys.AddSprite(AnimLib::ASTERVOID[1].rect);
