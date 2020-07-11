@@ -17,7 +17,7 @@
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
   : size(size), mass(2000*size), velocity(initial_vel),
-    acceleration(), CircleEntity(initial_pos, 20*size),
+    acceleration(), CircleEntity(initial_pos, 20*sqrt(size)),
     anim(AnimLib::ASTERVOID)
 {}
 
@@ -50,9 +50,9 @@ void Asteroid::Update(float dt) {
 
       if (dist_bounds <= 0) {
         vec direction = (other->pos - pos).Normalized();
-        Debug::out << "dir: " << direction;
+        //Debug::out << "dir: " << direction;
         vec direction_other = (pos - other->pos).Normalized();
-        Debug::out << "dir_ot: " << direction_other;
+        //Debug::out << "dir_ot: " << direction_other;
 
         float own_vel = (mass - other->mass) * velocity.Length()
           / (mass + other->mass)
@@ -62,9 +62,9 @@ void Asteroid::Update(float dt) {
           / (mass + other->mass)
           + (2 * mass) * velocity.Length()
           / (mass + other->mass);
-        Debug::out << "vel " << own_vel << " tvel " << their_vel;
+        //Debug::out << "vel " << own_vel << " tvel " << their_vel;
         velocity += direction * own_vel;
-        Debug::out << velocity;
+        //Debug::out << velocity;
         other->velocity += direction_other * their_vel;
       }
     }
@@ -97,7 +97,7 @@ void Asteroid::Draw() const
   Window::Draw(Assets::asterVoidTexture, pos)
     .withOrigin(vec(animRect.w, animRect.h) / 2)
     .withRect(animRect)
-    .withScale((20*size)/(animRect.w/4));
+    .withScale((20*sqrt(size))/(animRect.w/4));
 
   Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
   Window::DrawPrimitive::Line(pos, pos + velocity, 3, 0, 255, 0);

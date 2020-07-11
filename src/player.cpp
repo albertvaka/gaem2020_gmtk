@@ -159,7 +159,7 @@ void Player::Draw() const
 		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
 		Window::Draw(Assets::asterVoidTexture, pos)
 			.withRect(animRect)
-			.withScale(20*shotCharge / (animRect.w / 4))
+			.withScale(20*sqrt(shotCharge) / (animRect.w / 4))
 			.withOrigin(vec(animRect.w, animRect.h) / 2);
 	}
 }
