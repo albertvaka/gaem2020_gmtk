@@ -76,8 +76,8 @@ void Player::Update(float dt)
 
 	float diff = fmod(target - cannonAngle, 360);
 
-	if (id == 0) {
-		Debug::out << diff;
+	if ((target > 180 && cannonAngle < 180 && diff > 0) || (cannonAngle > 180 && target < 180 && diff < 0)) {
+		diff = -diff;
 	}
 
 	if (diff > 10.f) {
