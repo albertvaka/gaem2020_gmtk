@@ -24,7 +24,7 @@ void PartSys::UpdateParticles(float dt) {
 
 
 //Disabled since rotation is not implemented yet
-//#define USE_VAO
+#define USE_VAO
 
 void PartSys::Draw() const {
 	for (const Particle& p : particles) {

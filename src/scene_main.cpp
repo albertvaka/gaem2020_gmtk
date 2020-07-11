@@ -30,7 +30,7 @@ SceneMain::SceneMain()
 	//alienPartSys.min_rotation = 0.f;
 	//alienPartSys.max_rotation = 360.f;
 	//alienPartSys.rotation_vel = 180.f;
-	alienPartSys.alpha = 0.75f;
+	//alienPartSys.alpha = 0.75f;
 	currentLevel = Random::roll(std::size(Assets::backgroundTextures));
 }
 
@@ -90,10 +90,17 @@ void SceneMain::Update(float dt)
 		SceneManager::SetScene(new SceneMain());
 		return;
 	}
+	if (Mouse::IsJustPressed()) {
+		new Asteroid(Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100, -100), vec(100, 100)));
+	}
+	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
+		rototext.ShowMessage("P1 wins");
+	}
+#endif
 
 	if (rototext.shown) {
 		rototext.Update(dt);
-		if (rototext.timer > 2.f && Input::IsPressedAnyPlayer(GameKeys::SHOOT)) {
+		if (rototext.timer > 2.f && Input::IsPressedAnyPlayer(GameKeys::START)) {
 			SceneManager::SetScene(new SceneMain());
 			return;
 		}
@@ -109,17 +116,6 @@ void SceneMain::Update(float dt)
 	else if (player2.planet->health <= 0) {
 		rototext.ShowMessage("Player 1 wins!");
 	}
-
-#ifdef _DEBUG
-	if (Mouse::IsJustPressed()) {
-		new Asteroid(Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100,-100),vec(100,100)));
-	}
-#endif
-
-	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
-		rototext.ShowMessage("P1 wins");
-	}
-#endif
 
 	CollideSelf(Asteroid::GetAll(), &AsteroidCollision);
 

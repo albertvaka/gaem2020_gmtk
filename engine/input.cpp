@@ -42,7 +42,7 @@ inline void RemapGamePadInput()
 			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
 	};
 	gp_map[GameKeys::SHOOT] = [](int p) { return GamePad::Trigger::Right.get(p) > 30.f; };
-	gp_map[GameKeys::START] = [](int p) { return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_START); };
+	gp_map[GameKeys::START] = [](int p) { return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_START) || GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_A); };
 }
 
 inline void RemapKeyboardInput()
