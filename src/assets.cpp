@@ -50,7 +50,7 @@ void Assets::LoadAll() {
     }
 
     asterVoidTexture = loadImage("data/astervoid.png");
-    solTexture = loadImage("data/blackhole.png");
+    solTexture = loadImage("data/blackpixel.png");
 
 
     font_30 = loadFont("data/PressStart2P.ttf", 30);
