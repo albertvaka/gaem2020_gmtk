@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "mates.h"
 #include "tilemap.h"
 #include "scene.h"
@@ -10,8 +12,9 @@
 
 struct SceneMain : Scene {
 
-	Planet planet_one;
-	Planet planet_two;
+	std::vector<Planet> planets;
+	// Planet planet_one;
+	// Planet planet_two;
 	Player player1;
 	Player player2;
 
@@ -24,6 +27,4 @@ struct SceneMain : Scene {
 	void ExitScene() override;
 	void Update(float dt) override;
 	void Draw() override;
-
-
 };

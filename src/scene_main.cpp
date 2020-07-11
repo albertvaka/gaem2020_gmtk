@@ -9,24 +9,29 @@
 #include "asteroid.h"
 
 SceneMain::SceneMain()
-	: planet_one(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100)
-	, planet_two(vec(3*Window::GAME_WIDTH / 4, Window::GAME_HEIGHT / 2), 100)
-	, player1(0, planet_one.pos)
-	, player2(1, planet_two.pos)
+	: planets({Planet(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100),
+			   Planet(vec(3 * Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100)})
+	, player1(0, planets[0].pos)
+	, player2(1, planets[1].pos)
 	, alienPartSys(Assets::invadersTexture)
 {
 }
 
 void SceneMain::EnterScene()
-{}
+{
+	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/2), 100));
+	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/3), 100));
+	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, 2 * Window::GAME_HEIGHT/3), 100));
+}
 
 void SceneMain::ExitScene()
 {}
 
 void SceneMain::Update(float dt)
 {
-	planet_one.Update(dt);
-	planet_two.Update(dt);
+	for (auto planet : planets) {
+		planet.Update(dt);
+	}
 
 	player1.Update(dt);
 	player2.Update(dt);
@@ -59,8 +64,9 @@ void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
 
-	planet_one.Draw();
-	planet_two.Draw();
+	for (auto planet : planets) {
+		planet.Draw();
+	}
 
 	player1.Draw();
 	player2.Draw();
