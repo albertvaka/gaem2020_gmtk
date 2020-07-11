@@ -17,7 +17,7 @@
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
   : size(size), mass(2000*size), velocity(initial_vel),
-    acceleration(), CircleEntity(initial_pos, size),
+    acceleration(), CircleEntity(initial_pos, 20*size),
     anim(AnimLib::ASTERVOID)
 {}
 
@@ -93,7 +93,7 @@ void Asteroid::Draw() const
   Window::Draw(Assets::asterVoidTexture, pos)
     .withOrigin(vec(animRect.w, animRect.h) / 2)
     .withRect(animRect)
-    .withScale(size/(animRect.w/4));
+    .withScale((20*size)/(animRect.w/4));
 
   Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
   Window::DrawPrimitive::Line(pos, pos + velocity, 3, 0, 255, 0);

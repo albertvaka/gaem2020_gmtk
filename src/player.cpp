@@ -128,7 +128,7 @@ void Player::Update(float dt)
 		shotPos = pos + vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * shotSpawnDistance;
 
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
-			new Asteroid(shotCharge*100, shotPos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * 300);
+			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * 300);
 			shotCharge = -1.f;
 		}
 
@@ -159,7 +159,7 @@ void Player::Draw() const
 		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
 		Window::Draw(Assets::asterVoidTexture, pos)
 			.withRect(animRect)
-			.withScale(shotCharge*100 / (animRect.w / 4))
+			.withScale(20*shotCharge / (animRect.w / 4))
 			.withOrigin(vec(animRect.w, animRect.h) / 2);
 	}
 }
