@@ -19,8 +19,9 @@ SceneMain::SceneMain()
 
 void SceneMain::EnterScene()
 {
-	player1.planet = new Planet(300, 50, 5000, 8);
-	player2.planet = new Planet(370, 220, 5000, 8);
+	Camera::SetZoom(10);
+	player1.planet = new Planet(350, 0, 5000, 8);
+	player2.planet = new Planet(350, 180, 5000, 8);
 	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2), 30);
 }
 
@@ -33,6 +34,12 @@ void SceneMain::ExitScene()
 
 void SceneMain::Update(float dt)
 {
+	float zoom = Camera::GetZoom();
+	if (zoom > 1) {
+		Camera::SetZoom(Mates::MaxOf(1.f, zoom - 15 * dt));
+		return;
+	}
+
 #ifdef _DEBUG
 	const SDL_Scancode restart = SDL_SCANCODE_ESCAPE;
 	if (Keyboard::IsKeyJustPressed(restart)) {
@@ -42,6 +49,10 @@ void SceneMain::Update(float dt)
 
 	if (rototext.shown) {
 		rototext.Update(dt);
+		if (rototext.timer > 2.f && Input::IsPressedAnyPlayer(GameKeys::SHOOT)) {
+			SceneManager::SetScene(new SceneMain());
+			return;
+		}
 		return;
 	}
 
