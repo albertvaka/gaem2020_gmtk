@@ -84,12 +84,13 @@ void SceneMain::Update(float dt)
 		return;
 	}
 
-#ifdef _DEBUG
 	const SDL_Scancode restart = SDL_SCANCODE_ESCAPE;
 	if (Keyboard::IsKeyJustPressed(restart)) {
 		SceneManager::SetScene(new SceneMain());
 		return;
 	}
+
+#ifdef _DEBUG
 	if (Mouse::IsJustPressed()) {
 		new Asteroid(Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100, -100), vec(100, 100)));
 	}
