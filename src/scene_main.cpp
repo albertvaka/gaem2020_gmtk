@@ -20,8 +20,8 @@ SceneMain::SceneMain()
 void SceneMain::EnterScene()
 {
 	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/2), 100));
-	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/3), 100));
-	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, 2 * Window::GAME_HEIGHT/3), 100));
+//	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/3), 100));
+//	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, 2 * Window::GAME_HEIGHT/3), 100));
 }
 
 void SceneMain::ExitScene()

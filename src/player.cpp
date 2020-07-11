@@ -7,7 +7,7 @@
 #include "window.h"
 #include "asteroid.h"
 
-const float distanceFromPlanet = 200.f * 0.8f;
+const float distanceFromPlanet = 200.f * 0.4f;
 
 const float cannonMaxAngle = 75.f;
 
@@ -114,7 +114,7 @@ void Player::Update(float dt)
 	else if (cannonAngle > cannonMaxAngle) cannonAngle = cannonMaxAngle;
 
 	if (Input::IsJustPressed(id, GameKeys::SHOOT)) {
-		new Asteroid(1000, pos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle))*300);
+		new Asteroid(2000, pos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle))*300);
 	}
 
 }

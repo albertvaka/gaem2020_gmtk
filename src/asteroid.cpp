@@ -25,7 +25,7 @@ void Asteroid::Update(float dt) {
 
   for (auto planet : Planet::GetAll()) {
       float dist = pos.Distance(planet->pos);
-      float acceleration_scalar = planet->MASS / ((dist * dist));
+      float acceleration_scalar = planet->MASS / (dist);
       vec acc_add = (planet->pos - pos).Normalized() * acceleration_scalar;
       acceleration += acc_add;
   }
@@ -33,14 +33,14 @@ void Asteroid::Update(float dt) {
   for (auto other : asteroids) {
     if (other != this) {
       float dist = pos.Distance(other->pos);
-      float acceleration_scalar =  other->mass / (dist * dist);
+      float acceleration_scalar =  other->mass / (dist);
       acceleration += (other->pos - pos).Normalized() * acceleration_scalar;
     }
   }
 
-  velocity += 0.5 * acceleration * dt;
+  velocity += acceleration * dt;
   vec vel_dir = velocity.Normalized();
-  float vel_sca = std::clamp(velocity.Length(), 0.0f, 100.0f);
+  float vel_sca = std::clamp(velocity.Length(), 0.0f, 120.0f);
   velocity = vel_dir * vel_sca;
 
   pos += velocity * dt;
