@@ -35,13 +35,9 @@ Player::Player(int id, int owner_planet)
 
 void Player::Update(float dt)
 {
-	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
-		//invertControlsX = angle > 180;
-	}
-	if (Input::IsReleased(id, GameKeys::UP) && Input::IsReleased(id, GameKeys::DOWN)) {
-		//invertControlsY = angle > 90 && angle < 270;
-	}
 	
+#ifdef _DEBUG
+
 	if (Input::IsPressed(id, GameKeys::RIGHT)) {
 		if (invertControlsX) {
 			angularVel += accel;
@@ -72,7 +68,29 @@ void Player::Update(float dt)
 		}
 	}
 
-	Mates::Clamp(angularVel, -maxVel, maxVel);
+#endif
+
+	vec stick = GamePad::AnalogStick::Left.get(id, 50.f);
+	stick.Normalize();
+
+	if (!stick.isZero()) {
+
+		vec relpos = pos - planet->pos;
+		relpos.Normalize();
+		
+		//float dot = relpos.Dot(stick);
+
+		//if (dot < 0.5) {
+			float sign = relpos.Cross(stick);
+			if (sign > 0.3f) {
+				angularVel = 2;
+			}
+			else if (sign < -0.3f) {
+				angularVel = -2;
+			}
+		//}
+		
+	}
 
 	angle += angularVel;
 	
