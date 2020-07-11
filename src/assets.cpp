@@ -9,6 +9,7 @@ GPU_Image* Assets::backgroundTextures[7];
 GPU_Image* Assets::planetTextures[7];
 
 GPU_Image* Assets::asterVoidTexture;
+GPU_Image* Assets::solTexture;
 
 TTF_Font* Assets::font_30;
 TTF_Font* Assets::font_30_outline;
@@ -49,6 +50,7 @@ void Assets::LoadAll() {
     }
 
     asterVoidTexture = loadImage("data/astervoid.png");
+    solTexture = loadImage("data/blackhole.png");
 
 
     font_30 = loadFont("data/PressStart2P.ttf", 30);
