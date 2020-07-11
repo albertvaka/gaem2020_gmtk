@@ -8,6 +8,7 @@
 #include "collide.h"
 #include "asteroid.h"
 #include "sol.h"
+#include "scene_manager.h"
 
 SceneMain::SceneMain()
 	: player1(0, 0)
@@ -18,25 +19,42 @@ SceneMain::SceneMain()
 
 void SceneMain::EnterScene()
 {
-	player1.planet = new Planet(300, 50, 5000, 500, 8);
-	player2.planet = new Planet(370, 220, 5000, 500, 8);
+	player1.planet = new Planet(300, 50, 5000, 8);
+	player2.planet = new Planet(370, 220, 5000, 8);
 	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2), 30);
 }
 
 void SceneMain::ExitScene()
 {
 	Planet::DeleteAll();
+	Asteroid::DeleteAll();
+	Sol::DeleteAll();
 }
 
 void SceneMain::Update(float dt)
 {
 #ifdef _DEBUG
-	const SDL_Scancode restart = SDL_SCANCODE_F5;
+	const SDL_Scancode restart = SDL_SCANCODE_ESCAPE;
 	if (Keyboard::IsKeyJustPressed(restart)) {
-		ExitScene();
-		EnterScene();
+		SceneManager::SetScene(new SceneMain());
 		return;
 	}
+
+	if (rototext.shown) {
+		rototext.Update(dt);
+		return;
+	}
+
+	if (player1.planet->health <= 0 && player2.planet->health <= 0) {
+		rototext.ShowMessage("WTF?");
+	}
+	else if (player1.planet->health <= 0) {
+		rototext.ShowMessage("Player 2 wins!");
+	}
+	else if (player2.planet->health <= 0) {
+		rototext.ShowMessage("Player 1 wins!");
+	}
+
 
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
 		rototext.ShowMessage("P1 wins");
@@ -70,8 +88,15 @@ void SceneMain::Update(float dt)
 	ImGui::End();
 #endif
 
-	rototext.Update(dt);
-
+#ifdef _IMGUI
+	{
+		ImGui::Begin("scene");
+		ImGui::SliderFloat("P1 health", &(player1.planet->health), 0.f, 100.f);
+		ImGui::SliderFloat("P2 health", &(player2.planet->health), 0.f, 100.f);
+		ImGui::End();
+	}
+#endif
+	
 	Asteroid::DeleteNotAlive();
 }
 
@@ -106,18 +131,4 @@ void SceneMain::Draw()
 
 	rototext.Draw();
 
-/*
-#ifdef _IMGUI
-	{
-		ImGui::Begin("scene");
-		vec m = Mouse::GetPositionInWorld();
-		ImGui::Text("Mouse: %f,%f", m.x, m.y);
-		if (ImGui::SliderInt("level", &currentLevel, 1, 20)) {
-			Alien::DeleteAll();
-			SpawnAliens();
-		};
-		ImGui::End();
-	}
-#endif
-*/
 }

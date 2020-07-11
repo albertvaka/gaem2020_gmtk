@@ -6,17 +6,18 @@
 
 struct Planet : CircleEntity, SelfRegister<Planet>
 {
-	const float SCALE = 0.7;
+	const static inline float SCALE = 0.7f;
+
+	const static inline float INITIAL_HEALTH = 100.f;
 
 	float mass;
 	float orbit_radius;
 	float health;
 	float rps;
 	float curr_angle;
-
 	int planetTexture = 1;
 
-	Planet(float orbit_radius, float orbit_offset, float mass, float health, float rps);
+	Planet(float orbit_radius, float orbit_offset, float mass, float rps);
 
 	void Update(float dt);
 	void Draw() const;

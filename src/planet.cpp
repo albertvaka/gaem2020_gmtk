@@ -8,10 +8,10 @@
 
 const float size = 50.0;
 
-Planet::Planet(float orbit_radius, float orbit_offset, float mass, float health, float rps)
+Planet::Planet(float orbit_radius, float orbit_offset, float mass, float rps)
 	: orbit_radius(orbit_radius)
 	, mass(mass)
-	, health(health)
+	, health(INITIAL_HEALTH)
 	, CircleEntity(vec(), size)
 	, rps(rps)
 	, curr_angle(orbit_offset)
@@ -29,7 +29,7 @@ void Planet::Update(float dt)
 
 	for (auto asteroid : asteroids) {
 		if (Collide(this, asteroid)) {
-			health -= asteroid->mass;
+			health -= 10*asteroid->size;
 			asteroid->alive = false;
 		}
 	}
@@ -45,7 +45,7 @@ void Planet::Draw() const
 		.withScale(scale);
 
 	Text txt_health(Assets::font_30);
-	txt_health.setString(std::to_string(int(health)));
+	txt_health.setString(std::to_string(int(ceil(health))));
 	Window::Draw(txt_health, pos + vec(0, size / 2.0 + 10.0)) 
 		.withOrigin(txt_health.getSize().x, 0)
 		.withScale(0.5f);
