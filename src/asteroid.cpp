@@ -17,7 +17,8 @@
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
   : size(size), mass(2000*size), velocity(initial_vel),
-    acceleration(), CircleEntity(initial_pos, 20*size)
+    acceleration(), CircleEntity(initial_pos, 20*size),
+    anim(AnimLib::ASTERVOID)
 {}
 
 void Asteroid::Update(float dt) {
@@ -71,7 +72,8 @@ void Asteroid::Update(float dt) {
   velocity = vel_dir * vel_sca;
 
   pos += velocity * dt;
-
+  anim.Update(dt);
+ 
 #ifdef _IMGUI
   if (ImGui::CollapsingHeader("Asteroid", true)) {
     float posv[2] = {pos.x, pos.y};
@@ -87,11 +89,11 @@ void Asteroid::Update(float dt) {
 
 void Asteroid::Draw() const
 {
-  const GPU_Rect& rect = AnimLib::ASTEROID;
-  Window::Draw(Assets::invadersTexture, pos)
-    .withRect(rect)
-    .withScale(sqrt(size))
-    .withOrigin(vec(rect.w, rect.h)/2);
+  const GPU_Rect& animRect = anim.GetCurrentRect();
+  Window::Draw(Assets::asterVoidTexture, pos)
+    .withOrigin(vec(animRect.w, animRect.h) / 2)
+    .withRect(animRect)
+    .withScale(sqrt(size));
 
   Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
   Window::DrawPrimitive::Line(pos, pos + velocity, 3, 0, 255, 0);

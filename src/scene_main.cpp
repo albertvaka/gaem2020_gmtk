@@ -8,6 +8,7 @@
 #include "collide.h"
 #include "asteroid.h"
 #include "sol.h"
+#include "rand.h"
 #include "scene_manager.h"
 
 SceneMain::SceneMain()
@@ -19,8 +20,9 @@ SceneMain::SceneMain()
 
 void SceneMain::EnterScene()
 {
-	player1.planet = new Planet(300, 50, 5000, 8);
-	player2.planet = new Planet(370, 220, 5000, 8);
+	Camera::SetZoom(10);
+	player1.planet = new Planet(350, 0, 5000, 8);
+	player2.planet = new Planet(350, 180, 5000, 8);
 	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2), 30);
 }
 
@@ -33,6 +35,12 @@ void SceneMain::ExitScene()
 
 void SceneMain::Update(float dt)
 {
+	float zoom = Camera::GetZoom();
+	if (zoom > 1) {
+		Camera::SetZoom(Mates::MaxOf(1.f, zoom - 15 * dt));
+		return;
+	}
+
 #ifdef _DEBUG
 	const SDL_Scancode restart = SDL_SCANCODE_ESCAPE;
 	if (Keyboard::IsKeyJustPressed(restart)) {
@@ -42,6 +50,10 @@ void SceneMain::Update(float dt)
 
 	if (rototext.shown) {
 		rototext.Update(dt);
+		if (rototext.timer > 2.f && Input::IsPressedAnyPlayer(GameKeys::SHOOT)) {
+			SceneManager::SetScene(new SceneMain());
+			return;
+		}
 		return;
 	}
 
@@ -55,6 +67,11 @@ void SceneMain::Update(float dt)
 		rototext.ShowMessage("Player 1 wins!");
 	}
 
+#ifdef _DEBUG
+	if (Mouse::IsJustPressed()) {
+		new Asteroid(Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100,-100),vec(100,100)));
+	}
+#endif
 
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
 		rototext.ShowMessage("P1 wins");
@@ -66,7 +83,7 @@ void SceneMain::Update(float dt)
 	}
 
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F7)) {
-		currentLevel = (currentLevel + 1) % 3;
+		currentLevel = (currentLevel + 1) % std::size(Assets::backgroundTextures);
 	}
 
 	for (Planet* planet : Planet::GetAll()) {
@@ -103,11 +120,7 @@ void SceneMain::Update(float dt)
 void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
-	GPU_Image* bgAsset = currentLevel == 1
-		? Assets::normalBackground
-		: currentLevel == 2
-			? Assets::blueBackground
-			: Assets::redBackground;
+	GPU_Image* bgAsset = Assets::backgroundTextures[currentLevel];
 	Window::Draw(bgAsset, vec(0, 0))
 		.withScale(3)
 		.withRect(

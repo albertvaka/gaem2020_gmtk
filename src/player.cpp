@@ -8,7 +8,8 @@
 #include "window.h"
 #include "asteroid.h"
 
-const float distanceFromPlanet = 200.f * 0.4f;
+const float distanceFromPlanet = 70.f;
+const float shotSpawnDistance = 30.f;
 
 const float cannonMaxAngle = 75.f;
 
@@ -17,9 +18,9 @@ const float shotMinCharge = 0.1f;
 const float shotMaxCharge = 2.5f;
 
 const float cannonVel = 2.f;
-const float accel = 0.5f;
-const float maxVel = 1.f;
-const float friction = 0.7f;
+const float accel = 0.6f;
+const float maxVel = 2.f;
+const float friction = 0.75f;
 
 extern float mainClock;
 
@@ -27,7 +28,8 @@ Player::Player(int id, int owner_planet)
 	: id(id)
 	, owner_planet(owner_planet)
 	, angle(90.f)
-	, cannonAngle(0.f)
+	, cannonAngle(0.f),
+	asteroidAnim(AnimLib::ASTERVOID)
 {
 }
 
@@ -119,11 +121,11 @@ void Player::Update(float dt)
 	else if (cannonAngle > cannonMaxAngle) cannonAngle = cannonMaxAngle;
 
 	if (shotCharge >= 0.f) {
-
+		asteroidAnim.Update(dt);
 		shotCharge += shotChargeSpeed * dt;
 		if (shotCharge > shotMaxCharge) shotCharge = shotMaxCharge;
 		
-		shotPos = pos + vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * 50.f;
+		shotPos = pos + vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * shotSpawnDistance;
 
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
 			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle)) * 300);
@@ -154,10 +156,10 @@ void Player::Draw() const
 
 
 	if (shotCharge > 0.f) {
-		const GPU_Rect& asteroidRect = AnimLib::ASTEROID;
-		Window::Draw(Assets::invadersTexture, shotPos)
-			.withRect(asteroidRect)
+		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
+		Window::Draw(Assets::asterVoidTexture, pos)
+			.withRect(animRect)
 			.withScale(sqrt(shotCharge))
-			.withOrigin(vec(asteroidRect.w, asteroidRect.h) / 2);
+			.withOrigin(vec(animRect.w, animRect.h) / 2);
 	}
 }
