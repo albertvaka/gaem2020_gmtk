@@ -33,12 +33,6 @@ Player::Player(int id, int owner_planet)
 
 void Player::Update(float dt)
 {
-	for (auto planet : Planet::GetAll()) {
-		if (planet->id == owner_planet) {
-			planet_center = planet->pos;
-		}
-	}
-
 	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
 		invertControlsX = angle > 180;
 	}
@@ -85,7 +79,7 @@ void Player::Update(float dt)
 
 	angularVel *= friction;
 
-	pos = planet_center + vec::FromAngle(Mates::DegsToRads(angle)) * distanceFromPlanet;
+	pos = planet->pos + vec::FromAngle(Mates::DegsToRads(angle)) * distanceFromPlanet;
 
 	// Cannon
 	if (Input::IsPressed(id, GameKeys::CANNON_RIGHT)) {
