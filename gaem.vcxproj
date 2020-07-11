@@ -51,6 +51,7 @@
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\rototext.h" />
     <ClInclude Include="src\scene_main.h" />
+    <ClInclude Include="src\sol.h" />
     <ClInclude Include="vendor\glew\glew.h" />
     <ClInclude Include="vendor\glew\glxew.h" />
     <ClInclude Include="vendor\glew\wglew.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="src\planet.cpp" />
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\scene_main.cpp" />
+    <ClCompile Include="src\sol.cpp" />
     <ClCompile Include="vendor\glew\glew.c" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
