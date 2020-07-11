@@ -18,10 +18,10 @@ SceneMain::SceneMain()
 
 void SceneMain::EnterScene()
 {
-	planets.push_back(Planet(300, 50, 1000000, 500, 8));
-	planets.push_back(Planet(370, 220, 1000000, 500, 8));
-	planets.push_back(Planet(0, 0, 2000000, 500, 0));
-	planets.push_back(Planet(120, 0, 500000, 500, -6));
+	planets.push_back(Planet(0, 300, 50, 1000000, 500, 8));
+	planets.push_back(Planet(1, 370, 220, 1000000, 500, 8));
+	planets.push_back(Planet(2, 0, 0, 2000000, 500, 0));
+	planets.push_back(Planet(3, 120, 0, 500000, 500, -6));
 }
 
 void SceneMain::ExitScene()

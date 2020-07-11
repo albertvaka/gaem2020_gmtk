@@ -27,7 +27,11 @@ Player::Player(int id, int owner_planet)
 
 void Player::Update(float dt)
 {
-	planet_center = Planet::GetAll()[owner_planet]->pos;
+	for (auto planet : Planet::GetAll()) {
+		if (planet->id == owner_planet) {
+			planet_center = planet->pos;
+		}
+	}
 
 	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
 		invertControlsX = angle > 180;
