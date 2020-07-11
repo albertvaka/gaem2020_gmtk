@@ -136,10 +136,6 @@ void Player::Update(float dt)
 	else if (Input::IsJustPressed(id, GameKeys::SHOOT)) {
 		shotCharge = 0.f;
 	}
-
-
-	
-
 }
 
 void Player::Draw() const
