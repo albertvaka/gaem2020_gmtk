@@ -1,13 +1,12 @@
 
 #include "player.h"
-
 #include "planet.h"
 #include "input.h"
 #include "assets.h"
 #include "animation.h"
 #include "window.h"
 #include "asteroid.h"
-
+#include "text.h"
 const float distanceFromPlanet = 100.f;
 const float shotSpawnDistance = 30.f;
 
@@ -23,11 +22,16 @@ const float maxVel = 2000.f;
 const float friction = 0.9f;
 
 extern float mainClock;
-
+const int maxLoad = 4;
+const float loadTime = 3.f;
+const float shieldTime = 5.f;
+const float shieldInfluence = 200.f;
 Player::Player(int id)
 	: id(id)
 	, angle(90.f)
 	, cannonAngle(0.f),
+	currentLoad(maxLoad),
+	currentLoadTime(loadTime),
 	asteroidAnim(AnimLib::ASTERVOID)
 {
 }
@@ -97,7 +101,15 @@ void Player::Update(float dt)
 	pos.Debuggerino();
 
 	// SHOOT
-
+	if (currentLoad < maxLoad) {
+		if (currentLoadTime < 0.0) {
+			currentLoad += 1;
+			currentLoadTime = loadTime;
+		}
+		else {
+			currentLoadTime -= dt;
+		}
+	}
 	if (shotCharge >= 0.f) {
 		asteroidAnim.Update(dt);
 		shotCharge += shotChargeSpeed * dt;
@@ -109,11 +121,30 @@ void Player::Update(float dt)
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
 			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
 			shotCharge = -1.f;
+			currentLoad -= 1;
 		}
 
 	}
 	else if (Input::IsJustPressed(id, GameKeys::SHOOT)) {
-		shotCharge = 0.f;
+		if (currentLoad > 0) {
+			shotCharge = 0.f;
+		}
+	}
+	if (currentShieldTime > 0) {
+		currentShieldTime -= dt;
+	}
+	else if (Input::IsJustPressed(id, GameKeys::SHIELD)) {
+		currentShieldTime = shieldTime;
+		auto asteroids = Asteroid::GetAll();
+		for (auto asteroid : asteroids) {
+			float dist = (asteroid->pos - pos).Length();
+			if (dist < shieldInfluence) {
+				vec outwards_dir = (asteroid->pos - pos).Normalized();
+
+				asteroid->velocity += 1000.0f * outwards_dir;
+				asteroid->max_speed_mult = 2.5f;
+			}
+		}
 	}
 }
 
@@ -134,5 +165,21 @@ void Player::Draw() const
 			.withRect(animRect)
 			.withScale(20*sqrt(shotCharge) / (animRect.w / 4))
 			.withOrigin(vec(animRect.w, animRect.h) / 2);
+	}
+
+	Text txt_load(Assets::font_30);
+	txt_load.setString(std::to_string(currentLoad));
+	Window::Draw(txt_load, pos)
+		.withOrigin(txt_load.getSize().x, 0)
+		.withScale(0.5f);
+
+	Text txt_shield(Assets::font_30);
+	txt_shield.setString(currentShieldTime > 0 ? "Used" : "Active");
+	Window::Draw(txt_shield, pos)
+		.withOrigin(txt_shield.getSize().x*2, 0)
+		.withScale(0.5f);
+
+	if (Debug::Draw) {
+		Window::DrawPrimitive::Circle(pos, shieldInfluence, 3, 0, 255, 255);
 	}
 }

@@ -16,7 +16,7 @@
 #include <float.h>
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
-  : size(size), mass(10000*size), velocity(initial_vel),
+  : size(size), mass(size*size*1000), velocity(initial_vel),
     acceleration(), CircleEntity(initial_pos, 20*sqrt(size)),
     anim(AnimLib::ASTERVOID)
 {}
@@ -57,7 +57,7 @@ void Asteroid::Update(float dt) {
 
   velocity += acceleration * dt;
   vec vel_dir = velocity.Normalized();
-  float vel_sca = std::clamp(velocity.Length(), 0.0f, 200.0f * max_speed_mult);
+  float vel_sca = std::clamp(velocity.Length(), 0.0f, 250.0f * max_speed_mult);
   velocity = vel_dir * vel_sca;
 
   if (max_speed_mult > 1.0f) {

@@ -9,6 +9,7 @@ enum GameKeys
 	CANNON_RIGHT, CANNON_LEFT, CANNON_UP, CANNON_DOWN,
 	START,
 	SHOOT,
+	SHIELD
 };
 
 // Action-based input

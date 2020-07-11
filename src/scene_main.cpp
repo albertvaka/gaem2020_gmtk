@@ -63,10 +63,10 @@ void AsteroidCollision(Asteroid* a, Asteroid* b) {
 	* ((b->velocity - a->velocity).Dot(b->pos - a->pos) / (diff_pos * diff_pos))
 	* (b->pos - a->pos);
 
-	a->velocity = a_vel;
-	b->velocity = b_vel;
-	a->max_speed_mult = 2.f;
-	b->max_speed_mult = 2.f;
+	a->velocity = a_vel * 1.1;
+	b->velocity = b_vel * 1.1;
+	a->max_speed_mult = 20.f;
+	b->max_speed_mult = 20.f;
 
 	vec a_to_b = (b->pos - a->pos).Normalized();
 	vec b_to_a = (a->pos - b->pos).Normalized();
