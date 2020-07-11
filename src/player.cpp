@@ -1,6 +1,7 @@
 
 #include "player.h"
 
+#include "planet.h"
 #include "input.h"
 #include "assets.h"
 #include "animation.h"
@@ -16,9 +17,9 @@ const float accel = 0.5f;
 const float maxVel = 1.f;
 const float friction = 0.7f;
 
-Player::Player(int id, vec planet_center)
+Player::Player(int id, int owner_planet)
 	: id(id)
-	, planet_center(planet_center)
+	, owner_planet(owner_planet)
 	, angle(90.f)
 	, cannonAngle(0.f)
 {
@@ -26,6 +27,12 @@ Player::Player(int id, vec planet_center)
 
 void Player::Update(float dt)
 {
+	for (auto planet : Planet::GetAll()) {
+		if (planet->id == owner_planet) {
+			planet_center = planet->pos;
+		}
+	}
+
 	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
 		invertControlsX = angle > 180;
 	}

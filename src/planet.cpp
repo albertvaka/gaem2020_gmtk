@@ -8,13 +8,20 @@
 
 const float size = 50.0;
 
-Planet::Planet(vec pos, float health): 
-	health(health), CircleEntity(pos, size)
+Planet::Planet(int id, float orbit_radius, float orbit_offset, float mass, float health, float rps):
+	id(id), orbit_radius(orbit_radius), mass(mass),
+	health(health), CircleEntity(vec(), size),
+	rps(rps), curr_angle(orbit_offset)
 {
+	Debug::out << "Planet created";
 }
 
 void Planet::Update(float dt) 
 {
+	this->curr_angle += rps * dt;
+	pos = vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/2)
+		+ vec::FromAngle(Mates::DegsToRads(curr_angle), orbit_radius);
+
 	auto asteroids = Asteroid::GetAll();
 
 	for (auto asteroid : asteroids) {
@@ -42,5 +49,4 @@ void Planet::Draw() const
 	if (Debug::Draw) {
 		DrawBounds(100, 100, 255);
 	}
-
 }

@@ -12,8 +12,9 @@ struct Player : Entity
 	bool invertControlsX = false;
 	bool invertControlsY = false;
 
+	int owner_planet;
 
-	Player(int id, vec planet_center);
+	Player(int id, int owner_planet);
 
 	void Update(float dt);
 	void Draw() const;

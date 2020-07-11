@@ -9,33 +9,26 @@
 #include "asteroid.h"
 
 SceneMain::SceneMain()
-	: planets({Planet(vec(Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100),
-			   Planet(vec(3 * Window::GAME_WIDTH/4, Window::GAME_HEIGHT/2), 100)})
-	, player1(0, planets[0].pos)
-	, player2(1, planets[1].pos)
+	: player1(0, 0)
+	, player2(1, 1)
 	, alienPartSys(Assets::invadersTexture)
 {
 }
 
 void SceneMain::EnterScene()
 {
-	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/2), 100));
-//	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/3), 100));
-//	planets.push_back(Planet(vec(Window::GAME_WIDTH/2, 2 * Window::GAME_HEIGHT/3), 100));
+	new Planet(0, 300, 50, 5000, 500, 8);
+	new Planet(1, 370, 220, 5000, 500, 8);
+	new Planet(2, 0, 0, 5000, 500, 0);
 }
 
 void SceneMain::ExitScene()
-{}
+{
+	Planet::DeleteAll();
+}
 
 void SceneMain::Update(float dt)
 {
-	for (auto planet : planets) {
-		planet.Update(dt);
-	}
-
-	player1.Update(dt);
-	player2.Update(dt);
-
 #ifdef _DEBUG
 	const SDL_Scancode restart = SDL_SCANCODE_F5;
 	if (Keyboard::IsKeyJustPressed(restart)) {
@@ -44,6 +37,13 @@ void SceneMain::Update(float dt)
 		return;
 	}
 #endif
+
+	for (Planet* planet : Planet::GetAll()) {
+		planet->Update(dt);
+	}
+
+	player1.Update(dt);
+	player2.Update(dt);
 
 #ifdef _IMGUI
 	ImGui::Begin("Asteroids");
@@ -64,8 +64,8 @@ void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
 
-	for (auto planet : planets) {
-		planet.Draw();
+	for (const Planet* planet : Planet::GetAll()) {
+		planet->Draw();
 	}
 
 	player1.Draw();

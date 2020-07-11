@@ -12,9 +12,6 @@
 
 struct SceneMain : Scene {
 
-	std::vector<Planet> planets;
-	// Planet planet_one;
-	// Planet planet_two;
 	Player player1;
 	Player player2;
 
