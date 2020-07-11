@@ -22,7 +22,7 @@ void Sol::Update(float dt)
 void Sol::Draw() const
 {
 	float scale = 80 / 160.0f;
-	Window::Draw(Assets::backgroundTexture, pos)
-		.withOrigin(Assets::backgroundTexture->w / 2, Assets::backgroundTexture->h / 2)
+	Window::Draw(Assets::oldPlanetTexture, pos)
+		.withOrigin(Assets::oldPlanetTexture->w / 2, Assets::oldPlanetTexture->h / 2)
 		.withScale(scale);
 }

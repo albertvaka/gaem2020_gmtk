@@ -43,13 +43,12 @@ void SceneMain::Update(float dt)
 	}
 #endif
 
-<<<<<<< HEAD
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Update(dt);
-=======
+	}
+
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F7)) {
 		currentLevel = (currentLevel + 1) % 3;
->>>>>>> ae66c33e6faeca9be89e1e9f0bb5226371b1d558
 	}
 
 	for (Planet* planet : Planet::GetAll()) {
