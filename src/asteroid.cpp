@@ -50,8 +50,16 @@ void Asteroid::Update(float dt) {
 
   velocity += acceleration * dt;
   vec vel_dir = velocity.Normalized();
-  float vel_sca = std::clamp(velocity.Length(), 0.0f, 120.0f);
+  float vel_sca = std::clamp(velocity.Length(), 0.0f, 120.0f * max_speed_mult);
   velocity = vel_dir * vel_sca;
+
+  if (max_speed_mult > 1.0f) {
+    max_speed_mult *= 0.999f;
+    Debug::out << max_speed_mult;
+  }
+  if (max_speed_mult < 1.0f) {
+    max_speed_mult = 1.0f;
+  }
 
   pos += velocity * dt;
   anim.Update(dt);

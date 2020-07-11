@@ -8,7 +8,7 @@
 
 struct Sol : CircleEntity, SelfRegister<Sol>
 {
-  float mass = 3000;
+  float mass = 7000;
   Animation solAnim;
   Sol(vec pos, float radius);
 

@@ -55,15 +55,17 @@ void AsteroidCollision(Asteroid* a, Asteroid* b) {
 	vec a_vel = a->velocity
 	- (2 * b->mass)/(b->mass + a->mass)
 	* ((a->velocity - b->velocity).Dot(a->pos - b->pos) / (diff_pos * diff_pos))
-	* (a->pos - b->pos) * 0.2;
+	* (a->pos - b->pos);
 
 	vec b_vel = b->velocity
 	- (2 * a->mass)/(b->mass + a->mass)
 	* ((b->velocity - a->velocity).Dot(b->pos - a->pos) / (diff_pos * diff_pos))
-	* (b->pos - a->pos) * 0.2;
+	* (b->pos - a->pos);
 
 	a->velocity = a_vel;
 	b->velocity = b_vel;
+	a->max_speed_mult = 1.2f;
+	b->max_speed_mult = 1.2f;
 
 	Debug::out << a->velocity << " " << b->velocity;
 }
