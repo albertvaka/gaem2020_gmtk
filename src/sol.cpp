@@ -5,12 +5,13 @@
 #include "window.h"
 
 Sol::Sol(vec pos, float radius)
-  : CircleEntity(pos, radius)
+  : CircleEntity(pos, radius), solAnim(AnimLib::BLACKHOLE)
 {
 }
 
 void Sol::Update(float dt)
 {
+  solAnim.Update(dt);
   for (auto asteroid : Asteroid::GetAll()) {
     if (asteroid->bounds().Distance(bounds()) < 0) {
       vec ast_dir = asteroid->velocity.Normalized();
@@ -22,8 +23,10 @@ void Sol::Update(float dt)
 
 void Sol::Draw() const
 {
-	float scale = 80 / 160.0f;
-	Window::Draw(Assets::oldPlanetTexture, pos)
-		.withOrigin(Assets::oldPlanetTexture->w / 2, Assets::oldPlanetTexture->h / 2)
-		.withScale(scale);
+	float scale = 200 / 300.0f;
+	const GPU_Rect& animRect = solAnim.GetCurrentRect();
+	Window::Draw(Assets::solTexture, pos)
+		.withRect(animRect)
+		.withScale(scale)
+		.withOrigin(vec(animRect.w, animRect.h) / 2);
 }
