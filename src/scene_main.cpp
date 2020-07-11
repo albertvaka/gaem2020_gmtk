@@ -8,6 +8,7 @@
 #include "collide.h"
 #include "asteroid.h"
 #include "sol.h"
+#include "rand.h"
 #include "scene_manager.h"
 
 SceneMain::SceneMain()
@@ -66,6 +67,11 @@ void SceneMain::Update(float dt)
 		rototext.ShowMessage("Player 1 wins!");
 	}
 
+#ifdef _DEBUG
+	if (Mouse::IsJustPressed()) {
+		new Asteroid(Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100,-100),vec(100,100)));
+	}
+#endif
 
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
 		rototext.ShowMessage("P1 wins");
