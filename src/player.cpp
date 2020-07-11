@@ -81,9 +81,7 @@ void Player::Update(float dt)
 
 	pos = planet_center + vec::FromAngle(Mates::DegsToRads(angle)) * distanceFromPlanet;
 
-
 	// Cannon
-
 	if (Input::IsPressed(id, GameKeys::CANNON_RIGHT)) {
 		if (invertControlsX) {
 			cannonAngle += cannonVel;

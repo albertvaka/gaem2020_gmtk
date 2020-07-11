@@ -69,7 +69,6 @@ void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
 
-
 	for (const Planet* planet : Planet::GetAll()) {
 		planet->Draw();
 	}
