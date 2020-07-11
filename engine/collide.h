@@ -60,3 +60,21 @@ void CollideAll(const std::vector<S*>& setA, const std::vector<E*>& setB, void (
         }
     }
 }
+
+template <typename S, typename X, typename Y>
+void CollideSelf(const std::vector<S*>& setA, void (*callback)(X*, Y*))
+{
+    size_t sa = setA.size();
+    for (size_t i = 0; i < sa; ++i)
+    {
+        S* a = setA[i];
+        for (size_t j = i+1; j < sa; ++j)
+        {
+            S* b = setA[j];
+            if (Collide(a, b))
+            {
+                callback(a, b);
+            }
+        }
+    }
+}

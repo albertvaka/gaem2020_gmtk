@@ -148,7 +148,7 @@ struct CircleBounds
         return a.pos.DistanceSq(this->pos) - (a.radius + this->radius) * (a.radius + this->radius);
     }
     float Distance(const CircleBounds& a) const { 
-        return a.pos.Distance(this->pos) - (a.radius+ this->radius);
+        return a.pos.Distance(this->pos) - (a.radius + this->radius);
     }
 };
 
