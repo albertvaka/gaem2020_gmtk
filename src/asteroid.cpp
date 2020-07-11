@@ -34,7 +34,6 @@ void Asteroid::Update(float dt) {
 
       if (bounds().Distance(sol->bounds()) <= 0) {
         time_in_sol += dt;
-        Debug::out << time_in_sol;
       }
       else {
         time_in_sol = 0.0f;
@@ -68,7 +67,7 @@ void Asteroid::Update(float dt) {
     max_speed_mult = 1.0f;
   }
 
-  if (time_in_sol > 0.65f) {
+  if (time_in_sol > 1.5f) {
     alive = false;
 
     for (auto other : asteroids) {
