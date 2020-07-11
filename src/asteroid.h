@@ -18,6 +18,7 @@ struct Asteroid : CircleEntity, SelfRegister<Asteroid>
   static inline const float SizeToScaleMultiplier = 0.5f;
 
   float max_speed_mult = 1.0f;
+  float time_in_sol = 0;
 
   Asteroid(float size, vec initial_pos, vec initial_vel);
 

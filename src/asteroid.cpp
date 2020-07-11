@@ -31,6 +31,14 @@ void Asteroid::Update(float dt) {
       float acceleration_scalar = sol->mass / (dist);
       vec acc_add = (sol->pos - pos).Normalized() * acceleration_scalar;
       acceleration += acc_add;
+
+      if (bounds().Distance(sol->bounds()) <= 0) {
+        time_in_sol += dt;
+        Debug::out << time_in_sol;
+      }
+      else {
+        time_in_sol = 0.0f;
+      }
   }
 
   for (auto planet : Planet::GetAll()) {
@@ -55,10 +63,23 @@ void Asteroid::Update(float dt) {
 
   if (max_speed_mult > 1.0f) {
     max_speed_mult *= 0.999f;
-    Debug::out << max_speed_mult;
   }
   if (max_speed_mult < 1.0f) {
     max_speed_mult = 1.0f;
+  }
+
+  if (time_in_sol > 0.65f) {
+    alive = false;
+
+    for (auto other : asteroids) {
+      if (other != this) {
+        float dist = (other->pos - pos).Length();
+        vec outwards_dir = (other->pos - pos).Normalized();
+
+        other->velocity += 1000.0f * outwards_dir;
+        other->max_speed_mult = 3.5f;
+      }
+    }
   }
 
   pos += velocity * dt;
