@@ -49,19 +49,23 @@ void SceneMain::ExitScene()
 	Sol::DeleteAll();
 }
 
-void AsteroidsCollision()
-{
-	vec own_vel = velocity
-		- (2 * other->mass)/(other->mass + mass)
-		* ((velocity - other->velocity).Dot(pos - other->pos) / (pos - other->pos).Length())
-		* (pos - other->pos) * 0.2;
-	vec their_vel = other->velocity
-		- (2 * mass)/(other->mass + mass)
-		* ((other->velocity - velocity).Dot(other->pos - pos) / (other->pos - pos).Length())
-		* (other->pos - pos) * 0.2;
+void AsteroidCollision(Asteroid* a, Asteroid* b) {
+	float diff_pos = (b->pos - a->pos).Length();
 
-	velocity = own_vel;
-	other->velocity = their_vel;
+	vec a_vel = a->velocity
+	- (2 * b->mass)/(b->mass + a->mass)
+	* ((a->velocity - b->velocity).Dot(a->pos - b->pos) / (diff_pos * diff_pos))
+	* (a->pos - b->pos) * 0.2;
+
+	vec b_vel = b->velocity
+	- (2 * a->mass)/(b->mass + a->mass)
+	* ((b->velocity - a->velocity).Dot(b->pos - a->pos) / (diff_pos * diff_pos))
+	* (b->pos - a->pos) * 0.2;
+
+	a->velocity = a_vel;
+	b->velocity = b_vel;
+
+	Debug::out << a->velocity << " " << b->velocity;
 }
 
 void SceneMain::Update(float dt)
@@ -108,6 +112,8 @@ void SceneMain::Update(float dt)
 		rototext.ShowMessage("P1 wins");
 	}
 #endif
+
+	CollideSelf(Asteroid::GetAll(), &AsteroidCollision);
 
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Update(dt);
