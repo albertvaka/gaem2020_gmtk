@@ -8,20 +8,29 @@
 #include "assets.h"
 #include "debug.h"
 #include "planet.h"
+#include "sol.h"
 #include "window.h"
 #include "mates.h"
+#include "rand.h"
 
 #include <float.h>
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
   : size(size), mass(1000*size), velocity(initial_vel),
-    acceleration(), CircleEntity(initial_pos, 10)
+    acceleration(), CircleEntity(initial_pos, 20*size)
 {}
 
 void Asteroid::Update(float dt) {
   auto asteroids = Asteroid::GetAll();
 
   acceleration = vec();
+
+  for (auto sol : Sol::GetAll()) {
+      float dist = pos.Distance(sol->pos);
+      float acceleration_scalar = sol->mass / (dist);
+      vec acc_add = (sol->pos - pos).Normalized() * acceleration_scalar;
+      acceleration += acc_add;
+  }
 
   for (auto planet : Planet::GetAll()) {
       float dist = pos.Distance(planet->pos);
@@ -33,14 +42,24 @@ void Asteroid::Update(float dt) {
   for (auto other : asteroids) {
     if (other != this) {
       float dist = pos.Distance(other->pos);
+      float dist_bounds = bounds().Distance(other->bounds());
+
       float acceleration_scalar =  other->mass / (dist);
       acceleration += (other->pos - pos).Normalized() * acceleration_scalar;
+
+      if (dist_bounds < 0) {
+        vec direction = (pos - other->pos).Normalized();
+        vec direction_other = (other->pos - pos).Normalized();
+        float total_vel = other->velocity.Length() + velocity.Length();
+        velocity += direction * total_vel * other->mass / mass;
+        other->velocity = direction_other * total_vel * mass / other->mass;
+      }
     }
   }
 
   velocity += acceleration * dt;
   vec vel_dir = velocity.Normalized();
-  float vel_sca = std::clamp(velocity.Length(), 0.0f, 120.0f);
+  float vel_sca = std::clamp(velocity.Length(), 0.0f, 160.0f);
   velocity = vel_dir * vel_sca;
 
   pos += velocity * dt;

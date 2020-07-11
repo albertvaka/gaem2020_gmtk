@@ -7,7 +7,7 @@
 
 struct Sol : CircleEntity, SelfRegister<Sol>
 {
-  float mass = 1000000;
+  float mass = 3000;
 
   Sol(vec pos, float radius);
 
