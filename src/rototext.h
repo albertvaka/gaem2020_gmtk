@@ -8,7 +8,7 @@
 
 struct RotoText : Text
 {
-	bool alive = true;
+	bool shown = false;
 	float timer = -1;
 
 	const float DURATION = 2.2f;
@@ -24,6 +24,7 @@ struct RotoText : Text
 	{
 		setString(msg);
 		timer = 0.01f;
+		shown = true;
 	}
 
 	void Update(float dt) {
@@ -38,13 +39,13 @@ struct RotoText : Text
 		}
 
 		float messageTime = timer;
-		if (messageTime > DURATION) {
+		/*if (messageTime > DURATION) {
 			messageTime = (DURATION + INTRO_DURATION) - messageTime;
 			if (messageTime < 0) {
 				timer = -1.f;
 				return;
 			}
-		}
+		}*/
 
 		float ang = sin(messageTime * 2) * 10;
 		float sc = 1;

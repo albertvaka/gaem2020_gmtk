@@ -34,10 +34,10 @@ Player::Player(int id, int owner_planet)
 void Player::Update(float dt)
 {
 	if (Input::IsReleased(id, GameKeys::LEFT) && Input::IsReleased(id, GameKeys::RIGHT)) {
-		invertControlsX = angle > 180;
+		//invertControlsX = angle > 180;
 	}
 	if (Input::IsReleased(id, GameKeys::UP) && Input::IsReleased(id, GameKeys::DOWN)) {
-		invertControlsY = angle > 90 && angle < 270;
+		//invertControlsY = angle > 90 && angle < 270;
 	}
 	
 	if (Input::IsPressed(id, GameKeys::RIGHT)) {
