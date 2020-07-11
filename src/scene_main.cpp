@@ -67,7 +67,12 @@ void AsteroidCollision(Asteroid* a, Asteroid* b) {
 	a->max_speed_mult = 1.2f;
 	b->max_speed_mult = 1.2f;
 
-	Debug::out << a->velocity << " " << b->velocity;
+	vec a_to_b = (b->pos - a->pos).Normalized();
+	vec b_to_a = (a->pos - b->pos).Normalized();
+	float bounds_diff = b->bounds().Distance(a->bounds());
+
+	a->pos += a_to_b * bounds_diff / 2.0f;
+	b->pos += b_to_a * bounds_diff / 2.0f;
 }
 
 void SceneMain::Update(float dt)
@@ -192,7 +197,5 @@ void SceneMain::Draw()
 		sol->Draw();
 	}
 
-
 	rototext.Draw();
-
 }
