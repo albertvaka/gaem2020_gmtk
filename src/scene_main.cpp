@@ -48,7 +48,7 @@ void SceneMain::Update(float dt)
 	}
 
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F7)) {
-		currentLevel = (currentLevel + 1) % 3;
+		currentLevel = (currentLevel + 1) % std::size(Assets::backgroundTextures);
 	}
 
 	for (Planet* planet : Planet::GetAll()) {
@@ -78,11 +78,7 @@ void SceneMain::Update(float dt)
 void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
-	GPU_Image* bgAsset = currentLevel == 1
-		? Assets::normalBackground
-		: currentLevel == 2
-			? Assets::blueBackground
-			: Assets::redBackground;
+	GPU_Image* bgAsset = Assets::backgroundTextures[currentLevel];
 	Window::Draw(bgAsset, vec(0, 0))
 		.withScale(3)
 		.withRect(

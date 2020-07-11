@@ -17,9 +17,8 @@ struct Assets
 	
 	static GPU_Image* oldPlanetTexture;
 
-	static GPU_Image* normalBackground;
-	static GPU_Image* redBackground;
-	static GPU_Image* blueBackground;
+	static GPU_Image* planetTextures[7];
+	static GPU_Image* backgroundTextures[7];
 
 	static TTF_Font* font_30;
 	static TTF_Font* font_30_outline;
