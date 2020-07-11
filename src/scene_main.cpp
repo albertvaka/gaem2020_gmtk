@@ -38,6 +38,10 @@ void SceneMain::Update(float dt)
 	}
 #endif
 
+	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F7)) {
+		currentLevel = (currentLevel + 1) % 3;
+	}
+
 	for (Planet* planet : Planet::GetAll()) {
 		planet->Update(dt);
 	}
@@ -63,6 +67,17 @@ void SceneMain::Update(float dt)
 void SceneMain::Draw()
 {
 	Window::Clear(0, 0, 0);
+	GPU_Image* bgAsset = currentLevel == 1
+		? Assets::normalBackground
+		: currentLevel == 2
+			? Assets::blueBackground
+			: Assets::redBackground;
+	Window::Draw(bgAsset, vec(0, 0))
+		.withScale(3)
+		.withRect(
+			0, 0,
+			Window::GAME_WIDTH, Window::GAME_HEIGHT
+		);
 
 	for (const Planet* planet : Planet::GetAll()) {
 		planet->Draw();
