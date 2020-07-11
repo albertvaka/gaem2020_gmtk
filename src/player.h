@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entity.h"
+#include "animation.h"
 
 struct Planet;
 
@@ -16,7 +17,7 @@ struct Player : Entity
 	bool invertControlsX = false;
 	bool invertControlsY = false;
 	Planet* planet;
-
+	Animation asteroidAnim;
 	int owner_planet;
 
 	Player(int id, int owner_planet);

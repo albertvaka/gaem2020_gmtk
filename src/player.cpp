@@ -28,7 +28,8 @@ Player::Player(int id, int owner_planet)
 	: id(id)
 	, owner_planet(owner_planet)
 	, angle(90.f)
-	, cannonAngle(0.f)
+	, cannonAngle(0.f),
+	asteroidAnim(AnimLib::ASTERVOID)
 {
 }
 
@@ -120,7 +121,7 @@ void Player::Update(float dt)
 	else if (cannonAngle > cannonMaxAngle) cannonAngle = cannonMaxAngle;
 
 	if (shotCharge >= 0.f) {
-
+		asteroidAnim.Update(dt);
 		shotCharge += shotChargeSpeed * dt;
 		if (shotCharge > shotMaxCharge) shotCharge = shotMaxCharge;
 		
@@ -159,10 +160,10 @@ void Player::Draw() const
 
 
 	if (shotCharge > 0.f) {
-		const GPU_Rect& asteroidRect = AnimLib::ASTEROID;
-		Window::Draw(Assets::invadersTexture, shotPos)
-			.withRect(asteroidRect)
+		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
+		Window::Draw(Assets::asterVoidTexture, pos)
+			.withRect(animRect)
 			.withScale(sqrt(shotCharge))
-			.withOrigin(vec(asteroidRect.w, asteroidRect.h) / 2);
+			.withOrigin(vec(animRect.w, animRect.h) / 2);
 	}
 }
