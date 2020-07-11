@@ -14,23 +14,23 @@ TTF_Font* Assets::font_30_outline;
 Shader Assets::tintShader;
 
 const std::string planets[7] = { 
-    "planets/planet1.png", 
-    "planets/planet2.png",
-    "planets/planet3.png",
-    "planets/planet4.png",
-    "planets/planet5.png",
-    "planets/planet6.png",
-    "planets/planet7.png",
+    "data/planets/planet1.png", 
+    "data/planets/planet2.png",
+    "data/planets/planet3.png",
+    "data/planets/planet4.png",
+    "data/planets/planet5.png",
+    "data/planets/planet6.png",
+    "data/planets/planet7.png",
 };
 
 const std::string backgrounds[7] = {
-    "bg/stars1.png",
-    "bg/stars2.png",
-    "bg/stars3.png",
-    "bg/stars4.png",
-    "bg/stars5.png",
-    "bg/stars6.png",
-    "bg/stars7.png",
+    "data/bg/stars1.png",
+    "data/bg/stars2.png",
+    "data/bg/stars3.png",
+    "data/bg/stars4.png",
+    "data/bg/stars5.png",
+    "data/bg/stars6.png",
+    "data/bg/stars7.png",
 };
 
 void Assets::LoadAll() {
@@ -39,11 +39,10 @@ void Assets::LoadAll() {
 
     for (int i = 0; i < size(planets); i++) {
         planetTextures[i] = loadImage(planets[i]);
-        GPU_SetWrapMode(planetTextures[i], GPU_WRAP_REPEAT, GPU_WRAP_REPEAT);
     }
 
     for (int i = 0; i < size(backgrounds); i++) {
-        backgroundTextures[i] = loadImage(planets[i]);
+        backgroundTextures[i] = loadImage(backgrounds[i]);
         GPU_SetWrapMode(backgroundTextures[i], GPU_WRAP_REPEAT, GPU_WRAP_REPEAT);
     }
 

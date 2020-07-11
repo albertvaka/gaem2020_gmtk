@@ -14,6 +14,8 @@ struct Planet : CircleEntity, SelfRegister<Planet>
 	float rps;
 	float curr_angle;
 
+	int planetTexture = 1;
+
 	Planet(float orbit_radius, float orbit_offset, float mass, float health, float rps);
 
 	void Update(float dt);
