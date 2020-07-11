@@ -17,7 +17,7 @@
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
   : size(size), mass(2000*size), velocity(initial_vel),
-    acceleration(), CircleEntity(initial_pos, 10)
+    acceleration(), CircleEntity(initial_pos, 20*size)
 {}
 
 void Asteroid::Update(float dt) {
