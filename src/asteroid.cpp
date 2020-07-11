@@ -55,8 +55,12 @@ void Asteroid::Update(float dt) {
         Debug::out << "dir_ot: " << direction_other;
 
         float own_vel = (mass - other->mass) * velocity.Length()
+          / (mass + other->mass)
+          + (2 * other->mass) * other->velocity.Length()
           / (mass + other->mass);
         float their_vel = (other->mass - mass) * other->velocity.Length()
+          / (mass + other->mass)
+          + (2 * mass) * velocity.Length()
           / (mass + other->mass);
         Debug::out << "vel " << own_vel << " tvel " << their_vel;
         velocity += direction * own_vel;
