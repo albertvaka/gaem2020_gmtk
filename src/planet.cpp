@@ -8,10 +8,13 @@
 
 const float size = 50.0;
 
-Planet::Planet(int id, float orbit_radius, float orbit_offset, float mass, float health, float rps):
-	id(id), orbit_radius(orbit_radius), mass(mass),
-	health(health), CircleEntity(vec(), size),
-	rps(rps), curr_angle(orbit_offset)
+Planet::Planet(float orbit_radius, float orbit_offset, float mass, float health, float rps)
+	: orbit_radius(orbit_radius)
+	, mass(mass)
+	, health(health)
+	, CircleEntity(vec(), size)
+	, rps(rps)
+	, curr_angle(orbit_offset)
 {
 	Debug::out << "Planet created";
 }

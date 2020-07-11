@@ -199,6 +199,9 @@
     <ClInclude Include="src\rototext.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\sol.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vendor\glew\glew.c">
@@ -316,6 +319,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\asteroid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sol.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
