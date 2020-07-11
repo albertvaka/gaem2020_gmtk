@@ -114,7 +114,7 @@ void Player::Update(float dt)
 	else if (cannonAngle > cannonMaxAngle) cannonAngle = cannonMaxAngle;
 
 	if (Input::IsJustPressed(id, GameKeys::SHOOT)) {
-		new Asteroid(100, pos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle))*100);
+		new Asteroid(1000, pos, vec::FromAngle(Mates::DegsToRads(angle + cannonAngle))*300);
 	}
 
 }

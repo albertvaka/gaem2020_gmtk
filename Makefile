@@ -87,5 +87,5 @@ clean:
 www:
 	emmake $(MAKE)
 
-run:
+run: $(EXEC)
 	cd ./bin/ && ./gaem2020

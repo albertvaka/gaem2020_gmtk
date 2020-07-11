@@ -9,6 +9,9 @@
 #include "debug.h"
 #include "planet.h"
 #include "window.h"
+#include "mates.h"
+
+#include <float.h>
 
 Asteroid::Asteroid(float mass, vec initial_pos, vec initial_vel)
   : mass(mass), velocity(initial_vel),
@@ -18,25 +21,29 @@ Asteroid::Asteroid(float mass, vec initial_pos, vec initial_vel)
 void Asteroid::Update(float dt) {
   auto asteroids = Asteroid::GetAll();
 
+  acceleration = vec();
+
   for (auto planet : Planet::GetAll()) {
       float dist = pos.Distance(planet->pos);
-      float acceleration_scalar = 0.1 * planet->MASS / (dist * dist);
-      acceleration += (planet->pos - pos).Normalized() * acceleration_scalar;
+      float acceleration_scalar = planet->MASS / ((dist * dist));
+      vec acc_add = (planet->pos - pos).Normalized() * acceleration_scalar;
+      acceleration += acc_add;
   }
 
   for (auto other : asteroids) {
     if (other != this) {
       float dist = pos.Distance(other->pos);
-      float acceleration_scalar =  0.1 * other->mass / (dist * dist);
+      float acceleration_scalar =  other->mass / (dist * dist);
       acceleration += (other->pos - pos).Normalized() * acceleration_scalar;
     }
   }
 
-  // Accelerate towards the center of the map so asteroids don't leave mamma
-  vec screen_half = vec(Window::GAME_WIDTH/2, Window::GAME_HEIGHT/2);
+  velocity += 0.5 * acceleration * dt;
+  vec vel_dir = velocity.Normalized();
+  float vel_sca = std::clamp(velocity.Length(), 0.0f, 100.0f);
+  velocity = vel_dir * vel_sca;
 
-  velocity += 0.5 * acceleration * dt * dt;
-  pos += velocity* dt;
+  pos += velocity * dt;
 
 #ifdef _IMGUI
   if (ImGui::CollapsingHeader("Asteroid", true)) {
@@ -45,9 +52,10 @@ void Asteroid::Update(float dt) {
     float velv[2] = {velocity.x, velocity.y};
     ImGui::InputFloat2("Vel", velv);
     float accv[2] = {acceleration.x, acceleration.y};
-    ImGui::InputFloat2("Vel", accv);
+    ImGui::InputFloat2("Acc", accv);
   }
 #endif
+
 }
 
 void Asteroid::Draw() const
