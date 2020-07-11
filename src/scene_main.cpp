@@ -36,6 +36,10 @@ void SceneMain::Update(float dt)
 		EnterScene();
 		return;
 	}
+
+	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
+		rototext.ShowMessage("P1 wins");
+	}
 #endif
 
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F7)) {
@@ -61,6 +65,8 @@ void SceneMain::Update(float dt)
 	ImGui::End();
 #endif
 
+	rototext.Update(dt);
+
 	Asteroid::DeleteNotAlive();
 }
 
@@ -83,15 +89,17 @@ void SceneMain::Draw()
 		planet->Draw();
 	}
 
-	player1.Draw();
-	player2.Draw();
-
 	for (const Asteroid* a : Asteroid::GetAll()) {
 		a->Draw();
 		if (Debug::Draw) {
 			a->DrawBounds(255,0,0);
 		}
 	}
+
+	player1.Draw();
+	player2.Draw();
+
+	rototext.Draw();
 
 /*
 #ifdef _IMGUI
