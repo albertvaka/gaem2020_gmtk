@@ -157,7 +157,7 @@ void Player::Draw() const
 
 	if (shotCharge > 0.f) {
 		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
-		Window::Draw(Assets::asterVoidTexture, pos)
+		Window::Draw(Assets::asterVoidTexture, shotPos)
 			.withRect(animRect)
 			.withScale(20*sqrt(shotCharge) / (animRect.w / 4))
 			.withOrigin(vec(animRect.w, animRect.h) / 2);
