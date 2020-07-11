@@ -85,6 +85,8 @@ void Asteroid::Draw() const
     .withRect(animRect)
     .withScale((20*sqrt(size))/(animRect.w/4));
 
-  Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
-  Window::DrawPrimitive::Line(pos, pos + velocity, 3, 0, 255, 0);
+  if (Debug::Draw) {
+      Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);
+      Window::DrawPrimitive::Line(pos, pos + velocity, 3, 0, 255, 0);
+  }
 }

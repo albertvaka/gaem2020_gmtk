@@ -14,13 +14,10 @@ struct Player : Entity
 	float angularVel = 0.f;
 	float shotCharge = -1.f;
 	vec shotPos;
-	bool invertControlsX = false;
-	bool invertControlsY = false;
 	Planet* planet;
 	Animation asteroidAnim;
-	int owner_planet;
 
-	Player(int id, int owner_planet);
+	Player(int id);
 
 	void Update(float dt);
 	void Draw() const;

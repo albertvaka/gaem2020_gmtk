@@ -10,7 +10,7 @@ struct Sol : CircleEntity, SelfRegister<Sol>
 {
   float mass = 7000;
   Animation solAnim;
-  Sol(vec pos, float radius);
+  Sol(vec pos);
 
   void Update(float dt);
   void Draw() const;
