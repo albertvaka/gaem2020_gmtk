@@ -23,7 +23,7 @@ void Sol::Update(float dt)
 
 void Sol::Draw() const
 {
-	float scale = 200 / 300.0f;
+	float scale = 1.0f;
 	const GPU_Rect& animRect = solAnim.GetCurrentRect();
 	Window::Draw(Assets::solTexture, pos)
 		.withRect(animRect)

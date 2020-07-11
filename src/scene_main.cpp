@@ -31,6 +31,7 @@ SceneMain::SceneMain()
 	alienPartSys.max_rotation = 360.f;
 	alienPartSys.rotation_vel = 180.f;
 	alienPartSys.alpha = 0.75f;
+	currentLevel = Random::roll(std::size(Assets::backgroundTextures));
 }
 
 void SceneMain::EnterScene()
@@ -171,7 +172,7 @@ void SceneMain::Draw()
 	Window::Clear(0, 0, 0);
 	GPU_Image* bgAsset = Assets::backgroundTextures[currentLevel];
 	Window::Draw(bgAsset, vec(0, 0))
-		.withScale(3)
+		.withScale(4)
 		.withRect(
 			0, 0,
 			Window::GAME_WIDTH, Window::GAME_HEIGHT

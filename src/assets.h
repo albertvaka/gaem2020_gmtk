@@ -18,7 +18,7 @@ struct Assets
 	static GPU_Image* oldPlanetTexture;
 
 	static GPU_Image* planetTextures[7];
-	static GPU_Image* backgroundTextures[7];
+	static GPU_Image* backgroundTextures[3];
 	static GPU_Image* solTexture;
 
 	static GPU_Image* asterVoidTexture;

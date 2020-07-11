@@ -5,7 +5,7 @@
 GPU_Image* Assets::invadersTexture;
 GPU_Image* Assets::oldPlanetTexture;
 
-GPU_Image* Assets::backgroundTextures[7];
+GPU_Image* Assets::backgroundTextures[3];
 GPU_Image* Assets::planetTextures[7];
 
 GPU_Image* Assets::asterVoidTexture;
@@ -26,14 +26,14 @@ const std::string planets[7] = {
     "data/planets/planet7.png",
 };
 
-const std::string backgrounds[7] = {
-    "data/bg/stars1.png",
+const std::string backgrounds[3] = {
+    //"data/bg/stars1.png",
     "data/bg/stars2.png",
-    "data/bg/stars3.png",
+    //"data/bg/stars3.png",
     "data/bg/stars4.png",
-    "data/bg/stars5.png",
+    //"data/bg/stars5.png",
     "data/bg/stars6.png",
-    "data/bg/stars7.png",
+    //"data/bg/stars7.png",
 };
 
 void Assets::LoadAll() {
