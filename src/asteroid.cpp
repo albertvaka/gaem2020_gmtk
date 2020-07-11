@@ -47,12 +47,20 @@ void Asteroid::Update(float dt) {
       float acceleration_scalar =  other->mass / (dist);
       acceleration += (other->pos - pos).Normalized() * acceleration_scalar;
 
-      if (dist_bounds < 0) {
-        vec direction = (pos - other->pos).Normalized();
-        vec direction_other = (other->pos - pos).Normalized();
-        float total_vel = other->velocity.Length() + velocity.Length();
-        velocity += direction * total_vel * other->mass / mass;
-        other->velocity = direction_other * total_vel * mass / other->mass;
+      if (dist_bounds <= 0) {
+        vec direction = (other->pos - pos).Normalized();
+        Debug::out << "dir: " << direction;
+        vec direction_other = (pos - other->pos).Normalized();
+        Debug::out << "dir_ot: " << direction_other;
+
+        float own_vel = (mass - other->mass) * velocity.Length()
+          / (mass + other->mass);
+        float their_vel = (other->mass - mass) * other->velocity.Length()
+          / (mass + other->mass);
+        Debug::out << "vel " << own_vel << " tvel " << their_vel;
+        velocity += direction * own_vel;
+        Debug::out << velocity;
+        other->velocity += direction_other * their_vel;
       }
     }
   }
