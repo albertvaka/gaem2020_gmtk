@@ -49,6 +49,11 @@ void SceneMain::ExitScene()
 	Sol::DeleteAll();
 }
 
+
+void AsteroidCollision(Asteroid* a, Asteroid* b) {
+	Debug::out << a << " " << b;
+}
+
 void SceneMain::Update(float dt)
 {
 	float zoom = Camera::GetZoom();
@@ -93,6 +98,8 @@ void SceneMain::Update(float dt)
 		rototext.ShowMessage("P1 wins");
 	}
 #endif
+
+	CollideSelf(Asteroid::GetAll(), &AsteroidCollision);
 
 	for (Sol* sol : Sol::GetAll()) {
 		sol->Update(dt);
