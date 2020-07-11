@@ -49,6 +49,21 @@ void SceneMain::ExitScene()
 	Sol::DeleteAll();
 }
 
+void AsteroidsCollision()
+{
+	vec own_vel = velocity
+		- (2 * other->mass)/(other->mass + mass)
+		* ((velocity - other->velocity).Dot(pos - other->pos) / (pos - other->pos).Length())
+		* (pos - other->pos) * 0.2;
+	vec their_vel = other->velocity
+		- (2 * mass)/(other->mass + mass)
+		* ((other->velocity - velocity).Dot(other->pos - pos) / (other->pos - pos).Length())
+		* (other->pos - pos) * 0.2;
+
+	velocity = own_vel;
+	other->velocity = their_vel;
+}
+
 void SceneMain::Update(float dt)
 {
 	float zoom = Camera::GetZoom();
