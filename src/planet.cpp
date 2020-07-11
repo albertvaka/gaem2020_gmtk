@@ -1,6 +1,7 @@
 #include "planet.h"
 
 #include "text.h"
+#include "rand.h"
 #include "assets.h"
 #include "window.h"
 #include "asteroid.h"
@@ -17,6 +18,7 @@ Planet::Planet(float orbit_radius, float orbit_offset, float mass, float rps)
 	, curr_angle(orbit_offset)
 {
 	Debug::out << "Planet created";
+	planetTexture = Random::roll(std::size(Assets::planetTextures));
 }
 
 void Planet::Update(float dt) 
