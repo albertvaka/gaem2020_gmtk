@@ -13,11 +13,9 @@ struct Asteroid : CircleEntity, SelfRegister<Asteroid>
   float size;
   float mass;
 
-  Asteroid(float mass, vec initial_pos, vec initial_vel);
+  static inline const float SizeToScaleMultiplier = 0.5f;
 
-  static float GetSpriteScale(float size) {
-	  return 0.2f + size / 2.f;
-  }
+  Asteroid(float mass, vec initial_pos, vec initial_vel);
 
   void Update(float dt);
   void Draw() const;
