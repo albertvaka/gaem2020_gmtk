@@ -20,6 +20,8 @@ struct Assets
 	static GPU_Image* planetTextures[7];
 	static GPU_Image* backgroundTextures[7];
 
+	static GPU_Image* asterVoidTexture;
+
 	static TTF_Font* font_30;
 	static TTF_Font* font_30_outline;
 

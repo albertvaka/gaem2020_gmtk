@@ -8,6 +8,8 @@ GPU_Image* Assets::oldPlanetTexture;
 GPU_Image* Assets::backgroundTextures[7];
 GPU_Image* Assets::planetTextures[7];
 
+GPU_Image* Assets::asterVoidTexture;
+
 TTF_Font* Assets::font_30;
 TTF_Font* Assets::font_30_outline;
 
@@ -45,6 +47,8 @@ void Assets::LoadAll() {
         backgroundTextures[i] = loadImage(backgrounds[i]);
         GPU_SetWrapMode(backgroundTextures[i], GPU_WRAP_REPEAT, GPU_WRAP_REPEAT);
     }
+
+    asterVoidTexture = loadImage("data/astervoid.png");
 
 
     font_30 = loadFont("data/PressStart2P.ttf", 30);

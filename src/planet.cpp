@@ -38,7 +38,7 @@ void Planet::Update(float dt)
 void Planet::Draw() const
 {
 	GPU_Image* texture = Assets::planetTextures[planetTexture];
-	float scale = size / texture->base_h*2;
+	float scale = size /texture->base_h*2;
 	
 	Window::Draw(texture, pos)
 		.withOrigin(texture->w / 2, texture->h / 2)
