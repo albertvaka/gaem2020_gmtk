@@ -151,14 +151,6 @@ void Player::Update(float dt)
 void Player::Draw() const
 {
 
-	const GPU_Rect& cannonRect = AnimLib::CANNON;
-	Window::Draw(Assets::invadersTexture, pos)
-		.withRect(cannonRect)
-		.withColor(id == 0 ? SDL_Color{ 0,255,255,255 } : SDL_Color{ 255, 255, 0, 255 })
-		.withOrigin(vec(cannonRect.w, cannonRect.h) / 2)
-		.withRotation(cannonAngle - 90);
-
-
 	if (shotCharge > 0.f) {
 		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
 		Window::Draw(Assets::asterVoidTexture, shotPos)
@@ -173,13 +165,14 @@ void Player::Draw() const
 		.withOrigin(txt_load.getSize().x, 0)
 		.withScale(0.5f);
 
-	Text txt_shield(Assets::font_30);
-	txt_shield.setString(currentShieldTime > 0 ? "Used" : "Active");
-	Window::Draw(txt_shield, pos)
-		.withOrigin(txt_shield.getSize().x*2, 0)
-		.withScale(0.5f);
-
-	if (Debug::Draw) {
+	if (currentShieldTime <= 0) {
 		Window::DrawPrimitive::Circle(pos, shieldInfluence, 3, 0, 255, 255);
 	}
+
+	Window::Draw(id == 0? Assets::ship1Texture : Assets::ship2Texture, pos)
+		.withColor(id == 0 ? SDL_Color{ 0,255,255,255 } : SDL_Color{ 255, 255, 0, 255 })
+		.withRect({fabs(angularVel) > 50.f ? 64.f : 0.f, 0.f, 64.f, 64.f })
+		.withScale(angularVel < 50.f ? 1.f : -1.f, 1.f)
+		.withOrigin(vec(32.f, 32.f))
+		.withRotation(cannonAngle + 90.f);
 }

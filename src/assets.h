@@ -13,9 +13,8 @@ struct Assets
 {
 	static void LoadAll();
 
-	static GPU_Image* invadersTexture;
-	
-	static GPU_Image* oldPlanetTexture;
+	static GPU_Image* ship1Texture;
+	static GPU_Image* ship2Texture;
 
 	static GPU_Image* planetTextures[7];
 	static GPU_Image* backgroundTextures[3];
