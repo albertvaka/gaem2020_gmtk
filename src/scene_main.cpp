@@ -15,8 +15,8 @@
 SceneMain::SceneMain()
 	: alienPartSys(Assets::asterVoidTexture)
 {
-	player1 = new Player(0);
-	player2 = new Ia(1, player1);
+	player1 = new Player(1);
+	player2 = new Ia(0, player1);
 	alienPartSys.AddSprite({ 116,140,5,5});
 
 	float vel = 15;

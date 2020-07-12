@@ -120,6 +120,9 @@ inline void RemapKeyboardInput()
 	kb_map[GameKeys::SHOOT] = []() {
 		return Keyboard::IsKeyPressed(SDL_SCANCODE_SPACE);
 	};
+	kb_map[GameKeys::SHIELD] = []() { 
+		return Keyboard::IsKeyPressed(SDL_SCANCODE_LCTRL); 
+	};
 	kb_map[GameKeys::START] = []() {
 		return Keyboard::IsKeyPressed(SDL_SCANCODE_RETURN) || Keyboard::IsKeyPressed(SDL_SCANCODE_ESCAPE);
 	};
