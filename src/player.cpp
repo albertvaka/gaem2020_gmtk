@@ -38,9 +38,9 @@ const SDL_Color p1Color = { 200, 30, 30, 255 };
 
 Player::Player(int id)
 	: id(id)
-	, angle(90.f)
-	, cannonAngle(0.f),
-	currentEnergy(maxEnergy),
+	, angle(id == 0 ? 90.f : 270.f)
+	, cannonAngle(id == 0 ? 90.f : 270.f)
+	, currentEnergy(maxEnergy),
 	asteroidAnim(id == 0 ? AnimLib::ASTERVOID1 : AnimLib::ASTERVOID2)
 {
 }
