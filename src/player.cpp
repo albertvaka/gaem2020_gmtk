@@ -7,6 +7,8 @@
 #include "window.h"
 #include "asteroid.h"
 #include "text.h"
+#include "collide.h"
+
 const float distanceFromPlanet = 100.f;
 const float shotSpawnDistance = 30.f;
 
@@ -135,10 +137,9 @@ void Player::Update(float dt)
 	}
 	else if (Input::IsJustPressed(id, GameKeys::SHIELD)) {
 		currentShieldTime = shieldTime;
-		auto asteroids = Asteroid::GetAll();
-		for (auto asteroid : asteroids) {
-			float dist = (asteroid->pos - pos).Length();
-			if (dist < shieldInfluence) {
+		CircleBounds shieldArea(pos, shieldInfluence);
+		for (Asteroid* asteroid : Asteroid::GetAll()) {
+			if (Collide(shieldArea, asteroid->bounds())) {
 				vec outwards_dir = (asteroid->pos - pos).Normalized();
 
 				asteroid->velocity += 1000.0f * outwards_dir;
