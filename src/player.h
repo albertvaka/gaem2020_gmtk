@@ -13,6 +13,7 @@ struct Player : Entity
 	float cannonAngle;
 	float angularVel = 0.f;
 	float shotCharge = -1.f;
+	float shieldInfluence = 200.f;
 	float currentEnergy;
 	float currentShieldTime;
 	vec shotPos;
@@ -22,5 +23,5 @@ struct Player : Entity
 	Player(int id);
 
 	virtual void Update(float dt);
-	void Draw() const;
+	virtual void Draw() const;
 };

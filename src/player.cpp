@@ -27,7 +27,6 @@ extern float mainClock;
 const float maxEnergy = 1.5 * sqrt(shotMaxCharge);
 const float loadTime = 3.f;
 const float shieldTime = 5.f;
-const float shieldInfluence = 200.f;
 
 // Energy/second 
 const float chargingRate = .25f;
@@ -131,6 +130,7 @@ void Player::Update(float dt)
 
 	}
 	else if (Input::IsPressed(id, GameKeys::SHOOT)) {
+		Debug::out << "IS PRESSED";
 		if (currentEnergy > sqrt(shotMinCharge)) {
 			shotCharge = 0.f;
 		}
