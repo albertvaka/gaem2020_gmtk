@@ -13,8 +13,8 @@ namespace Window
 	extern bool focus;
 	extern SDL_GLContext glcontext;
 
-	constexpr const int GAME_HEIGHT = 900;
-	constexpr const int GAME_WIDTH = GAME_HEIGHT * 16.f / 9;
+	constexpr const int GAME_HEIGHT = 1000;
+	constexpr const int GAME_WIDTH = 1600;
 	constexpr const char* WINDOW_TITLE = "Gaem";
 }
 
