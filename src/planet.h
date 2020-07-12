@@ -2,6 +2,7 @@
 
 #include "entity.h"
 #include "selfregister.h"
+#include "text.h"
 
 
 struct Planet : CircleEntity, SelfRegister<Planet>
@@ -13,6 +14,7 @@ struct Planet : CircleEntity, SelfRegister<Planet>
 	float health;
 	float rps;
 	float curr_angle;
+	Text txt_health;
 	int planetTexture = 1;
 
 	Planet(float orbit_radius, float orbit_offset, float mass, float rps);

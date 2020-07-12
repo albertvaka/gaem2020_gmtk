@@ -16,7 +16,7 @@ class Text
 	SDL_Color outline_color = { 0,0,0,255 };
 	int spacing = 0;
 	int empty_line_spacing = 12;
-	GPU_Image* cached = nullptr;
+	mutable GPU_Image* cached = nullptr;
 
 public:
 	Text(TTF_Font* font = nullptr, TTF_Font* font_outline = nullptr) : font(font), font_outline(font_outline) {}
@@ -26,15 +26,16 @@ public:
 		}
 	}
 
-	operator GPU_Image* () {
+	operator GPU_Image*() const {
 		return getImage();
 	}
 
-	GPU_Image* getImage() {
+	GPU_Image* getImage() const {
 		if (cached == nullptr) {
-			SDL_Surface* surface = MultiLineRender();
+			SDL_Surface* surface = const_cast<Text*>(this)->MultiLineRender();
 			cached = GPU_CopyImageFromSurface(surface);
 			GPU_SetImageFilter(cached, GPU_FILTER_NEAREST);
+			GPU_SetSnapMode(cached, GPU_SNAP_NONE);
 			SDL_FreeSurface(surface);
 			if (!cached) {
 				printf("Unable to create text texture. SDL Error: %s\n", SDL_GetError());
@@ -96,7 +97,7 @@ public:
 		return *this;
 	}
 
-	vec getSize() {
+	vec getSize() const {
 		GPU_Image* image = getImage();
 		return vec(image->texture_w, image->texture_h);
 	}

@@ -147,7 +147,7 @@ namespace Window
             GPU_Line(Window::target, x1, y1, x2, y2, { r,g,b,a });
         }
 
-        void Circle(float x, float y, int radius, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+        void Circle(float x, float y, float radius, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
             GPU_SetLineThickness(thickness);
             if (thickness < 0) {
                 GPU_SetLineThickness(0);
@@ -156,6 +156,18 @@ namespace Window
             else {
                 GPU_SetLineThickness(thickness);
                 GPU_Circle(Window::target, x, y, radius, {r,g,b,a});
+            }
+        }
+
+        void Arc(float x, float y, float radius, float start_angle, float end_angle, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+            GPU_SetLineThickness(thickness);
+            if (thickness < 0) {
+                GPU_SetLineThickness(0);
+                GPU_ArcFilled(Window::target, x, y, radius, start_angle, end_angle, { r,g,b,a });
+            }
+            else {
+                GPU_SetLineThickness(thickness);
+                GPU_Arc(Window::target, x, y, radius, start_angle, end_angle, { r,g,b,a });
             }
         }
     }

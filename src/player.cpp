@@ -31,6 +31,10 @@ const float shieldTime = 5.f;
 // Energy/second 
 const float chargingRate = .25f;
 
+
+const SDL_Color p0Color = { 50, 170, 220, 255 };
+const SDL_Color p1Color = { 200, 30, 30, 255 };
+
 Player::Player(int id)
 	: id(id)
 	, angle(90.f)
@@ -125,6 +129,7 @@ void Player::Update(float dt)
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge || currentEnergy <= sqrt(shotCharge)) {
 			new Asteroid(id, shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
 			currentEnergy -= sqrt(shotCharge);
+			if (currentEnergy < 0.f) currentEnergy = 0.f;
 			shotCharge = -1.f;
 		}
 
@@ -171,7 +176,7 @@ void Player::Draw() const
 	}
 
 	if (currentShieldTime <= 0) {
-		Window::DrawPrimitive::Circle(pos, shieldInfluence, 1.5f, 50, 205, 50);
+		Window::DrawPrimitive::Circle(pos, shieldInfluence, 1.5f, id == 0 ? p0Color : p1Color);
 	}
 	else {
 		const float currentTime = shieldTime - currentShieldTime;
@@ -180,18 +185,20 @@ void Player::Draw() const
 	}
 
 	Window::Draw(id == 0? Assets::ship1Texture : Assets::ship2Texture, pos)
-		.withColor(id == 0 ? SDL_Color{ 0,255,255,255 } : SDL_Color{ 255, 255, 0, 255 })
 		.withRect({fabs(angularVel) > 50.f ? 64.f : 0.f, 0.f, 64.f, 64.f })
 		.withScale(angularVel < 50.f ? 1.f : -1.f, 1.f)
 		.withOrigin(vec(32.f, 32.f))
 		.withRotation(cannonAngle + 90.f);
 
-	// TODO: remove and use visual elements
-	const float energy = shotCharge >= 0.f ? currentEnergy - sqrt(shotCharge) : currentEnergy;
-	const float value = std::ceilf(energy * 100) / 100;
-	Text txt_load(Assets::font_30);
-	txt_load.setString(std::to_string(value));
-	Window::Draw(txt_load, pos)
-		.withOrigin(txt_load.getSize().x, 0)
-		.withScale(0.5f);
+	const float widthEnergyBar = 65.f;
+	const float radiusEnergyBar = 40.f;
+	const float energyBarThickness = 3.5f;
+	Window::DrawPrimitive::Arc(pos, radiusEnergyBar, cannonAngle + 180 - widthEnergyBar / 2.f, cannonAngle + 180 + widthEnergyBar / 2.f, energyBarThickness, { 255,255,255,255 });
+	if (currentEnergy > 0.f) {
+		const float energy = shotCharge >= 0.f ? currentEnergy - sqrt(shotCharge) : currentEnergy;
+		const float energyRatio = energy / maxEnergy;
+		Window::DrawPrimitive::Arc(pos, radiusEnergyBar, cannonAngle + 180 - (energyRatio * widthEnergyBar / 2.f), cannonAngle + 180 + (energyRatio * widthEnergyBar / 2.f), energyBarThickness, id == 0 ? p0Color : p1Color);
+	}
+	
+
 }

@@ -1,6 +1,5 @@
 #include "planet.h"
 
-#include "text.h"
 #include "rand.h"
 #include "assets.h"
 #include "window.h"
@@ -16,9 +15,10 @@ Planet::Planet(float orbit_radius, float orbit_offset, float mass, float rps)
 	, CircleEntity(vec(), size)
 	, rps(rps)
 	, curr_angle(orbit_offset)
+	, txt_health(Assets::font_30)
 {
-	Debug::out << "Planet created";
 	planetTexture = Random::roll(std::size(Assets::planetTextures));
+	txt_health.setString(std::to_string(int(ceil(health))));
 }
 
 void Planet::Update(float dt) 
@@ -33,6 +33,7 @@ void Planet::Update(float dt)
 		if (Collide(this, asteroid)) {
 			health -= 10*asteroid->size;
 			if (health < 0) health = 0;
+			txt_health.setString(std::to_string(int(ceil(health))));
 			asteroid->alive = false;
 		}
 	}
@@ -47,11 +48,9 @@ void Planet::Draw() const
 		.withOrigin(texture->w / 2, texture->h / 2)
 		.withScale(scale);
 
-	if (health > 0) {
-		Text txt_health(Assets::font_30);
-		txt_health.setString(std::to_string(int(ceil(health))));
-		Window::Draw(txt_health, pos + vec(0, size / 2.0 + 10.0))
-			.withOrigin(txt_health.getSize().x, 0)
+	if (health >= 0) {
+		Window::Draw(txt_health, pos + vec(0.f, size * 0.5f + 10.0f))
+			.withOrigin(txt_health.getSize().x, 0.f)
 			.withScale(0.5f);
 	}
 
