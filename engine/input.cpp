@@ -144,9 +144,6 @@ void Input::Update(float dt)
 				//pressed_now = pressed_now || (ia_map[k] && ia_map[k](player));
 				pressed_now = (ia_map[k] && ia_map[k](player));
 			}
-			if (player == 0 && k == GameKeys::LEFT) {
-				Debug::out << "player 0 has left pressed: " << pressed_now;
-			}
 			if (pressed_now) {
 				if (action_states[player][k] == JUST_PRESSED || action_states[player][k] == PRESSED) {
 					action_states[player][k] = PRESSED;

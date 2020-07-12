@@ -4,21 +4,24 @@
 
 const float changeTime = 3.f;
 
-Ia::Ia(int id) : Player(id), currentTime(changeTime), input_map()
+Ia::Ia(int id) : Player(id), input_map()
 {
-	input_map[GameKeys::UP] = false;
-	input_map[GameKeys::DOWN] = false;
 	input_map[GameKeys::LEFT] = false;
 	input_map[GameKeys::RIGHT] = false;
+	input_map[GameKeys::SHOOT] = false;
+	input_map[GameKeys::SHIELD] = false;
 }
 
 void Ia::Update(float dt)
 {
-	currentTime -= dt;
-	if (currentTime < 0.f) {
-		input_map[GameKeys::LEFT] = !input_map[GameKeys::LEFT];
-		input_map[GameKeys::RIGHT] = input_map[GameKeys::LEFT];
-		currentTime = changeTime;
+	
+	if (state == IAState::IDLE) {
+		if (currentEnergy > 1.5) {
+			state = IAState::ATTACK;
+		}
+	}
+	else if (state == IAState::ATTACK) {
+		
 	}
 	Player::Update(dt);
 }

@@ -4,6 +4,11 @@
 #include "player.h"
 #include "selfregister.h"
 
+enum IAState {
+	IDLE,
+	ATTACK
+};
+
 struct Ia : Player, SelfRegister<Ia>
 {
 	Ia(int id);
@@ -11,5 +16,5 @@ struct Ia : Player, SelfRegister<Ia>
 	bool isGameKeyPressed(GameKeys);
 	bool input_map[magic_enum::enum_count<GameKeys>()];
 
-	float currentTime;
+	IAState state = IAState::IDLE;
 };
