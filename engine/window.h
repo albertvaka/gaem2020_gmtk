@@ -60,21 +60,32 @@ namespace Window
 			Line(v1.x, v1.y, v2.x, v2.y, thickness, c.r, c.g, c.b, c.a);
 		}
 
-		void Circle(float x, float y, int radius, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
-		inline void Circle(const vec& v, int radius, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) {
+		void Circle(float x, float y, float radius, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
+		inline void Circle(const vec& v, float radius, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) {
 			Circle(v.x, v.y, radius, thickness, r, g, b, a);
 		}
 		inline void Circle(const CircleBounds& bounds, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) {
 			Circle(bounds.pos, bounds.radius, thickness, r, g, b, a);
 		}
-		inline void Circle(float x, float y, int radius, float thickness, const SDL_Color& c) {
+		inline void Circle(float x, float y, float radius, float thickness, const SDL_Color& c) {
 			Circle(x, y, radius, thickness, c.r, c.g, c.b, c.a);
 		}
-		inline void Circle(const vec& v, int radius, float thickness, const SDL_Color& c) {
+		inline void Circle(const vec& v, float radius, float thickness, const SDL_Color& c) {
 			Circle(v.x, v.y, radius, thickness, c.r, c.g, c.b, c.a);
 		}
 		inline void Circle(const CircleBounds& bounds, float thickness, const SDL_Color& c) {
 			Circle(bounds.pos, bounds.radius, thickness, c.r, c.g, c.b, c.a);
+		}
+
+		void Arc(float x, float y, float radius, float start_angle, float end_angle, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
+		inline void Arc(const vec& v, float radius, float start_angle, float end_angle, float thickness, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) {
+			Arc(v.x, v.y, radius, start_angle, end_angle, thickness, r, g, b, a);
+		}
+		inline void Arc(float x, float y, float radius, float start_angle, float end_angle, float thickness, const SDL_Color& c) {
+			Arc(x, y, radius, start_angle, end_angle, thickness, c.r, c.g, c.b, c.a);
+		}
+		inline void Arc(const vec& v, float radius, float start_angle, float end_angle, float thickness, const SDL_Color& c) {
+			Arc(v.x, v.y, radius, start_angle, end_angle, thickness, c.r, c.g, c.b, c.a);
 		}
 	}
 
