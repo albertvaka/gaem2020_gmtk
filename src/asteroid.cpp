@@ -16,7 +16,7 @@
 #include <float.h>
 
 Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
-  : size(size), mass(size/6*7000), velocity(initial_vel),
+  : size(size), mass(sqrt(size)*7000), velocity(initial_vel),
     acceleration(), CircleEntity(initial_pos, 20*sqrt(size)),
     anim(AnimLib::ASTERVOID)
 {}
