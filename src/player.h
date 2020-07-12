@@ -13,8 +13,7 @@ struct Player : Entity
 	float cannonAngle;
 	float angularVel = 0.f;
 	float shotCharge = -1.f;
-	int currentLoad;
-	float currentLoadTime;
+	float currentEnergy;
 	float currentShieldTime;
 	vec shotPos;
 	Planet* planet;
