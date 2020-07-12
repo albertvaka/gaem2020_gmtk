@@ -24,16 +24,17 @@ const float maxVel = 2000.f;
 const float friction = 0.9f;
 
 extern float mainClock;
-const int maxLoad = 4;
+const float maxEnergy = 1.5 * sqrt(shotMaxCharge);
 const float loadTime = 3.f;
 const float shieldTime = 5.f;
 const float shieldInfluence = 200.f;
+// Energy/second 
+const float chargingRate = .25f;
 Player::Player(int id)
 	: id(id)
 	, angle(90.f)
 	, cannonAngle(0.f),
-	currentLoad(maxLoad),
-	currentLoadTime(loadTime),
+	currentEnergy(maxEnergy),
 	asteroidAnim(AnimLib::ASTERVOID)
 {
 }
@@ -103,32 +104,25 @@ void Player::Update(float dt)
 	pos.Debuggerino();
 
 	// SHOOT
-	if (currentLoad < maxLoad) {
-		if (currentLoadTime < 0.0) {
-			currentLoad += 1;
-			currentLoadTime = loadTime;
-		}
-		else {
-			currentLoadTime -= dt;
-		}
+	if (currentEnergy < maxEnergy) {
+		currentEnergy += dt * chargingRate;
 	}
 	if (shotCharge >= 0.f) {
 		asteroidAnim.Update(dt);
 		shotCharge += shotChargeSpeed * dt;
 		if (shotCharge > shotMaxCharge) shotCharge = shotMaxCharge;
 		
-		
 		shotPos = pos + vec::FromAngle(Mates::DegsToRads(cannonAngle)) * shotSpawnDistance;
 
-		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
+		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge || currentEnergy <= sqrt(shotCharge)) {
 			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
+			currentEnergy -= sqrt(shotCharge);
 			shotCharge = -1.f;
-			currentLoad -= 1;
 		}
 
 	}
-	else if (Input::IsJustPressed(id, GameKeys::SHOOT)) {
-		if (currentLoad > 0) {
+	else if (Input::IsPressed(id, GameKeys::SHOOT)) {
+		if (currentEnergy > sqrt(shotMinCharge)) {
 			shotCharge = 0.f;
 		}
 	}
@@ -149,6 +143,12 @@ void Player::Update(float dt)
 	}
 }
 
+//https://gizma.com/easing
+float easeOutQuad(float time, float start, float change, float duration) {
+	time /= duration;
+	return -change * time * (time - 2) + start;
+}
+
 void Player::Draw() const
 {
 
@@ -160,14 +160,13 @@ void Player::Draw() const
 			.withOrigin(vec(animRect.w, animRect.h) / 2);
 	}
 
-	Text txt_load(Assets::font_30);
-	txt_load.setString(std::to_string(currentLoad));
-	Window::Draw(txt_load, pos)
-		.withOrigin(txt_load.getSize().x, 0)
-		.withScale(0.5f);
-
 	if (currentShieldTime <= 0) {
-		Window::DrawPrimitive::Circle(pos, shieldInfluence, 3, 0, 255, 255);
+		Window::DrawPrimitive::Circle(pos, shieldInfluence, 1.5f, 50, 205, 50);
+	}
+	else {
+		const float currentTime = shieldTime - currentShieldTime;
+		const float radius = easeOutQuad(currentTime, 2.f, shieldInfluence, shieldTime);
+		Window::DrawPrimitive::Circle(pos, radius, .5f, 90, 90, 90);
 	}
 
 	Window::Draw(id == 0? Assets::ship1Texture : Assets::ship2Texture, pos)
@@ -176,4 +175,13 @@ void Player::Draw() const
 		.withScale(angularVel < 50.f ? 1.f : -1.f, 1.f)
 		.withOrigin(vec(32.f, 32.f))
 		.withRotation(cannonAngle + 90.f);
+
+	// TODO: remove and use visual elements
+	const float energy = shotCharge >= 0.f ? currentEnergy - sqrt(shotCharge) : currentEnergy;
+	const float value = std::ceilf(energy * 100) / 100;
+	Text txt_load(Assets::font_30);
+	txt_load.setString(std::to_string(value));
+	Window::Draw(txt_load, pos)
+		.withOrigin(txt_load.getSize().x, 0)
+		.withScale(0.5f);
 }
