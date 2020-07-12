@@ -32,6 +32,7 @@ void Planet::Update(float dt)
 	for (auto asteroid : asteroids) {
 		if (Collide(this, asteroid)) {
 			health -= 10*asteroid->size;
+			if (health < 0) health = 0;
 			asteroid->alive = false;
 		}
 	}
@@ -46,11 +47,13 @@ void Planet::Draw() const
 		.withOrigin(texture->w / 2, texture->h / 2)
 		.withScale(scale);
 
-	Text txt_health(Assets::font_30);
-	txt_health.setString(std::to_string(int(ceil(health))));
-	Window::Draw(txt_health, pos + vec(0, size / 2.0 + 10.0)) 
-		.withOrigin(txt_health.getSize().x, 0)
-		.withScale(0.5f);
+	if (health > 0) {
+		Text txt_health(Assets::font_30);
+		txt_health.setString(std::to_string(int(ceil(health))));
+		Window::Draw(txt_health, pos + vec(0, size / 2.0 + 10.0))
+			.withOrigin(txt_health.getSize().x, 0)
+			.withScale(0.5f);
+	}
 
 	if (Debug::Draw) {
 		DrawBounds(100, 100, 255);

@@ -48,6 +48,7 @@
     <ClInclude Include="src\planet.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\rototext.h" />
+    <ClInclude Include="src\scene_intro.h" />
     <ClInclude Include="src\scene_main.h" />
     <ClInclude Include="src\sol.h" />
     <ClInclude Include="vendor\glew\glew.h" />

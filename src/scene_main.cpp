@@ -38,6 +38,12 @@ void SceneMain::EnterScene()
 	Camera::SetZoom(10);
 	player1.planet = new Planet(350, 0, 10000, 8);
 	player2.planet = new Planet(350, 180, 10000, 8);
+
+	while (player2.planet->planetTexture == player1.planet->planetTexture) {
+		//Ensure different planets
+		player2.planet->planetTexture = Random::roll(std::size(Assets::planetTextures));
+	}
+
 	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2));
 }
 
@@ -204,5 +210,5 @@ void SceneMain::Draw()
 	player2.Draw();
 
 
-	rototext.Draw();
+	rototext.Draw(Camera::GetCenter()-vec(0,30));
 }

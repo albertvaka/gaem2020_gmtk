@@ -196,6 +196,9 @@
     <ClInclude Include="src\sol.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene_intro.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vendor\glew\glew.c">

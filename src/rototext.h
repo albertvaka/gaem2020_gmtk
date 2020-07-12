@@ -33,7 +33,7 @@ struct RotoText : Text
 		}
 	}
 
-	void Draw() {
+	void Draw(vec pos) {
 		if (timer < 0) {
 			return;
 		}
@@ -59,7 +59,7 @@ struct RotoText : Text
 			sc = messageTime / INTRO_DURATION;
 		}
 
-		Window::Draw(*this, Camera::GetCenter() - vec(0,30))
+		Window::Draw(*this, pos)
 			.withOrigin(getSize() / 2.f)
 			.withScale(2*sc)
 			.withRotation(ang);
