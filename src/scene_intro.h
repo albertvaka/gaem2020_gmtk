@@ -15,15 +15,15 @@
 #include "scene_manager.h"
 
 
-const float cicleTexturesTime = 2.f;
+const float cicleTexturesTime = 2.7f;
 
-const float cameraOffsetY = 170.f;
+const float cameraOffsetY = 150.f;
 
 extern float mainClock;
 
 struct SceneIntro : public Scene {
 
-	Planet p1, p2, p3;
+	Planet p1, p2, p3, p4;
 	Sol sol;
 	int currentLevel;
 	float timer = 0.f;
@@ -35,22 +35,23 @@ struct SceneIntro : public Scene {
 	SceneIntro()
 		: startText(Assets::font_30, Assets::font_30_outline), credits(Assets::font_30, Assets::font_30_outline)
 		, p1(200, 0, 10000, 30)
-		, p2(325, 250, 10000, 18)
-		, p3(450, 180, 10000, 12)
+		, p2(330, 250, 10000, 18)
+		, p3(455, 180, 10000, 12)
+		, p4(600, 300, 10000, 9)
 		, sol(vec(Window::GAME_WIDTH / 2, Window::GAME_HEIGHT / 2))
 	{
 		p1.health = -1;
 		p2.health = -1;
 		p3.health = -1;
+		p4.health = -1;
 		RotateTextures();
 
 		credits.setString("A game by:\n\n\nMarce Coll\n\nGerard del Castillo\n\nAlbert Vaca Cintora\n\n\nArt by:\n\n\nLVGames, Vectorpixelstar, Helianthus Games, Ravenmore");
 
-		rototext.ShowMessage("El JAMON TURBO GAEM");
+		rototext.ShowMessage("The Neighbours");
 		rototext.Update(100);
 
 		startText.setString("PRESS START");
-
 	}
 
 	void RotateTextures() {
@@ -72,6 +73,10 @@ struct SceneIntro : public Scene {
 			tex = Random::roll(std::size(Assets::planetTextures));
 		} while (p1.planetTexture == tex || p2.planetTexture == tex || p3.planetTexture == tex);
 		p3.planetTexture = tex;
+		do {
+			tex = Random::roll(std::size(Assets::planetTextures));
+		} while (p1.planetTexture == tex || p2.planetTexture == tex || p3.planetTexture == tex || p4.planetTexture == tex);
+		p4.planetTexture = tex;
 	}
 
 	void EnterScene() override {
@@ -88,7 +93,7 @@ struct SceneIntro : public Scene {
 			return;
 		}
 
-		rototext.Update(dt);
+		rototext.Update(dt*0.9f);
 
 		for (Sol* sol : Sol::GetAll()) {
 			sol->Update(dt);
@@ -124,15 +129,16 @@ struct SceneIntro : public Scene {
 			sol->Draw();
 		}
 
-		rototext.Draw(Camera::GetCenter() - vec(0, 190));
+		rototext.Draw(Camera::GetCenter() - vec(0, 150), 1.5f);
 
 		if ((int(mainClock * 1000) / 350) % 2) {
 			Window::Draw(startText, Camera::GetCenter() + vec(0, cameraOffsetY))
 				.withOrigin(startText.getSize()/2);
 		}
 
-		Window::Draw(credits, vec(30, 1000-cameraOffsetY-30-credits.getSize().y))
-			.withScale(0.9f,1.f);
+		vec scale(0.7f, 0.8f);
+		Window::Draw(credits, vec(30, 1000-cameraOffsetY-30-(scale.y*credits.getSize().y)))
+			.withScale(scale);
 	}
 
 };

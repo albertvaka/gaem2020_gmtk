@@ -33,7 +33,7 @@ struct RotoText : Text
 		}
 	}
 
-	void Draw(vec pos) {
+	void Draw(vec pos, float scale = 1.f) {
 		if (timer < 0) {
 			return;
 		}
@@ -61,7 +61,7 @@ struct RotoText : Text
 
 		Window::Draw(*this, pos)
 			.withOrigin(getSize() / 2.f)
-			.withScale(2*sc)
+			.withScale(2*sc * scale)
 			.withRotation(ang);
 	}
 };
