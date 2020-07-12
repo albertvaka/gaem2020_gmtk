@@ -17,7 +17,6 @@ Planet::Planet(float orbit_radius, float orbit_offset, float mass, float rps)
 	, rps(rps)
 	, curr_angle(orbit_offset)
 {
-	Debug::out << "Planet created";
 	planetTexture = Random::roll(std::size(Assets::planetTextures));
 }
 
