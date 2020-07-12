@@ -44,14 +44,14 @@ void Asteroid::Update(float dt) {
       float dist = pos.Distance(planet->pos);
       float acceleration_scalar = planet->mass / (dist);
       vec acc_add = (planet->pos - pos).Normalized() * acceleration_scalar;
-      acceleration += acc_add;
+      acceleration += 1.4f * acc_add;
   }
 
   for (auto other : asteroids) {
     if (other != this) {
       float dist = pos.Distance(other->pos);
       float acceleration_scalar = other->mass / (dist);
-      acceleration += (other->pos - pos).Normalized() * acceleration_scalar;
+      acceleration += 1.15f * (other->pos - pos).Normalized() * acceleration_scalar;
     }
   }
 

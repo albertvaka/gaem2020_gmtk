@@ -33,6 +33,7 @@ void Planet::Update(float dt)
 		if (Collide(this, asteroid)) {
 			health -= 10*asteroid->size;
 			if (health < 0) health = 0;
+			Assets::hit.Play();
 			txt_health.setString(std::to_string(int(ceil(health))));
 			asteroid->alive = false;
 		}
@@ -42,11 +43,10 @@ void Planet::Update(float dt)
 void Planet::Draw() const
 {
 	GPU_Image* texture = Assets::planetTextures[planetTexture];
-	float scale = size /texture->base_h*2;
 	
 	Window::Draw(texture, pos)
-		.withOrigin(texture->w / 2, texture->h / 2)
-		.withScale(scale);
+		.withOrigin(texture->w * 0.5f, texture->h * 0.5f)
+		.withScale(size / 48 * 2);
 
 	if (health >= 0) {
 		Window::Draw(txt_health, pos + vec(0.f, size * 0.5f + 10.0f))

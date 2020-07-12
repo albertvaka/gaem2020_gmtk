@@ -15,6 +15,7 @@ struct Player : Entity
 	float shotCharge = -1.f;
 	float shieldInfluence = 200.f;
 	float currentEnergy;
+	int soundLoadChannel;
 	float currentShieldTime;
 	vec shotPos;
 	Planet* planet;
