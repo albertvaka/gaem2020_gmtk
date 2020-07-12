@@ -8,6 +8,7 @@
 
 struct Asteroid : CircleEntity, SelfRegister<Asteroid>
 {
+  int player_id;
   vec position;
   vec velocity;
   vec acceleration;
@@ -20,7 +21,7 @@ struct Asteroid : CircleEntity, SelfRegister<Asteroid>
   float max_speed_mult = 1.0f;
   float time_in_sol = 0;
 
-  Asteroid(float size, vec initial_pos, vec initial_vel);
+  Asteroid(int player_id, float size, vec initial_pos, vec initial_vel);
 
   void Update(float dt);
   void Draw() const;

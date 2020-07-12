@@ -15,10 +15,10 @@
 
 #include <float.h>
 
-Asteroid::Asteroid(float size, vec initial_pos, vec initial_vel)
-  : size(size), mass(sqrt(size)*7000), velocity(initial_vel),
+Asteroid::Asteroid(int player_id, float size, vec initial_pos, vec initial_vel)
+  : player_id(player_id), size(size), mass(sqrt(size)*7000), velocity(initial_vel),
     acceleration(), CircleEntity(initial_pos, 20*sqrt(size)),
-    anim(AnimLib::ASTERVOID)
+    anim(player_id == 0?AnimLib::ASTERVOID1 : AnimLib::ASTERVOID2)
 {}
 
 void Asteroid::Update(float dt) {
@@ -103,7 +103,7 @@ void Asteroid::Draw() const
   Window::Draw(Assets::asterVoidTexture, pos)
     .withOrigin(vec(animRect.w, animRect.h) / 2)
     .withRect(animRect)
-    .withScale((20*sqrt(size))/(animRect.w/4));
+    .withScale(1.5f*sqrt(size));
 
   if (Debug::Draw) {
       Window::DrawPrimitive::Line(pos, pos + acceleration, 3, 255, 0, 0);

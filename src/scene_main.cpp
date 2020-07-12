@@ -16,17 +16,16 @@ SceneMain::SceneMain()
 	, player2(1)
 	, alienPartSys(Assets::asterVoidTexture)
 {
-	alienPartSys.AddSprite(AnimLib::ASTERVOID[1].rect);
-	alienPartSys.AddSprite(AnimLib::ASTERVOID[7].rect);
+	alienPartSys.AddSprite({ 116,140,5,5});
 
 	float vel = 15;
 	alienPartSys.max_vel = vec(vel, vel);
 	alienPartSys.min_vel = vec(-vel, -vel);
 	alienPartSys.min_ttl = 1.5f;
-	alienPartSys.max_ttl = 2.0f;
-	alienPartSys.min_interval = 0.03f;
-	alienPartSys.max_interval = 0.06f;
-	alienPartSys.scale_vel = -0.3f;
+	alienPartSys.max_ttl = 1.5f;
+	alienPartSys.min_interval = 0.05f;
+	alienPartSys.max_interval = 0.10f;
+	alienPartSys.scale_vel = -0.6f;
 	//alienPartSys.min_rotation = 0.f;
 	//alienPartSys.max_rotation = 360.f;
 	//alienPartSys.rotation_vel = 180.f;
@@ -92,7 +91,7 @@ void SceneMain::Update(float dt)
 
 #ifdef _DEBUG
 	if (Mouse::IsJustPressed()) {
-		new Asteroid(Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100, -100), vec(100, 100)));
+		new Asteroid(Random::roll(0, 2), Random::rollf(0.2, 3), Mouse::GetPositionInWindow(), Random::vecInRange(vec(-100, -100), vec(100, 100)));
 	}
 	if (Keyboard::IsKeyJustPressed(SDL_SCANCODE_F4)) {
 		rototext.ShowMessage("P1 wins");
@@ -141,15 +140,9 @@ void SceneMain::Update(float dt)
 
 	for (Asteroid* a : Asteroid::GetAll()) {
 		a->Update(dt);
-		const GPU_Rect& animRect = a->anim.GetCurrentRect();
-		// Sorry no se que collons estic fent
-		alienPartSys.pos = a->pos
-			// Resta la meitat del sprite
-			-((vec(animRect.w, animRect.h) / 2) 
-			//Multiplicat per l¡escalat que es fa a withScale (entre 2 because why not)
-			* (20 * sqrt(a->size)) / (animRect.w / 4))/2;
-		alienPartSys.min_scale = 0.05f * sqrt(a->size);
-		alienPartSys.max_scale = 0.2f * sqrt(a->size);
+		alienPartSys.pos = a->pos;
+		alienPartSys.min_scale = log(2+a->size);
+		alienPartSys.max_scale = 1.5f * alienPartSys.min_scale;
 		alienPartSys.Spawn(dt);
 	}
 

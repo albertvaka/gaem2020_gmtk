@@ -23,7 +23,7 @@ void PartSys::UpdateParticles(float dt) {
 }
 
 
-//Disabled since rotation is not implemented yet
+//Alpha and rotations aren't used when USE_VAO is set
 #define USE_VAO
 
 void PartSys::Draw() const {
@@ -37,19 +37,21 @@ void PartSys::Draw() const {
 		GPU_Rect rect = sprites[p.sprite];
 		float w = rect.w * p.scale;
 		float h = rect.h * p.scale;
+		vec pos = p.pos - (vec(w, h) * 0.5f);
 		RectToTextureCoordinates(texture, rect);
-		Window::DrawRaw::BatchColoredTexturedQuad(texture, p.pos.x, p.pos.y, w, h, rect, 1.f,1.f,1.f,p.alpha);
+		Window::DrawRaw::BatchTexturedQuad(texture, pos.x, pos.y, w, h, rect);
 #else
-		Window::Draw(texture, p.pos)
+		const GPU_Rect& rect = sprites[p.sprite];
+		Window::Draw(texture, p.pos-(vec(rect.w/2, rect.h/2)*p.scale))
 			.withColor(255, 255, 255, 255 * alpha)
 			.withScale(p.scale)
-			.withRect(sprites[p.sprite])
+			.withRect(rect)
 			.withRotation(p.rotation);
 #endif
 	}
 
 #ifdef USE_VAO
-	Window::DrawRaw::FlushColoredTexturedQuad(texture);
+	Window::DrawRaw::FlushTexturedQuad(texture);
 #endif
 }
 

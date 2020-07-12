@@ -28,13 +28,14 @@ const int maxLoad = 4;
 const float loadTime = 3.f;
 const float shieldTime = 5.f;
 const float shieldInfluence = 200.f;
+
 Player::Player(int id)
 	: id(id)
 	, angle(90.f)
 	, cannonAngle(0.f),
 	currentLoad(maxLoad),
 	currentLoadTime(loadTime),
-	asteroidAnim(AnimLib::ASTERVOID)
+	asteroidAnim(id == 0?AnimLib::ASTERVOID1: AnimLib::ASTERVOID2)
 {
 }
 
@@ -121,7 +122,7 @@ void Player::Update(float dt)
 		shotPos = pos + vec::FromAngle(Mates::DegsToRads(cannonAngle)) * shotSpawnDistance;
 
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge) {
-			new Asteroid(shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
+			new Asteroid(id, shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
 			shotCharge = -1.f;
 			currentLoad -= 1;
 		}
@@ -155,9 +156,10 @@ void Player::Draw() const
 	if (shotCharge > 0.f) {
 		const GPU_Rect& animRect = asteroidAnim.GetCurrentRect();
 		Window::Draw(Assets::asterVoidTexture, shotPos)
+			.withOrigin(vec(animRect.w, animRect.h) / 2)
 			.withRect(animRect)
-			.withScale(20*sqrt(shotCharge) / (animRect.w / 4))
-			.withOrigin(vec(animRect.w, animRect.h) / 2);
+			.withScale(1.5f * sqrt(shotCharge));
+
 	}
 
 	Text txt_load(Assets::font_30);

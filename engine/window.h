@@ -154,7 +154,7 @@ namespace Window
 		extern float vertices[MAX_VERTICES * MAX_COMPONENTS_PER_VERTEX];
 		extern unsigned short indices[MAX_INDICES];
 
-		inline void FlushTexturedQuads(GPU_Image* t) {
+		inline void FlushTexturedQuad(GPU_Image* t) {
 			//Debug::out << "vertices:" << vertex_count << " indices:" << index_count;
 			GPU_TriangleBatch(t, Window::target, vertex_count, vertices, index_count, indices, GPU_BATCH_XY_ST);
 			vertex_count = 0;
@@ -277,7 +277,7 @@ namespace Window
 
 			if (vertex_count + 4 >= MAX_VERTICES) {
 				// Flush what we have so we don't go over MAX_VERTICES
-				FlushTexturedQuads(t);
+				FlushTexturedQuad(t);
 			};
 		}
 
