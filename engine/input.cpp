@@ -25,7 +25,8 @@ inline void RemapIaInput()
 		return ias[i]->isGameKeyPressed(GameKeys::UP);
 	};
 	ia_map[GameKeys::DOWN] = [](int p) {
-		return false;
+		int i = getIaIndex(p);
+		return ias[i]->isGameKeyPressed(GameKeys::DOWN);
 	};
 	ia_map[GameKeys::LEFT] = [](int p) {
 		int i = getIaIndex(p);
@@ -48,8 +49,14 @@ inline void RemapIaInput()
 	ia_map[GameKeys::CANNON_RIGHT] = [](int p) {
 		return false;
 	};
-	ia_map[GameKeys::SHOOT] = [](int p) { return false; };
-	ia_map[GameKeys::SHIELD] = [](int p) { return false; };
+	ia_map[GameKeys::SHOOT] = [](int p) { 
+		int i = getIaIndex(p);
+		return ias[i]->isGameKeyPressed(GameKeys::SHOOT); 
+	};
+	ia_map[GameKeys::SHIELD] = [](int p) { 
+		int i = getIaIndex(p);
+		return ias[i]->isGameKeyPressed(GameKeys::SHIELD);
+	};
 	ia_map[GameKeys::START] = [](int p) { return false; };
 }
 
