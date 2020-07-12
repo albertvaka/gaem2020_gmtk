@@ -15,7 +15,7 @@ const float shotSpawnDistance = 30.f;
 const float cannonMaxAngle = 75.f;
 
 const float shotChargeSpeed = 0.7f;
-const float shotMinCharge = 0.1f;
+const float shotMinCharge = 0.2f;
 const float shotMaxCharge = 2.5f;
 
 const float cannonVel = 300.f;

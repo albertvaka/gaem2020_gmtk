@@ -186,6 +186,13 @@ void SceneMain::Draw()
 
 	alienPartSys.Draw();
 
+	for (Sol* sol : Sol::GetAll()) {
+		sol->Draw();
+		if (Debug::Draw) {
+			sol->DrawBounds(255, 255, 0);
+		}
+	}
+
 	for (const Asteroid* a : Asteroid::GetAll()) {
 		a->Draw();
 		if (Debug::Draw) {
@@ -196,12 +203,6 @@ void SceneMain::Draw()
 	player1.Draw();
 	player2.Draw();
 
-	for (Sol* sol : Sol::GetAll()) {
-		sol->Draw();
-		if (Debug::Draw) {
-			sol->DrawBounds(255, 255, 0);
-		}
-	}
 
 	rototext.Draw();
 }
