@@ -2,8 +2,8 @@
 
 #include "asset_load.h"
 
-GPU_Image* Assets::invadersTexture;
-GPU_Image* Assets::oldPlanetTexture;
+GPU_Image* Assets::ship1Texture;
+GPU_Image* Assets::ship2Texture;
 
 GPU_Image* Assets::backgroundTextures[3];
 GPU_Image* Assets::planetTextures[7];
@@ -37,8 +37,8 @@ const std::string backgrounds[3] = {
 };
 
 void Assets::LoadAll() {
-    invadersTexture = loadImage("data/invaders.png");
-    oldPlanetTexture = loadImage("data/bg.png");
+    ship1Texture = loadImage("data/ship1.png");
+    ship2Texture = loadImage("data/ship2.png");
 
     for (int i = 0; i < size(planets); i++) {
         planetTextures[i] = loadImage(planets[i]);
@@ -51,7 +51,6 @@ void Assets::LoadAll() {
 
     asterVoidTexture = loadImage("data/astervoid.png");
     solTexture = loadImage("data/blackpixel.png");
-
 
     font_30 = loadFont("data/PressStart2P.ttf", 30);
     font_30_outline = loadFontOutline("data/PressStart2P.ttf", 30, 3);

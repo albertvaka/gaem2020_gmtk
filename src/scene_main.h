@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "mates.h"
-#include "tilemap.h"
 #include "scene.h"
 #include "partsys.h"
 #include "input.h"

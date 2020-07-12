@@ -136,7 +136,7 @@ void SceneMain::Update(float dt)
 	player2.Update(dt);
 
 #ifdef _IMGUI
-	ImGui::Begin("Asteroids");
+//	ImGui::Begin("Asteroids");
 #endif
 
 	for (Asteroid* a : Asteroid::GetAll()) {
@@ -154,7 +154,7 @@ void SceneMain::Update(float dt)
 	}
 
 #ifdef _IMGUI
-	ImGui::End();
+//	ImGui::End();
 #endif
 
 #ifdef _IMGUI
@@ -168,7 +168,7 @@ void SceneMain::Update(float dt)
 
 #ifdef _IMGUI
 	{
-		alienPartSys.DrawImGUI("particles");
+//		alienPartSys.DrawImGUI("particles");
 	}
 #endif
 

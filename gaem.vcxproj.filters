@@ -127,12 +127,6 @@
     <ClInclude Include="engine\text.h">
       <Filter>engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\tiledexport.h">
-      <Filter>engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\tilemap.h">
-      <Filter>engine</Filter>
-    </ClInclude>
     <ClInclude Include="engine\vec.h">
       <Filter>engine</Filter>
     </ClInclude>
@@ -271,12 +265,6 @@
       <Filter>engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\sound.cpp">
-      <Filter>engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\tiledexport.cpp">
-      <Filter>engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\tilemap.cpp">
       <Filter>engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\vec.cpp">

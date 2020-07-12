@@ -85,14 +85,14 @@ void Asteroid::Update(float dt) {
   anim.Update(dt);
  
 #ifdef _IMGUI
-  if (ImGui::CollapsingHeader("Asteroid", true)) {
-    float posv[2] = {pos.x, pos.y};
-    ImGui::InputFloat2("Pos", posv);
-    float velv[2] = {velocity.x, velocity.y};
-    ImGui::InputFloat2("Vel", velv);
-    float accv[2] = {acceleration.x, acceleration.y};
-    ImGui::InputFloat2("Acc", accv);
-  }
+  //if (ImGui::CollapsingHeader("Asteroid", true)) {
+  //  float posv[2] = {pos.x, pos.y};
+  //  ImGui::InputFloat2("Pos", posv);
+  //  float velv[2] = {velocity.x, velocity.y};
+  //  ImGui::InputFloat2("Vel", velv);
+  //  float accv[2] = {acceleration.x, acceleration.y};
+  //  ImGui::InputFloat2("Acc", accv);
+  //}
 #endif
 
 }
