@@ -1,28 +1,71 @@
 #include "input.h"
 
 #include "magic_enum.h"
+#include "../src/ia.h"
 #include <functional>
 
 std::function<bool()> kb_map[magic_enum::enum_count<GameKeys>()];
 std::function<bool(int)> gp_map[magic_enum::enum_count<GameKeys>()];
+std::function<bool(int)> ia_map[magic_enum::enum_count<GameKeys>()];
+
+auto ias = Ia::GetAll();
+
+inline int getIaIndex(int p) {
+	for (int i = 0; i < ias.size(); i++) {
+		if (ias[i]->id == p)
+			return i;
+	}
+	return -1;
+}
+
+inline void RemapIaInput()
+{
+	ia_map[GameKeys::UP] = [](int p) {
+		int i = getIaIndex(p);
+		return ias[i]->isGameKeyPressed(GameKeys::UP);
+	};
+	ia_map[GameKeys::DOWN] = [](int p) {
+		return false;
+	};
+	ia_map[GameKeys::LEFT] = [](int p) {
+		int i = getIaIndex(p);
+		return ias[i]->isGameKeyPressed(GameKeys::LEFT);
+	};
+	ia_map[GameKeys::RIGHT] = [](int p) {
+		int i = getIaIndex(p);
+		return ias[i]->isGameKeyPressed(GameKeys::RIGHT);
+	};
+
+	ia_map[GameKeys::CANNON_UP] = [](int p) {
+		return false;
+	};
+	ia_map[GameKeys::CANNON_DOWN] = [](int p) {
+		return false;
+	};
+	ia_map[GameKeys::CANNON_LEFT] = [](int p) {
+		return false;
+	};
+	ia_map[GameKeys::CANNON_RIGHT] = [](int p) {
+		return false;
+	};
+	ia_map[GameKeys::SHOOT] = [](int p) { return false; };
+	ia_map[GameKeys::SHIELD] = [](int p) { return false; };
+	ia_map[GameKeys::START] = [](int p) { return false; };
+}
 
 inline void RemapGamePadInput()
 {
 	gp_map[GameKeys::UP] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 50.f).y < -50.0f ||
-			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_UP);
+		return 	GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_UP);
 	};
 	gp_map[GameKeys::DOWN] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 50.f).y > 50.0f ||
-			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+		return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
 	};
 	gp_map[GameKeys::LEFT] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 50.f).x < 0.0f ||
-			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+		return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
 	};
 	gp_map[GameKeys::RIGHT] = [](int p) {
-		return GamePad::AnalogStick::Left.get(p, 50.f).x > 0.0f ||
-			GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
+		return GamePad::IsButtonPressed(p, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
 	};
 
 	gp_map[GameKeys::CANNON_UP] = [](int p) {
@@ -87,12 +130,22 @@ float Input::action_times[Input::kMaxPlayers][magic_enum::enum_count<GameKeys>()
 
 void Input::Update(float dt)
 {
+	ias = Ia::GetAll();
 	for (int player = 0; player < Input::kMaxPlayers; ++player) {
 		int gamepad_id = player;
+		const int iaIndex = getIaIndex(player);
+		bool isIa = iaIndex > -1;
 		for (size_t k = 1; k < magic_enum::enum_count<GameKeys>(); k++) {  //Skip GameKeys::NONE
 			bool pressed_now = (gp_map[k] && gp_map[k](gamepad_id));
 			if (player == keyboard_player_id) {
 				pressed_now = pressed_now || (kb_map[k] && kb_map[k]());
+			}
+			if (isIa) {
+				//pressed_now = pressed_now || (ia_map[k] && ia_map[k](player));
+				pressed_now = (ia_map[k] && ia_map[k](player));
+			}
+			if (player == 0 && k == GameKeys::LEFT) {
+				Debug::out << "player 0 has left pressed: " << pressed_now;
 			}
 			if (pressed_now) {
 				if (action_states[player][k] == JUST_PRESSED || action_states[player][k] == PRESSED) {
@@ -123,5 +176,6 @@ void Input::Init()
 {
 	RemapGamePadInput();
 	RemapKeyboardInput();
+	RemapIaInput();
 }
 

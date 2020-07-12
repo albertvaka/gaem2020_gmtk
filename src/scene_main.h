@@ -12,8 +12,8 @@
 
 struct SceneMain : Scene {
 
-	Player player1;
-	Player player2;
+	Player* player1;
+	Player* player2;
 
 	RotoText rototext;
 
@@ -21,6 +21,7 @@ struct SceneMain : Scene {
 	int currentLevel = 1;
 
 	SceneMain();
+	~SceneMain();
 
 	void EnterScene() override;
 	void ExitScene() override;

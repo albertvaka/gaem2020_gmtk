@@ -49,18 +49,25 @@ void Player::Update(float dt)
 	l_stick.Normalize();
 
 	if (!l_stick.isZero()) {
-		vec rel_pos = vec(0, 1);//pos - planet->pos;
+		vec rel_pos = pos - planet->pos;
 		rel_pos.Normalize();
 
-		//if (rel_pos.Dot(l_stick) < 0.99) {
+		if (rel_pos.Dot(l_stick) < 0.99) {
 			float sign = rel_pos.Cross(l_stick);
-			if (sign < 0.f) {
+			if (sign > 0.f) {
 				angularVel += accel * dt;
 			}
-			else if (sign > 0.f) {
+			else if (sign < 0.f) {
 				angularVel += -accel * dt;
 			}
-		//}
+		}
+	}
+
+	if (Input::IsPressed(id, GameKeys::LEFT)) {
+		angularVel += -accel * dt;
+	} 
+	else if (Input::IsPressed(id, GameKeys::RIGHT)) {
+		angularVel += accel * dt;
 	}
 
 	Mates::Clamp(angularVel, -maxVel, maxVel);

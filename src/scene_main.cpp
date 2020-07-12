@@ -10,12 +10,13 @@
 #include "sol.h"
 #include "rand.h"
 #include "scene_manager.h"
+#include "ia.h"
 
 SceneMain::SceneMain()
-	: player1(0)
-	, player2(1)
-	, alienPartSys(Assets::asterVoidTexture)
+	: alienPartSys(Assets::asterVoidTexture)
 {
+	player1 = new Player(0);
+	player2 = new Ia(1);
 	alienPartSys.AddSprite({ 116,140,5,5});
 
 	float vel = 15;
@@ -33,11 +34,17 @@ SceneMain::SceneMain()
 	currentLevel = Random::roll(std::size(Assets::backgroundTextures));
 }
 
+SceneMain::~SceneMain()
+{
+	delete player1;
+	delete player2;
+}
+
 void SceneMain::EnterScene()
 {
 	Camera::SetZoom(10);
-	player1.planet = new Planet(350, 0, 10000, 8);
-	player2.planet = new Planet(350, 180, 10000, 8);
+	player1->planet = new Planet(350, 0, 10000, 8);
+	player2->planet = new Planet(350, 180, 10000, 8);
 	new Sol(vec(Window::GAME_WIDTH/2,Window::GAME_HEIGHT/2));
 }
 
@@ -107,13 +114,13 @@ void SceneMain::Update(float dt)
 		return;
 	}
 
-	if (player1.planet->health <= 0 && player2.planet->health <= 0) {
+	if (player1->planet->health <= 0 && player2->planet->health <= 0) {
 		rototext.ShowMessage("WTF?");
 	}
-	else if (player1.planet->health <= 0) {
+	else if (player1->planet->health <= 0) {
 		rototext.ShowMessage("Player 2 wins!");
 	}
-	else if (player2.planet->health <= 0) {
+	else if (player2->planet->health <= 0) {
 		rototext.ShowMessage("Player 1 wins!");
 	}
 
@@ -131,8 +138,8 @@ void SceneMain::Update(float dt)
 		planet->Update(dt);
 	}
 
-	player1.Update(dt);
-	player2.Update(dt);
+	player1->Update(dt);
+	player2->Update(dt);
 
 #ifdef _IMGUI
 //	ImGui::Begin("Asteroids");
@@ -153,8 +160,8 @@ void SceneMain::Update(float dt)
 #ifdef _IMGUI
 	{
 		ImGui::Begin("scene");
-		ImGui::SliderFloat("P1 health", &(player1.planet->health), 0.f, 100.f);
-		ImGui::SliderFloat("P2 health", &(player2.planet->health), 0.f, 100.f);
+		ImGui::SliderFloat("P1 health", &(player1->planet->health), 0.f, 100.f);
+		ImGui::SliderFloat("P2 health", &(player2->planet->health), 0.f, 100.f);
 		ImGui::End();
 	}
 #endif
@@ -200,8 +207,8 @@ void SceneMain::Draw()
 		}
 	}
 
-	player1.Draw();
-	player2.Draw();
+	player1->Draw();
+	player2->Draw();
 
 
 	rototext.Draw();

@@ -21,6 +21,6 @@ struct Player : Entity
 
 	Player(int id);
 
-	void Update(float dt);
+	virtual void Update(float dt);
 	void Draw() const;
 };
