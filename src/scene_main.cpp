@@ -11,12 +11,27 @@
 #include "rand.h"
 #include "scene_manager.h"
 #include "ia.h"
+#include "scene_intro.h"
 
-SceneMain::SceneMain()
+SceneMain::SceneMain(bool ia)
 	: alienPartSys(Assets::asterVoidTexture)
+	, aimode(ia)
 {
-	player1 = new Player(1);
-	player2 = new Ia(0, player1);
+	if (ia == false) {
+		player1 = new Player(0);
+		player2 = new Player(1);
+	}
+	else {
+		Debug::out << "Detected " << GamePad::ConnectedGamepads() << " gamepads";
+		if (GamePad::ConnectedGamepads() == 0) {
+			player1 = new Player(1);
+			player2 = new Ia(0, player1);
+		}
+		else {
+			player1 = new Player(0);
+			player2 = new Ia(1, player1);
+		}
+	}
 	alienPartSys.AddSprite({ 116,140,5,5});
 
 	float vel = 15;
@@ -42,6 +57,12 @@ SceneMain::~SceneMain()
 
 void SceneMain::EnterScene()
 {
+	alienPartSys.Clear();
+	Planet::DeleteAll();
+	Asteroid::DeleteAll();
+	Sol::DeleteAll();
+
+
 	Camera::SetZoom(10);
 	player1->planet = new Planet(350, 0, 10000, 8);
 	player2->planet = new Planet(350, 180, 10000, 8);
@@ -55,10 +76,6 @@ void SceneMain::EnterScene()
 
 void SceneMain::ExitScene()
 {
-	alienPartSys.Clear();
-	Planet::DeleteAll();
-	Asteroid::DeleteAll();
-	Sol::DeleteAll();
 }
 
 void AsteroidCollision(Asteroid* a, Asteroid* b) {
@@ -97,7 +114,7 @@ void SceneMain::Update(float dt)
 
 	const SDL_Scancode restart = SDL_SCANCODE_ESCAPE;
 	if (Keyboard::IsKeyJustPressed(restart)) {
-		SceneManager::SetScene(new SceneMain());
+		SceneManager::SetScene(new SceneIntro(aimode));
 		return;
 	}
 
@@ -113,7 +130,7 @@ void SceneMain::Update(float dt)
 	if (rototext.shown) {
 		rototext.Update(dt);
 		if (rototext.timer > 2.f && Input::IsPressedAnyPlayer(GameKeys::START)) {
-			SceneManager::SetScene(new SceneMain());
+			SceneManager::SetScene(new SceneMain(aimode));
 			return;
 		}
 		return;

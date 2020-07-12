@@ -16,11 +16,12 @@ struct SceneMain : Scene {
 	Player* player2;
 
 	RotoText rototext;
+	bool aimode;
 
 	PartSys alienPartSys;
 	int currentLevel = 1;
 
-	SceneMain();
+	SceneMain(bool aimode);
 	~SceneMain();
 
 	void EnterScene() override;

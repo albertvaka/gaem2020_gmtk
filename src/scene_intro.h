@@ -27,19 +27,27 @@ struct SceneIntro : public Scene {
 	Sol sol;
 	int currentLevel;
 	float timer = 0.f;
+	bool aiMode;
 
-	Text credits;
-	Text startText;
+	Text startText, credits, textMode2pA, textMode2pB, textMode1pA, textMode1pB;
 	RotoText rototext;
 
-	SceneIntro()
-		: startText(Assets::font_30, Assets::font_30_outline), credits(Assets::font_30, Assets::font_30_outline)
+	SceneIntro(bool ai = false)
+		: startText(Assets::font_30, Assets::font_30_outline)
+		, credits(Assets::font_30, Assets::font_30_outline)
+		, textMode2pA(Assets::font_30, Assets::font_30_outline)
+		, textMode2pB(Assets::font_30, Assets::font_30_outline)
+		, textMode1pA(Assets::font_30, Assets::font_30_outline)
+		, textMode1pB(Assets::font_30, Assets::font_30_outline)
 		, p1(200, 0, 10000, 30)
 		, p2(330, 250, 10000, 18)
 		, p3(455, 180, 10000, 12)
 		, p4(600, 300, 10000, 9)
 		, sol(vec(Window::GAME_WIDTH / 2, Window::GAME_HEIGHT / 2))
+		, aiMode(ai)
 	{
+		Asteroid::DeleteAll();
+
 		p1.health = -1;
 		p2.health = -1;
 		p3.health = -1;
@@ -52,6 +60,12 @@ struct SceneIntro : public Scene {
 		rototext.Update(100);
 
 		startText.setString("PRESS START");
+		textMode2pA.setString("< 2 player mode >");
+		textMode2pB.setString("<  2 player mode  >");
+
+		textMode1pA.setString("< VS AI >");
+		textMode1pB.setString("<  VS AI  >");
+
 	}
 
 	void RotateTextures() {
@@ -88,8 +102,12 @@ struct SceneIntro : public Scene {
 
 	void Update(float dt) override
 	{
+		if (Input::IsJustPressedAnyPlayer(GameKeys::MENU_RIGHT) || Input::IsJustPressedAnyPlayer(GameKeys::MENU_LEFT)) {
+			aiMode = !aiMode;
+		}
+
 		if (Input::IsPressedAnyPlayer(GameKeys::START)) {
-			SceneManager::SetScene(new SceneMain());
+			SceneManager::SetScene(new SceneMain(aiMode));
 			return;
 		}
 
@@ -120,7 +138,7 @@ struct SceneIntro : public Scene {
 				0, 0,
 				Window::GAME_WIDTH, Window::GAME_HEIGHT
 			);
-
+		
 		for (const Planet* planet : Planet::GetAll()) {
 			planet->Draw();
 		}
@@ -131,10 +149,21 @@ struct SceneIntro : public Scene {
 
 		rototext.Draw(Camera::GetCenter() - vec(0, 150), 1.5f);
 
-		if ((int(mainClock * 1000) / 350) % 2) {
+		if ((int(mainClock * 1000) / 400) % 2) {
 			Window::Draw(startText, Camera::GetCenter() + vec(0, cameraOffsetY))
 				.withOrigin(startText.getSize()/2);
 		}
+		
+		GPU_Image* infoText;
+		if ((int(mainClock * 1000) / 300) % 2) {
+			infoText = aiMode ? textMode1pA : textMode2pA;
+		}
+		else {
+			infoText = aiMode ? textMode1pB : textMode2pB;
+		}
+		Window::Draw(infoText, Camera::GetCenter() + vec(0, cameraOffsetY + 35))
+			.withScale(0.5f)
+			.withOrigin(vec(infoText->texture_w, infoText->texture_h)/2);
 
 		vec scale(0.7f, 0.8f);
 		Window::Draw(credits, vec(30, 1000-cameraOffsetY-30-(scale.y*credits.getSize().y)))

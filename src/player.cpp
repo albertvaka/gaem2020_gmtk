@@ -146,7 +146,7 @@ void Player::Update(float dt)
 
 	}
 	else if (Input::IsPressed(id, GameKeys::SHOOT)) {
-		Debug::out << "IS PRESSED";
+		//Debug::out << "IS PRESSED";
 		if (currentEnergy > sqrt(shotMinCharge)) {
 			//soundLoadChannel = Assets::loadshot.Play();
 			shotCharge = 0.f;

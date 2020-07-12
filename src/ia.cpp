@@ -78,7 +78,7 @@ void Ia::Update(float dt)
 	for (Asteroid* asteroid : Asteroid::GetAll()) {
 		vec relPos = (asteroid->pos - planet->pos).Normalized();
 		vec dir = asteroid->acceleration.Normalized();
-		Debug::out << relPos.Dot(dir);
+		//Debug::out << relPos.Dot(dir);
 		if (relPos.Dot(dir) > 0.7f) {
 			if (Collide(shieldArea, asteroid->bounds())) {
 				points += 10 * asteroid->size;
