@@ -197,6 +197,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ia.h">
+        <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_intro.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

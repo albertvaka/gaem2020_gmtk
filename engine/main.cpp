@@ -8,6 +8,7 @@
 
 #include "../src/assets.h"
 #include "../src/scene_main.h"
+#include "../src/scene_intro.h"
 
 #ifdef _IMGUI
 #include "imgui.h"
@@ -104,7 +105,7 @@ void init() {
 
 	last_ticks = SDL_GetTicks();
 
-	currentScene = new SceneMain();
+	currentScene = new SceneIntro();
 	SceneManager::SetScene(currentScene);
 	currentScene->EnterScene();
 }
