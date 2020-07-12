@@ -9,22 +9,28 @@ struct GPU_Image;
 typedef struct _TTF_Font TTF_Font;
 typedef struct _Mix_Music Mix_Music;
 
-struct Assets
+namespace Assets
 {
-	static void LoadAll();
+	extern void LoadAll();
 
-	static GPU_Image* ship1Texture;
-	static GPU_Image* ship2Texture;
+	inline GPU_Image* ship1Texture;
+	inline GPU_Image* ship2Texture;
 
-	static GPU_Image* planetTextures[7];
-	static GPU_Image* backgroundTextures[3];
-	static GPU_Image* solTexture;
+	inline GPU_Image* planetTextures[7];
+	inline GPU_Image* backgroundTextures[3];
+	inline GPU_Image* solTexture;
 
-	static GPU_Image* asterVoidTexture;
+	inline GPU_Image* asterVoidTexture;
 
+	inline TTF_Font* font_30;
+	inline TTF_Font* font_30_outline;
 
-	static TTF_Font* font_30;
-	static TTF_Font* font_30_outline;
+	inline Sound bump;
 
-	static Shader tintShader;
+	inline Sound hit;
+	inline Sound loadshot;
+	inline Sound shot_small[3];
+	inline Sound shot_medium[2];
+	inline Sound shot_large[1];
+	inline Sound shield;
 };

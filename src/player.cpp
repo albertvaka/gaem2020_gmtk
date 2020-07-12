@@ -5,6 +5,7 @@
 #include "assets.h"
 #include "animation.h"
 #include "window.h"
+#include "rand.h"
 #include "asteroid.h"
 #include "text.h"
 #include "collide.h"
@@ -128,6 +129,16 @@ void Player::Update(float dt)
 		shotPos = pos + vec::FromAngle(Mates::DegsToRads(cannonAngle)) * shotSpawnDistance;
 
 		if ((Input::IsReleased(id, GameKeys::SHOOT) && shotCharge > shotMinCharge) || shotCharge >= shotMaxCharge || currentEnergy <= sqrt(shotCharge)) {
+			//Sound::Stop(soundLoadChannel);
+			if (shotCharge > 2.f) {
+				Assets::shot_large[Random::roll(std::size(Assets::shot_large))].Play();
+			}
+			else if (shotCharge > 1.f) {
+				Assets::shot_medium[Random::roll(std::size(Assets::shot_medium))].Play();
+			}
+			else {
+				Assets::shot_small[Random::roll(std::size(Assets::shot_small))].Play();
+			}
 			new Asteroid(id, shotCharge, shotPos, vec::FromAngle(Mates::DegsToRads(cannonAngle)) * 30000);
 			currentEnergy -= sqrt(shotCharge);
 			if (currentEnergy < 0.f) currentEnergy = 0.f;
@@ -137,6 +148,7 @@ void Player::Update(float dt)
 	}
 	else if (Input::IsPressed(id, GameKeys::SHOOT)) {
 		if (currentEnergy > sqrt(shotMinCharge)) {
+			//soundLoadChannel = Assets::loadshot.Play();
 			shotCharge = 0.f;
 		}
 	}
@@ -146,6 +158,7 @@ void Player::Update(float dt)
 	else if (Input::IsJustPressed(id, GameKeys::SHIELD)) {
 		currentShieldTime = shieldTime;
 		CircleBounds shieldArea(pos, shieldInfluence);
+		Assets::shield.Play();
 		for (Asteroid* asteroid : Asteroid::GetAll()) {
 			if (Collide(shieldArea, asteroid->bounds())) {
 				vec outwards_dir = (asteroid->pos - pos).Normalized();

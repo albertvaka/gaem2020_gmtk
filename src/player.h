@@ -14,6 +14,7 @@ struct Player : Entity
 	float angularVel = 0.f;
 	float shotCharge = -1.f;
 	float currentEnergy;
+	int soundLoadChannel;
 	float currentShieldTime;
 	vec shotPos;
 	Planet* planet;
