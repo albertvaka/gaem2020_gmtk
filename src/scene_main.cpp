@@ -140,9 +140,9 @@ void SceneMain::Update(float dt)
 
 	for (Asteroid* a : Asteroid::GetAll()) {
 		a->Update(dt);
-		alienPartSys.pos = a->pos;
 		alienPartSys.min_scale = log(2+a->size);
 		alienPartSys.max_scale = 1.5f * alienPartSys.min_scale;
+		alienPartSys.pos = a->pos + Random::vecInCircle(a->mass* 0.003);
 		alienPartSys.Spawn(dt);
 	}
 
