@@ -22,6 +22,7 @@ struct Player : Entity
 	Animation asteroidAnim;
 
 	Player(int id);
+	virtual ~Player() {};
 
 	virtual void Update(float dt);
 	virtual void Draw() const;

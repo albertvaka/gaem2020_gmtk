@@ -128,7 +128,7 @@ struct SceneIntro : public Scene {
 		}
 	}
 
-	void Draw()
+void Draw() override
 	{
 		Window::Clear(0, 0, 0);
 		GPU_Image* bgAsset = Assets::backgroundTextures[currentLevel];

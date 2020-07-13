@@ -5,11 +5,11 @@
 #include "window.h"
 
 
-const float collider_radius = 40.f;
+const float collider_radius = 80.f;
 const float sprite_scale = 1.2f;
 
 Sol::Sol(vec pos)
-  : CircleEntity(pos, 80.f)
+  : CircleEntity(pos, collider_radius)
   , solAnim(AnimLib::BLACKHOLE)
 {
 }

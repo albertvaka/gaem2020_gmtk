@@ -9,7 +9,7 @@
 #include "rand.h"
 
 const float changeTime = 3.f;
-const float attackChangeTime = 2.f;
+//const float attackChangeTime = 2.f;
 
 
 Ia::Ia(int id, Player* enemy) : Player(id), enemy(enemy), state(IAState::IDLE), input_map()

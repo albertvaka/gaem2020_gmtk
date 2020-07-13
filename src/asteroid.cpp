@@ -69,16 +69,6 @@ void Asteroid::Update(float dt) {
 
   if (time_in_sol > 1.5f) {
     alive = false;
-
-    for (auto other : asteroids) {
-      if (other != this) {
-        float dist = (other->pos - pos).Length();
-        vec outwards_dir = (other->pos - pos).Normalized();
-
-        other->velocity += 1000.0f * outwards_dir;
-        other->max_speed_mult = 3.5f;
-      }
-    }
   }
 
   pos += velocity * dt;

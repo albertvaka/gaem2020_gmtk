@@ -13,7 +13,7 @@
 const float distanceFromPlanet = 100.f;
 const float shotSpawnDistance = 30.f;
 
-const float cannonMaxAngle = 75.f;
+//const float cannonMaxAngle = 75.f;
 
 const float shotChargeSpeed = 0.7f;
 const float shotMinCharge = 0.2f;
@@ -26,7 +26,6 @@ const float friction = 0.9f;
 
 extern float mainClock;
 const float maxEnergy = 1.5 * sqrt(shotMaxCharge);
-const float loadTime = 3.f;
 const float shieldTime = 5.f;
 
 // Energy/second 
