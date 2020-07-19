@@ -114,6 +114,9 @@ void SceneMain::Update(float dt)
 
 	const SDL_Scancode restart = SDL_SCANCODE_ESCAPE;
 	if (Keyboard::IsKeyJustPressed(restart)) {
+		Planet::DeleteAll();
+		Sol::DeleteAll();
+		Asteroid::DeleteAll();
 		SceneManager::SetScene(new SceneIntro(aimode));
 		return;
 	}
