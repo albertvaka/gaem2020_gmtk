@@ -54,7 +54,7 @@ struct SceneIntro : public Scene {
 		p4.health = -1;
 		RotateTextures();
 
-		credits.setString("A game by:\n\n\nMarce Coll\n\nGerard del Castillo\n\nAlbert Vaca Cintora\n\n\nArt by:\n\n\nLVGames, Vectorpixelstar, Helianthus Games, Ravenmore");
+		credits.setString("A game by:\n\n\nGerard del Castillo\n\nAlbert Vaca Cintora\n\n\nArt by:\n\n\nLVGames, Vectorpixelstar, Helianthus Games, Ravenmore");
 
 		rototext.ShowMessage("The Neighbours");
 		rototext.Update(100);
