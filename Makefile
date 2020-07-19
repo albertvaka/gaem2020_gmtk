@@ -65,7 +65,7 @@ $(EXEC): $(OBJ) $(ENGINE_OBJ) $(DEP_OBJ) Makefile
 obj/main.cpp.o: engine/main.cpp src/*.h engine/*.h Makefile
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-obj/engine/%.cpp.o: engine/%.cpp engine/*.h src/assets.h engine/tiledexport.h Makefile
+obj/engine/%.cpp.o: engine/%.cpp engine/*.h src/assets.h Makefile
 	@mkdir -p obj/engine
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
